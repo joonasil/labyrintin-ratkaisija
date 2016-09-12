@@ -11,10 +11,11 @@ linked listillä, jossa jokaisella listan nodella on pointteri listan ensimmäis
 Varmasti tulen vielä ohjelman toteutuksen aikana etsimään lisää tietoa eri tietorakenteiden ja algoritmien toteuksesta ja hyödyistä
 varsinkin koska tirasta on ehtinyt kulua jo kaksi vuotta ja tarvitsee taas muistuttaa mieleen kaikki aika- ja tilavaatimukset.
 
+Aluksi tarkoitukseni oli luoda ratkaisija ohjelmoinnin harjoitustyössä luomaani miinaharavaan, mutta se olisi vaatinut liikaa muokkausta alkuperäiseen koodiin ja ratkaisijasta ei saisi aina varmasti toimivaa, koska miinaharavassa voi tulla tilanteita, joissa ei ole tarpeeksi tietoa varman siirron tekemiseen. Näin ollen päädyin tekemään labyrintin ratkaisijan, koska tästä työstä saamaani kokemusta voin paremmin käyttää hyväksi myöhemmin pelien tekoälyjen luonnissa.
 Tavoitteena on tosiaan tehdä ohjelma, joka etsii lyhyimmän reitin ulos labyrintistä tai kahden labyrintin pisteen välillä mahdollisimman
 nopeasti. A* ja dijkstra ovat hyvin samanlaisia algoritmejä ja on mielenkiintoista nähdä miten paljon niiden tehokkuudella on eroa.
 Bellman-Ford olisi kiva toteuttaa, koska sen pitäisi olla huomattavasti hitaampi kuin A* ja dijkstra ainakin kun labyrintin koko kasvaa.
-A* höystettynä jump point searchilla voisi olla myös mielenkiintoista toteuttaa, jos aikaa riittää vaikkakin siitä saatava hyöty on
+A* höystettynä jump point searchilla voisi olla myös mielenkiintoista toteuttaa jos aikaa riittää, vaikkakin siitä saatava hyöty on
 paljon suurempi avarammassa ruudukossa, jossa ei ole niin paljon esteitä kun labyrintissä. Valitsin algoritmeiksi A* koska sen pitäisi
 olla aika lailla optimaalinen juuri labyrintin ratkaisemiseen, syystä että labyrintissä on paljon vähemmän mahdollisuuksia haarautua kuin
 avarassa ruudukossa. Labyrintin generointiin valitsin Kruskalin ja Primin algoritmit, koska ne vaikuttivat tehokkailta tavoilta luoda
