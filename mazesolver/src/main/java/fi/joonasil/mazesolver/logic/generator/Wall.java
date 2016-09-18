@@ -37,9 +37,7 @@ public class Wall {
     }
     
     public boolean belongsTo(int path) {
-        if(path == first || path == second)
-            return true;
-        return false;
+        return path == first || path == second;
     }
     
     public boolean inBetween(int a, int b){

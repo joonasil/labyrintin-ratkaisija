@@ -12,7 +12,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
-
 /**
  *
  * @author Joonas
@@ -37,33 +36,33 @@ public class Maze {
      */
     private Path[] generatePrim(Random rand, int x, int y){
         int size = x*y;
-        Path[] maze = new Path[size];
+        Path[] output = new Path[size];
         for(int i = 0; i < x*y; i++) {
-           maze[i] = new Path(x,y,i);
+           output[i] = new Path(x,y,i);
         }
         int current = rand.nextInt(size);
         int first, second;
-        maze[current].setToMaze();
+        output[current].setToMaze();
         LinkedList<Wall> wallOfPathInMaze = new LinkedList<>();
-        wallOfPathInMaze.addAll(maze[current].getWalls());
+        wallOfPathInMaze.addAll(output[current].getWalls());
         while(!wallOfPathInMaze.isEmpty()) {
             current = rand.nextInt(wallOfPathInMaze.size());
             first = wallOfPathInMaze.get(current).getFirst();
             second = wallOfPathInMaze.get(current).getSecond();
-            if(maze[first].isPartOfMaze() ^ maze[second].isPartOfMaze()) {
-                if(maze[first].isPartOfMaze() == false) {
-                    maze[first].setToMaze();
-                    wallOfPathInMaze.addAll(maze[first].getWalls());
+            if(output[first].isPartOfMaze() ^ output[second].isPartOfMaze()) {
+                if(output[first].isPartOfMaze() == false) {
+                    output[first].setToMaze();
+                    wallOfPathInMaze.addAll(output[first].getWalls());
                 } else {
-                    maze[second].setToMaze();
-                    wallOfPathInMaze.addAll(maze[second].getWalls());
+                    output[second].setToMaze();
+                    wallOfPathInMaze.addAll(output[second].getWalls());
                 }
-                maze[first].openWall(second);
-                maze[second].openWall(first);
+                output[first].openWall(second);
+                output[second].openWall(first);
             }
             wallOfPathInMaze.remove(current);
         }
-        return maze;
+        return output;
     }
     
     private int[][] changeDatatype(){
@@ -130,7 +129,7 @@ public class Maze {
 //        String row = "";
 //        int[] temp = new int[9];
 //        for(int k = currentRow*x; k < currentRow*x+x; k++){
-//            temp = maze[k].getMap();
+//            temp = output[k].getMap();
 //            for(int j = (i*3); j < (i*3)+3; j++) {
 //                row += "" + temp[j];
 //            }
