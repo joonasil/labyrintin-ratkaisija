@@ -5,34 +5,43 @@
  */
 package fi.joonasil.mazesolver.logic.generator;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
-import javafx.scene.paint.Color;
 /**
- *
+ * Luokka labyrintille.
  * @author Joonas
  */
 public class Maze {
     
     private final Path[] maze;
+    private final int[][] newMaze;
     private final int x;
     private final int y;
     
+    /**
+     * 
+     * Konstruktori luo uuden labyrintin käyttäen randomisoitua primin algoritmia tällä hetkellä.
+     * HUOM! Labyrintin generointi on huomattavasti paljon hitaampi tällä hetkellä, kuin lyhyimmän reitin
+     * etsintä. Kun kaikki etsintäalgoritmit ovat valmiit yritän kehittää tehokkaampaa labyrintin generointi algoritmia.
+     * @param x Labyrintin leveys.
+     * @param y Labyrintin korkeus.
+     * @param rand Satunnaislukugeneraattori labyrintin luomiselle. Pitää olla seedattu, jos haluaa tietyn kokoisesta labyrintista aina samanlaisen.
+     */
     public Maze(int x, int y, Random rand) {
         this.x = x;
         this.y = y;
+        long start = System.currentTimeMillis();
         maze = generatePrim(rand,x,y);
-        System.out.println("Maze generated!");
+        long mid = System.currentTimeMillis();
+        System.out.println("Time to generate: " + (mid-start));
+        newMaze = changeDatatype();
+        System.out.println("Time to convert: " + (System.currentTimeMillis()-mid));
     }
     
     /**
      * Generoi labyrintin käyttäen randomisoitua Primin algoritmia.
      * 
-     * @param rand 
+     * @param rand Satunnaislukugeneraattori labyrintin luomista varten.
      */
     private Path[] generatePrim(Random rand, int x, int y){
         int size = x*y;
@@ -65,6 +74,11 @@ public class Maze {
         return output;
     }
     
+    /**
+     * Metodi muuttaa labyrintin generoimisessa käytetystä tietomuodosta (lista Path- olioita) kaksiuloitteiseksi
+     * kokonaislukulistaksi helpompaa käsittelyä ja näytölle piirtämistä.
+     * @return Labyrintti kaksiuloitteisena kokonaislukutaulukkona esitettynä.
+     */
     private int[][] changeDatatype(){
         int[][] uusi = new int[2*x+1][2*y+1];
         int tempx;
@@ -99,21 +113,16 @@ public class Maze {
         return this.maze;
     }
     
-    public ImageView getImage() {
-        int[][] base = changeDatatype();
-        WritableImage asd = new WritableImage(2*x+1,2*y+1);
-        PixelWriter writer = asd.getPixelWriter();
-        for (int i = 0; i < 2*y+1; i++) {
-            for (int j = 0; j < 2*x+1; j++) {
-                if(base[j][i] == 1) {
-                    writer.setColor(j, i, Color.WHITE);
-                }
-                if(base[j][i] == 0) {
-                    writer.setColor(j, i, Color.BLACK);
-                }
-            }
-        }
-        return new ImageView(asd);
+    public int[][] getNewMaze() {
+        return this.newMaze;
+    }
+    
+    public int getX() {
+        return this.x;
+    }
+    
+    public int getY() {
+        return this.y;
     }
     
     /**

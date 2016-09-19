@@ -8,7 +8,7 @@ package fi.joonasil.mazesolver.util;
 import java.util.List;
 
 /**
- *
+ * Puu tietorakenne.
  * @author Joonas
  */
 public class Tree<T> {

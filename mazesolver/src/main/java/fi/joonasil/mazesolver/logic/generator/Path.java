@@ -5,13 +5,12 @@
  */
 package fi.joonasil.mazesolver.logic.generator;
 
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Set;
 
 /**
- *
+ * Luokka yksittäiselle labyrintin pisteelle. Käytetään vain labyrintin generoimisessa. Valmis labyrintti
+ * muutetaan kaksiulotteiseksi kokonaislukutaulukoksi. Jos kehitän paremman keinon luoda labyrintin tämä
+ * luokka saattaa muuttua/poistua.
  * @author Joonas
  */
 public class Path {
@@ -19,8 +18,15 @@ public class Path {
     private final LinkedList<Wall> walls;
     private final int index;
     private int[] map;
+    
+    /**
+     * Luo uuden labyrintin palasen.
+     * 
+     * @param x Labyrintin leveys.
+     * @param y Labyrintin korkeus.
+     * @param index Kyseisen palasen indeksi labyrintissä.
+     */
     public Path(int x, int y, int index) {
-        int size = x*y;
         walls = new LinkedList<>();
         map = new int[]{0,0,0,0,1,0,0,0,0};
         
@@ -31,26 +37,38 @@ public class Path {
             walls.add(new Wall(index, index+1));
         if(!(index < x))
             walls.add(new Wall(index, index-x));
-        if(!(index+x >= size))
+        if(!(index+x >= x*y))
             walls.add(new Wall(index, index+x));
     }
     
+    /**
+     * Metodi asettaa palasen osaksi labyrinttiä.
+     */
     public void setToMaze(){
         this.partOfMaze = true;
     }
     
-    public void markPath() {
-        
-    }
-    
+    /**
+     * Metodi tarkistaa onko palanen osa labyrinttiä.
+     * @return Totuusarvo siitä, onko pala osa labyrinttiä.
+     */
     public boolean isPartOfMaze() {
         return this.partOfMaze;
     }
     
+    /**
+     * Metodi palauttaa ruudun paikan labyrintissä.
+     * @return Ruudun paikka labyrintissä.
+     */
     public int getIndex() {
         return this.index;
     }
     
+    /**
+     * Metodi avaa ruudun seinän parametrinä annettuun ruutuun, luoden näin polun
+     * kyseisten ruutujen välille.
+     * @param adjacent Viereinen ruutu, johon halutaan saada polku.
+     */
     public void openWall(int adjacent) {
         for(Wall wall : this.getWalls()){
             if(wall.inBetween(index, adjacent)){
@@ -67,36 +85,29 @@ public class Path {
         }
     }
     
+    /**
+     * Metodi palauttaa listan ruudun seinistä.
+     * @return Lista ruudun seinistä.
+     */
     public LinkedList<Wall> getWalls() {
         return this.walls;
     }
     
+    /**
+     * Metodi palauttaa kokonaislukuesityksen ruudusta.
+     * @return Lista kokonaislukuja, jotka esittävät ruudun tilaa.
+     */
     public int[] getMap(){
         return this.map;
     }
     
-//    public void myWalls() {
-//        System.out.print("My walls are: ");
-//        for(String s : walls.keySet()) {
-//            System.out.print(s + ", ");
-//        }
-//        System.out.println("");
-//    }
-//    
-//    public void myNeighbours() {
-//        System.out.print("My neighbours are: ");
-//        for(Wall values : walls.values()) {
-//            System.out.print(values.find(this.index) + ", ");
-//        }
-//        System.out.println("");
-//    }
-      public String toString() {
-          String output = index + ":\n";
-          for(int i = 1; i < 10; i++) {
-              output += map[i-1];
-              if(i % 3 == 0)
-                  output += "\n";
-          }
-          return output;
-      }
+    public String toString() {
+        String output = index + ":\n";
+        for(int i = 1; i < 10; i++) {
+            output += map[i-1];
+            if(i % 3 == 0)
+                output += "\n";
+        }
+        return output;
+    }
 }

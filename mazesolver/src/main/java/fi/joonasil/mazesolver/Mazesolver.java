@@ -5,29 +5,25 @@
  */
 package fi.joonasil.mazesolver;
 
-import fi.joonasil.mazesolver.gui.PathGui;
+
+import fi.joonasil.mazesolver.gui.ImageConverter;
 import fi.joonasil.mazesolver.logic.generator.Maze;
-import fi.joonasil.mazesolver.logic.generator.Path;
-import fi.joonasil.mazesolver.other.ImageLoader;
-import java.io.ByteArrayInputStream;
-import java.nio.ByteBuffer;
+import fi.joonasil.mazesolver.logic.solver.Solver;
 import java.util.Random;
 import javafx.application.Application;
-import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
-import javafx.scene.image.WritablePixelFormat;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
+ * Ohjelman main luokka. Tällä hetkellä vielä vähän sotkuinen kun kaikkea testataan vielä.
  *
  * @author Joonas
  */
@@ -35,109 +31,88 @@ public class Mazesolver extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        ImageLoader loader = new ImageLoader();
-        Image[] images = loader.loadImages();
-        int x = 5;     /* 2x+1 */
-        int y = 5;      /* 2y+1 */
-        int size = (2*x+1)*(2*y+1);
         
-        Random rand = new Random(1243567);
+        int x = 200;     /* Muuta x:n arvoa jos haluat eri levyisen labyrintin */
+        int y = 200;      /* Muuta y:n arvoa jos haluat eri korkuisen labyrintin */
+        int newX = 2*x+1;
+        int newY = 2*y+1;
+        int sum = newX+newY;
+        int multiplier = 4;
+        if(sum < 500)
+            multiplier = 8;
+        if(sum > 2000)
+            multiplier = 2;
+        
+        /*  --Anna konstruktorille joku muuttuja tyyppiä long, 
+        jos haluat tietyn kokoisen labyrintin olevan aina sama. */
+        Random rand = new Random(1337);
+        
         Maze lol = new Maze(x,y,rand);
         
-        ImageView test = lol.getImage();
-        test.setFitHeight((2*x+1)*4);
-        test.setPreserveRatio(true);
+        int[][] newImage = Solver.breadthFirst(lol);
+        
+        ImageView test = ImageConverter.getImage(newImage,x,y);
+        test.setFitHeight(newY*multiplier);
+        test.setFitWidth(newX*multiplier);
+        
+        MenuBar menuBar = new MenuBar();
+        Menu mazeMenu = new Menu("Maze");
+        MenuItem selectMaze = new MenuItem("Generate Maze");
+        MenuItem quitMaze = new MenuItem("Quit Program");
+//        selectMaze.setOnAction(e -> );
+        quitMaze.setOnAction(e -> primaryStage.close());
+        mazeMenu.getItems().addAll(selectMaze, quitMaze);
+        menuBar.getMenus().add(mazeMenu);
 
-   
-        Pane pane = new Pane();
-        pane.getChildren().add(test);
+        VBox layout = new VBox();
+
+        ScrollPane scroll = createScrollPane(test);
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.add(scroll , 1, 1);
         
-        // wrap the scene contents in a pannable scroll pane.
-        ScrollPane scroll = createScrollPane(pane);
-        
-        Scene scene = new Scene(scroll, 1240, 720);
+        layout.getChildren().addAll(menuBar,grid);
+        Scene scene = new Scene(layout, 1240, 720);
         primaryStage.setResizable(true);
         primaryStage.setTitle("Maze Solver!");
         primaryStage.setScene(scene);
         primaryStage.show();
         
-        // bind the preferred size of the scroll area to the size of the scene.
-        scroll.prefWidthProperty().bind(scene.widthProperty());
-        scroll.prefHeightProperty().bind(scene.widthProperty());
-        
-        // center the scroll contents.
-        scroll.setHvalue(scroll.getHmin() + (scroll.getHmax() - scroll.getHmin()) / 2);
-        scroll.setVvalue(scroll.getVmin() + (scroll.getVmax() - scroll.getVmin()) / 2);
     }
     
-    public int[][] changeDatatype(int x, int y, Path[] maze){
-        int[][] uusi = new int[2*x+1][2*y+1];
-        int tempx;
-        int tempy = 0;
-        int[] map;
-        for(int i = 1; i < 2*y; i+=2) {
-            tempx = 0;
-            for(int j = 1; j < 2*x; j+=2) {
-                
-                map = maze[tempy*x+tempx].getMap();
-                
-                uusi[j][i] = 1;
-                if(map[3] == 1) 
-                    uusi[j-1][i] = 1;
-
-                if(map[1] == 1) 
-                    uusi[j][i-1] = 1;
-
-                if(map[7] == 1) 
-                    uusi[j][i+1] = 1;
-
-                if(map[5] == 1) 
-                    uusi[j+1][i] = 1;
-                tempx++;
-            }
-            tempy++;
-        }
-        return uusi;
-    }
-
+    
+    
     /**
+     * Käynnistää ohjelman käyttöliittymän.
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         launch(args);
-    }
+    } 
     
-    public ImageView constructMaze(int x, int y, Image[] images, int[][] path) {
-        PathGui[][] paths = new PathGui[x][y];
-        WritableImage asd = new WritableImage(x,y);
-        PixelWriter writer = asd.getPixelWriter();
-        GridPane layout = new GridPane();
-        layout.setMaxSize(x * 5, y * 5);
-        layout.setMinSize(x * 5, y * 5);
-        for (int i = 0; i < y; i++) {
-            for (int j = 0; j < x; j++) {
-//                paths[j][i] = new PathGui(path[j][i] , images);
-//                GridPane.setConstraints(paths[i * x + j].getGroup(), j, i);
-//                layout.getChildren().add(paths[i * x + j].getGroup());
-                if(path[j][i] == 1) {
-                    writer.setColor(j, i, Color.WHITE);
-                }
-                if(path[j][i] == 0) {
-                    writer.setColor(j, i, Color.BLACK);
-                }
-            }
-        }
-        layout.setPadding(new Insets(0,0,0,0));
-        return new ImageView(asd);
-    }
-    
-    private ScrollPane createScrollPane(Pane layout) {
+    /**
+     * Metodi tulee muuttamaan toiseen luokkaan joskus!
+     * Metodi luo liikkuvan alustan labyrintin kuvalle, joten koko labyrintin
+     * ei tarvitse olla piirrettynä näytölle.
+     * 
+     * @param maze Labyrintin kuva
+     * @return Alustan kuvalle, jota pystyy liikuttamaan hiirellä vetämällä tai nuolinäppäimillä.
+     */
+    private ScrollPane createScrollPane(ImageView maze) {
+        int x = 1200;
+        int y = 680;
         ScrollPane scroll = new ScrollPane();
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scroll.setPannable(true);
-        scroll.setPrefSize(1240, 720);
-        scroll.setContent(layout);
+        if(maze.getFitWidth() < 1200)
+            x = (int)maze.getFitWidth();
+        if(maze.getFitHeight() < 680)
+            y = (int)maze.getFitHeight();
+        scroll.setPrefSize(x, y);
+        scroll.setContent(maze);
         return scroll;
      }
     
