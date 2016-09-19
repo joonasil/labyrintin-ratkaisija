@@ -7,6 +7,7 @@ package fi.joonasil.mazesolver.logic.generator;
 
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.TreeMap;
 /**
  * Luokka labyrintille.
  * @author Joonas
@@ -31,7 +32,7 @@ public class Maze {
         this.x = x;
         this.y = y;
         long start = System.currentTimeMillis();
-        maze = generatePrim(rand,x,y);
+        maze = generatePrimNew(rand,x,y);
         long mid = System.currentTimeMillis();
         System.out.println("Time to generate: " + (mid-start));
         newMaze = changeDatatype();
@@ -52,24 +53,73 @@ public class Maze {
         int current = rand.nextInt(size);
         int first, second;
         output[current].setToMaze();
-        LinkedList<Wall> wallOfPathInMaze = new LinkedList<>();
-        wallOfPathInMaze.addAll(output[current].getWalls());
-        while(!wallOfPathInMaze.isEmpty()) {
-            current = rand.nextInt(wallOfPathInMaze.size());
-            first = wallOfPathInMaze.get(current).getFirst();
-            second = wallOfPathInMaze.get(current).getSecond();
+        LinkedList<Wall> wallsOfPathInMaze = new LinkedList<>();
+        wallsOfPathInMaze.addAll(output[current].getWalls());
+        while(!wallsOfPathInMaze.isEmpty()) {
+            current = rand.nextInt(wallsOfPathInMaze.size());
+            first = wallsOfPathInMaze.get(current).getFirst();
+            second = wallsOfPathInMaze.get(current).getSecond();
             if(output[first].isPartOfMaze() ^ output[second].isPartOfMaze()) {
                 if(output[first].isPartOfMaze() == false) {
                     output[first].setToMaze();
-                    wallOfPathInMaze.addAll(output[first].getWalls());
+                    wallsOfPathInMaze.addAll(output[first].getWalls());
                 } else {
                     output[second].setToMaze();
-                    wallOfPathInMaze.addAll(output[second].getWalls());
+                    wallsOfPathInMaze.addAll(output[second].getWalls());
                 }
                 output[first].openWall(second);
                 output[second].openWall(first);
             }
-            wallOfPathInMaze.remove(current);
+            wallsOfPathInMaze.remove(current);
+        }
+        return output;
+    }
+    
+    private Path[] generatePrimNew(Random rand, int x, int y){
+        int size = x*y;
+        Path[] output = new Path[size];
+        for(int i = 0; i < x*y; i++) {
+           output[i] = new Path(x,y,i);
+        }
+        int current = rand.nextInt(size);
+        int first, second;
+        int index = 0;
+        output[current].setToMaze();
+        TreeMap<Integer, Wall> wallsOfPathInMaze = new TreeMap<>();
+        LinkedList<Wall> asd = output[current].getWalls();
+        for(int i = 0; i < asd.size(); i++) {
+            wallsOfPathInMaze.put(index, asd.get(i));
+            index++;
+        }
+        while(!wallsOfPathInMaze.isEmpty()) {
+            current = rand.nextInt(index);
+
+            first = wallsOfPathInMaze.get(current).getFirst();
+            second = wallsOfPathInMaze.get(current).getSecond();
+//            wallsOfPathInMaze.remove(current);
+            index = wallsOfPathInMaze.lastKey();
+            wallsOfPathInMaze.replace(current, wallsOfPathInMaze.remove(index));
+             
+            if(output[first].isPartOfMaze() ^ output[second].isPartOfMaze()) {
+                if(output[first].isPartOfMaze() == false) {
+                    output[first].setToMaze();
+                    asd = output[first].getWalls();
+                    for(int i = 0; i < asd.size(); i++) {
+                        wallsOfPathInMaze.put(index, asd.get(i));
+                        index++;
+                    }
+                } else {
+                    output[second].setToMaze();
+                    asd = output[second].getWalls();
+                    for(int i = 0; i < asd.size(); i++) {
+                        wallsOfPathInMaze.put(index, asd.get(i));
+                        index++;
+                    }
+                }
+                output[first].openWall(second);
+                output[second].openWall(first);
+            }
+            
         }
         return output;
     }

@@ -32,8 +32,8 @@ public class Mazesolver extends Application {
     @Override
     public void start(Stage primaryStage) {
         
-        int x = 5;     /* Muuta x:n arvoa jos haluat eri levyisen labyrintin */
-        int y = 5;      /* Muuta y:n arvoa jos haluat eri korkuisen labyrintin */
+        int x = 1000;     /* Muuta x:n arvoa jos haluat eri levyisen labyrintin */
+        int y = 1000;      /* Muuta y:n arvoa jos haluat eri korkuisen labyrintin */
         int newX = 2*x+1;
         int newY = 2*y+1;
         int sum = newX+newY;
@@ -48,7 +48,6 @@ public class Mazesolver extends Application {
         Random rand = new Random(1337);
         
         Maze lol = new Maze(x,y,rand);
-        
         int[][] newImage = Solver.breadthFirst(lol);
         
         ImageView test = ImageConverter.getImage(newImage,x,y);
