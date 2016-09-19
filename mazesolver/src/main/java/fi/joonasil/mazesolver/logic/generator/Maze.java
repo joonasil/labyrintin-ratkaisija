@@ -75,7 +75,7 @@ public class Maze {
     }
     
     /**
-     * Metodi muuttaa labyrintin generoimisessa käytetystä tietomuodosta (lista Path- olioita) kaksiuloitteiseksi
+     * Metodi muuttaa labyrintin generoimisessa käytetystä tietorakenteesta (lista Path- olioita) kaksiuloitteiseksi
      * kokonaislukulistaksi helpompaa käsittelyä ja näytölle piirtämistä.
      * @return Labyrintti kaksiuloitteisena kokonaislukutaulukkona esitettynä.
      */

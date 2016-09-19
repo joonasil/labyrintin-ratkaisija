@@ -17,7 +17,7 @@ public class Path {
     private boolean partOfMaze;
     private final LinkedList<Wall> walls;
     private final int index;
-    private int[] map;
+    private final int[] map;
     
     /**
      * Luo uuden labyrintin palasen.
@@ -100,14 +100,15 @@ public class Path {
     public int[] getMap(){
         return this.map;
     }
-    
-    public String toString() {
-        String output = index + ":\n";
-        for(int i = 1; i < 10; i++) {
-            output += map[i-1];
-            if(i % 3 == 0)
-                output += "\n";
-        }
-        return output;
-    }
+//    
+//    @Override
+//    public String toString() {
+//        String output = index + ":\n";
+//        for(int i = 1; i < 10; i++) {
+//            output += map[i-1];
+//            if(i % 3 == 0)
+//                output += "\n";
+//        }
+//        return output;
+//    }
 }

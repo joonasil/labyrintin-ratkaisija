@@ -32,8 +32,8 @@ public class Mazesolver extends Application {
     @Override
     public void start(Stage primaryStage) {
         
-        int x = 200;     /* Muuta x:n arvoa jos haluat eri levyisen labyrintin */
-        int y = 200;      /* Muuta y:n arvoa jos haluat eri korkuisen labyrintin */
+        int x = 5;     /* Muuta x:n arvoa jos haluat eri levyisen labyrintin */
+        int y = 5;      /* Muuta y:n arvoa jos haluat eri korkuisen labyrintin */
         int newX = 2*x+1;
         int newY = 2*y+1;
         int sum = newX+newY;

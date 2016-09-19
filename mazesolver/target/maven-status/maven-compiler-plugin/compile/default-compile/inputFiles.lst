@@ -1,7 +1,7 @@
-D:\Users\Joonas\Documents\Netbeans test project\mazesolver\src\main\java\fi\joonasil\mazesolver\gui\PathGui.java
-D:\Users\Joonas\Documents\Netbeans test project\mazesolver\src\main\java\fi\joonasil\mazesolver\logic\solver\AStar.java
-D:\Users\Joonas\Documents\Netbeans test project\mazesolver\src\main\java\fi\joonasil\mazesolver\other\ImageLoader.java
-D:\Users\Joonas\Documents\Netbeans test project\mazesolver\src\main\java\fi\joonasil\mazesolver\logic\generator\Wall.java
-D:\Users\Joonas\Documents\Netbeans test project\mazesolver\src\main\java\fi\joonasil\mazesolver\Mazesolver.java
-D:\Users\Joonas\Documents\Netbeans test project\mazesolver\src\main\java\fi\joonasil\mazesolver\logic\generator\Maze.java
-D:\Users\Joonas\Documents\Netbeans test project\mazesolver\src\main\java\fi\joonasil\mazesolver\logic\generator\Path.java
+D:\GitHub\labyrintin-ratkaisija\mazesolver\src\main\java\fi\joonasil\mazesolver\logic\generator\Wall.java
+D:\GitHub\labyrintin-ratkaisija\mazesolver\src\main\java\fi\joonasil\mazesolver\gui\ImageConverter.java
+D:\GitHub\labyrintin-ratkaisija\mazesolver\src\main\java\fi\joonasil\mazesolver\logic\generator\Maze.java
+D:\GitHub\labyrintin-ratkaisija\mazesolver\src\main\java\fi\joonasil\mazesolver\logic\generator\Path.java
+D:\GitHub\labyrintin-ratkaisija\mazesolver\src\main\java\fi\joonasil\mazesolver\Mazesolver.java
+D:\GitHub\labyrintin-ratkaisija\mazesolver\src\main\java\fi\joonasil\mazesolver\util\Tree.java
+D:\GitHub\labyrintin-ratkaisija\mazesolver\src\main\java\fi\joonasil\mazesolver\logic\solver\Solver.java
