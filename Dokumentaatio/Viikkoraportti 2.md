@@ -4,7 +4,7 @@
 - Graafisen käyttöliittymän pohja
 - Ensimmäinen labyrintin generointialgoritmi
 - Enismmäinen labyrintin ratkaisualgoritmi
-
+- JUnit testejä
 
 #### Ohjelman edistyminen
 Ohjelma on edistynyt ihan kohtuullista vauhtia. Olisin halunnut saada toisenkin ratkaisualgoritmin toteutettua tämän viikon palautukseen,
