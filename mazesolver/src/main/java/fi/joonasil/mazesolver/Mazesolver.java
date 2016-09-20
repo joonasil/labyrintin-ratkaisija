@@ -48,6 +48,7 @@ public class Mazesolver extends Application {
         final int newX = 2*x+1;
         final int newY = 2*y+1;
         final int sum = newX+newY;
+        int gitHubIsBuggy = -1;
         int multiplier = 4;
         if(sum < 500)
             multiplier = 8;
