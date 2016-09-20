@@ -1,14 +1,14 @@
 0 = seinä
 1 = tyhjä käytävä
 3 (+2) = bfs
-4 (+3) = dijks
+4 (+3) = dfs
 5 (+4) = a*
 
 1+2 = 3 ------	bfs
-1+3 = 4 ------	dijks
+1+3 = 4 ------	dfs
 1+4 = 5 ------	a*
-1+2+3=6 ------	bfs + dijks
+1+2+3=6 ------	bfs + dfs
 1+2+4=7 ------	bfs + a*
-1+3+4=8 ------	dijks + a*
-1+2+3+4=10 ---	bfs + dijks + a*
+1+3+4=8 ------	dfs + a*
+1+2+3+4=10 ---	bfs + dfs + a*
 11 = optimal route

@@ -42,6 +42,12 @@ public class ImageConverter {
                 if(base[j][i] == 11) {
                     writer.setColor(j, i, Color.BLUE);
                 }
+                if(base[j][i] == 4) {
+                    writer.setColor(j, i, Color.GREEN);
+                }
+                if(base[j][i] == 6) {
+                    writer.setColor(j, i, Color.ORANGE);
+                }
             }
         }
         return new ImageView(output);

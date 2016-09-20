@@ -15,7 +15,7 @@ import java.util.TreeMap;
 public class Maze {
     
     private final Path[] maze;
-    private final int[][] newMaze;
+    private int[][] newMaze;
     private final int x;
     private final int y;
     
@@ -93,13 +93,10 @@ public class Maze {
         }
         while(!wallsOfPathInMaze.isEmpty()) {
             current = rand.nextInt(index);
-
             first = wallsOfPathInMaze.get(current).getFirst();
             second = wallsOfPathInMaze.get(current).getSecond();
-//            wallsOfPathInMaze.remove(current);
             index = wallsOfPathInMaze.lastKey();
-            wallsOfPathInMaze.replace(current, wallsOfPathInMaze.remove(index));
-             
+            wallsOfPathInMaze.replace(current, wallsOfPathInMaze.remove(index));  
             if(output[first].isPartOfMaze() ^ output[second].isPartOfMaze()) {
                 if(output[first].isPartOfMaze() == false) {
                     output[first].setToMaze();
@@ -119,7 +116,6 @@ public class Maze {
                 output[first].openWall(second);
                 output[second].openWall(first);
             }
-            
         }
         return output;
     }
@@ -165,6 +161,10 @@ public class Maze {
     
     public int[][] getNewMaze() {
         return this.newMaze;
+    }
+    
+    public void setNewMaze(int[][] asd) {
+        newMaze = asd;
     }
     
     public int getX() {
