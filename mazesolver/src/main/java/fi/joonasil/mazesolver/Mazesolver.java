@@ -43,12 +43,11 @@ public class Mazesolver extends Application {
     @Override
     public void start(Stage primaryStage) {
         
-        final int x = 5000;     /* Muuta x:n arvoa jos haluat eri levyisen labyrintin */
+        final int x = 4000;     /* Muuta x:n arvoa jos haluat eri levyisen labyrintin */
         final int y = 2000;      /* Muuta y:n arvoa jos haluat eri korkuisen labyrintin */
         final int newX = 2*x+1;
         final int newY = 2*y+1;
         final int sum = newX+newY;
-        int gitHubIsBuggy = -1;
         int multiplier = 4;
         if(sum < 500)
             multiplier = 8;
@@ -57,12 +56,12 @@ public class Mazesolver extends Application {
         
         /*  --Anna konstruktorille joku kokonaisluku, 
         jos haluat tietyn kokoisen labyrintin olevan aina sama. */
-        final Random rand = new Random(1337);
+        final Random rand = new Random(1234567890);
         
         Maze lol = new Maze(x,y,rand);
-        int[][] newImage = Solver.aStar(lol);
-//        lol.setNewMaze(newImage);
-//        newImage = Solver.aStar(lol);
+        int[][] newImage = Solver.breadthFirst(lol);
+        lol.setNewMaze(newImage);
+        newImage = Solver.aStar(lol);
         
         ImageView test = ImageConverter.getImage(newImage,x,y);
         test.setFitHeight(newY*multiplier);
