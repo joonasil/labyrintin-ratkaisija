@@ -40,7 +40,7 @@ public class ImageConverter {
                     writer.setColor(j, i, Color.RED);
                 }
                 if(base[j][i] == 11) {
-                    writer.setColor(j, i, Color.BLUE);
+                    writer.setColor(j, i, Color.AQUA);
                 }
                 if(base[j][i] == 4) {
                     writer.setColor(j, i, Color.GREEN);
