@@ -32,7 +32,7 @@ public class Maze {
         this.x = x;
         this.y = y;
         long start = System.currentTimeMillis();
-        maze = generatePrimNew(rand,x,y);
+        maze = generatePrim(rand,x,y);
         long mid = System.currentTimeMillis();
         System.out.println("Time to generate: " + (mid-start));
         newMaze = changeDatatype();
@@ -45,52 +45,15 @@ public class Maze {
      * @param rand Satunnaislukugeneraattori labyrintin luomista varten.
      */
     private Path[] generatePrim(Random rand, int x, int y){
-        int size = x*y;
+        int size = x*y, first, second, current = rand.nextInt(size), index = 0;
         Path[] output = new Path[size];
         for(int i = 0; i < x*y; i++) {
            output[i] = new Path(x,y,i);
         }
-        int current = rand.nextInt(size);
-        int first, second;
-        output[current].setToMaze();
-        LinkedList<Wall> wallsOfPathInMaze = new LinkedList<>();
-        wallsOfPathInMaze.addAll(output[current].getWalls());
-        while(!wallsOfPathInMaze.isEmpty()) {
-            current = rand.nextInt(wallsOfPathInMaze.size());
-            first = wallsOfPathInMaze.get(current).getFirst();
-            second = wallsOfPathInMaze.get(current).getSecond();
-            if(output[first].isPartOfMaze() ^ output[second].isPartOfMaze()) {
-                if(output[first].isPartOfMaze() == false) {
-                    output[first].setToMaze();
-                    wallsOfPathInMaze.addAll(output[first].getWalls());
-                } else {
-                    output[second].setToMaze();
-                    wallsOfPathInMaze.addAll(output[second].getWalls());
-                }
-                output[first].openWall(second);
-                output[second].openWall(first);
-            }
-            wallsOfPathInMaze.remove(current);
-        }
-        return output;
-    }
-    
-    private Path[] generatePrimNew(Random rand, int x, int y){
-        int size = x*y;
-        Path[] output = new Path[size];
-        for(int i = 0; i < x*y; i++) {
-           output[i] = new Path(x,y,i);
-        }
-        int current = rand.nextInt(size);
-        int first, second;
-        int index = 0;
         output[current].setToMaze();
         TreeMap<Integer, Wall> wallsOfPathInMaze = new TreeMap<>();
-        LinkedList<Wall> asd = output[current].getWalls();
-        for(int i = 0; i < asd.size(); i++) {
-            wallsOfPathInMaze.put(index, asd.get(i));
-            index++;
-        }
+        LinkedList<Wall> walls = output[current].getWalls();
+        index = addWalls(index, wallsOfPathInMaze, walls);
         while(!wallsOfPathInMaze.isEmpty()) {
             current = rand.nextInt(index);
             first = wallsOfPathInMaze.get(current).getFirst();
@@ -99,25 +62,29 @@ public class Maze {
             wallsOfPathInMaze.replace(current, wallsOfPathInMaze.remove(index));  
             if(output[first].isPartOfMaze() ^ output[second].isPartOfMaze()) {
                 if(output[first].isPartOfMaze() == false) {
-                    output[first].setToMaze();
-                    asd = output[first].getWalls();
-                    for(int i = 0; i < asd.size(); i++) {
-                        wallsOfPathInMaze.put(index, asd.get(i));
-                        index++;
-                    }
+                    index = setToMaze(output, first, index, wallsOfPathInMaze, walls);
                 } else {
-                    output[second].setToMaze();
-                    asd = output[second].getWalls();
-                    for(int i = 0; i < asd.size(); i++) {
-                        wallsOfPathInMaze.put(index, asd.get(i));
-                        index++;
-                    }
+                    index = setToMaze(output, second, index, wallsOfPathInMaze, walls);
                 }
                 output[first].openWall(second);
                 output[second].openWall(first);
             }
         }
         return output;
+    }
+    
+    private static int setToMaze(Path[] output, int current, int index, TreeMap<Integer, Wall> wallsOfPathInMaze, LinkedList<Wall> walls) {
+        output[current].setToMaze();
+        walls = output[current].getWalls();
+        return addWalls(index, wallsOfPathInMaze, walls);
+    }
+    
+    private static int addWalls(int index, TreeMap<Integer, Wall> output, LinkedList<Wall> walls) {
+        for(int i = 0; i < walls.size(); i++) {
+            output.put(index, walls.get(i));
+            index++;
+        }
+        return index;
     }
     
     /**
@@ -132,20 +99,15 @@ public class Maze {
         int[] map;
         for(int i = 1; i < 2*y; i+=2) {
             tempx = 0;
-            for(int j = 1; j < 2*x; j+=2) {
-                
+            for(int j = 1; j < 2*x; j+=2) {          
                 map = maze[tempy*x+tempx].getMap();
-                
                 uusi[j][i] = 1;
                 if(map[3] == 1) 
                     uusi[j-1][i] = 1;
-
                 if(map[1] == 1) 
                     uusi[j][i-1] = 1;
-
                 if(map[7] == 1) 
                     uusi[j][i+1] = 1;
-
                 if(map[5] == 1) 
                     uusi[j+1][i] = 1;
                 tempx++;

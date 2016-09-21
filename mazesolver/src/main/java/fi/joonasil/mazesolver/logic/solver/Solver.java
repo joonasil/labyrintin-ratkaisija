@@ -23,21 +23,15 @@ public class Solver {
      * @param maze Labyrintti, josta halutaan löytää lyhin reitti.
      */
     public static int[][] breadthFirst(Maze maze) {
-        long start = System.currentTimeMillis();
         int x = 2*maze.getX()+1;
         int y = 2*maze.getY()+1;
         int currentX;
         int currentY;
         int[][] path = maze.getNewMaze();
         boolean visited[][] = new boolean[x][y];
-//        int distance[] = new int[size];
         int tree[][] = new int[x][y];
         ArrayDeque<Integer> queue = new ArrayDeque();
-//        for(int i = 0; i < size; i++) {
-//            distance[i] = Integer.MAX_VALUE;
-//        }
         visited[1][1] = true;
-        path[1][1] += 2;
         queue.add(coordinateToIndex(1,1,x));
         while(!visited[x-2][y-2]) {
             int current = queue.remove();
@@ -56,15 +50,7 @@ public class Solver {
                 }
             }
         }
-        int current = tree[x-2][y-2];
-        path[x-2][y-2] = 11;
-        path[1][1] = 11;
-        while(current != coordinateToIndex(1,1,x)) {
-            path[indexToX(current,x)][indexToY(current,x)] = 11;
-            current = tree[indexToX(current,x)][indexToY(current,x)];
-        }
-        System.out.println("Time to solve bfs: " + (System.currentTimeMillis()-start));
-        return path;  
+        return shortestPath(path, tree, x, y);
     }
     
     /**
@@ -77,21 +63,15 @@ public class Solver {
      * @return 
      */
     public static int[][] aStar(Maze maze) {
-        long start = System.currentTimeMillis();
         int x = 2*maze.getX()+1;
         int y = 2*maze.getY()+1;
         int currentX;
         int currentY;
         int[][] path = maze.getNewMaze();
         boolean visited[][] = new boolean[x][y];
-//        int distance[] = new int[size];
         int tree[][] = new int[x][y];
         PriorityQueue<Estimate> queue = new PriorityQueue();
-//        for(int i = 0; i < size; i++) {
-//            distance[i] = Integer.MAX_VALUE;
-//        }
         visited[1][1] = true;
-        path[1][1] += 3;
         queue.add(new Estimate(1,1,x-2,y-2,x));
         while(!visited[x-2][y-2]) {
             int current = queue.poll().getIndex();
@@ -110,6 +90,11 @@ public class Solver {
                 }
             }
         }
+        return shortestPath(path, tree, x, y);  
+    }
+    
+    
+    private static int[][] shortestPath(int[][] path, int[][] tree, int x, int y){
         int current = tree[x-2][y-2];
         path[x-2][y-2] = 11;
         path[1][1] = 11;
@@ -117,10 +102,8 @@ public class Solver {
             path[indexToX(current,x)][indexToY(current,x)] = 11;
             current = tree[indexToX(current,x)][indexToY(current,x)];
         }
-        System.out.println("Time to solve a*: " + (System.currentTimeMillis()-start));
-        return path;  
+        return path;
     }
-    
     
     /**
      * Metodi tulee todennäköisesti vaihtamaan luokkaa.
