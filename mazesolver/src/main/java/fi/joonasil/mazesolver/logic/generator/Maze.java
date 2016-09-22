@@ -5,128 +5,69 @@
  */
 package fi.joonasil.mazesolver.logic.generator;
 
+import fi.joonasil.mazesolver.gui.ImageConverter;
+import fi.joonasil.mazesolver.logic.solver.Solver;
+import fi.joonasil.mazesolver.util.Generator;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.TreeMap;
+import javafx.scene.image.ImageView;
 /**
  * Luokka labyrintille.
  * @author Joonas
  */
 public class Maze {
     
-    private final Path[] maze;
-    private int[][] newMaze;
+    private ImageView image;
+    private int[][] maze;
     private final int x;
     private final int y;
     
     /**
      * 
      * Konstruktori luo uuden labyrintin käyttäen randomisoitua primin algoritmia tällä hetkellä.
-     * HUOM! Labyrintin generointi on huomattavasti paljon hitaampi tällä hetkellä, kuin lyhyimmän reitin
-     * etsintä. Kun kaikki etsintäalgoritmit ovat valmiit yritän kehittää tehokkaampaa labyrintin generointi algoritmia.
+     * 
      * @param x Labyrintin leveys.
      * @param y Labyrintin korkeus.
-     * @param rand Satunnaislukugeneraattori labyrintin luomiselle. Pitää olla seedattu, jos haluaa tietyn kokoisesta labyrintista aina samanlaisen.
      */
-    public Maze(int x, int y, Random rand) {
+    public Maze(int x, int y) {
+        Random rand = new Random();
         this.x = x;
         this.y = y;
         long start = System.currentTimeMillis();
-        maze = generatePrim(rand,x,y);
-        long mid = System.currentTimeMillis();
-        System.out.println("Time to generate: " + (mid-start));
-        newMaze = changeDatatype();
-        System.out.println("Time to convert: " + (System.currentTimeMillis()-mid));
+        maze = Generator.generatePrim(rand, x, y);
+        System.out.println("Time to generate: " + (System.currentTimeMillis()-start));
+        image = ImageConverter.getImage(maze, x, y);
     }
     
     /**
-     * Generoi labyrintin käyttäen randomisoitua Primin algoritmia.
+     * Konstruktori luo uuden labyrintin käyttäen randomisoitua primin algoritmiä, jolle on annettu tietty seedi.
      * 
-     * @param rand Satunnaislukugeneraattori labyrintin luomista varten.
+     * @param x Labyrintin leveys.
+     * @param y Labyrintin korkeus.
+     * @param seed Seedi labyrintin luomista varten.
      */
-    private Path[] generatePrim(Random rand, int x, int y){
-        int size = x*y, first, second, current = rand.nextInt(size), index = 0;
-        Path[] output = new Path[size];
-        for(int i = 0; i < x*y; i++) {
-           output[i] = new Path(x,y,i);
-        }
-        output[current].setToMaze();
-        TreeMap<Integer, Wall> wallsOfPathInMaze = new TreeMap<>();
-        LinkedList<Wall> walls = output[current].getWalls();
-        index = addWalls(index, wallsOfPathInMaze, walls);
-        while(!wallsOfPathInMaze.isEmpty()) {
-            current = rand.nextInt(index);
-            first = wallsOfPathInMaze.get(current).getFirst();
-            second = wallsOfPathInMaze.get(current).getSecond();
-            index = wallsOfPathInMaze.lastKey();
-            wallsOfPathInMaze.replace(current, wallsOfPathInMaze.remove(index));  
-            if(output[first].isPartOfMaze() ^ output[second].isPartOfMaze()) {
-                if(output[first].isPartOfMaze() == false) {
-                    index = setToMaze(output, first, index, wallsOfPathInMaze, walls);
-                } else {
-                    index = setToMaze(output, second, index, wallsOfPathInMaze, walls);
-                }
-                output[first].openWall(second);
-                output[second].openWall(first);
-            }
-        }
-        return output;
+    public Maze(int x, int y, long seed) {
+        Random rand = new Random(seed);
+        this.x = x;
+        this.y = y;
+        long start = System.currentTimeMillis();
+        maze = Generator.generatePrim(rand,x,y);
+        System.out.println("Time to generate: " + (System.currentTimeMillis()-start));
     }
     
-    private static int setToMaze(Path[] output, int current, int index, TreeMap<Integer, Wall> wallsOfPathInMaze, LinkedList<Wall> walls) {
-        output[current].setToMaze();
-        walls = output[current].getWalls();
-        return addWalls(index, wallsOfPathInMaze, walls);
+    public void solveBreadthFrist() {
+        this.maze = Solver.breadthFirst(maze);
+        this.image = ImageConverter.getImage(maze, x, y);
     }
     
-    private static int addWalls(int index, TreeMap<Integer, Wall> output, LinkedList<Wall> walls) {
-        for(int i = 0; i < walls.size(); i++) {
-            output.put(index, walls.get(i));
-            index++;
-        }
-        return index;
+    public void solveAStar() {
+        this.maze = Solver.aStar(maze);
+        this.image = ImageConverter.getImage(maze, x, y);
     }
     
-    /**
-     * Metodi muuttaa labyrintin generoimisessa käytetystä tietorakenteesta (lista Path- olioita) kaksiuloitteiseksi
-     * kokonaislukulistaksi helpompaa käsittelyä ja näytölle piirtämistä.
-     * @return Labyrintti kaksiuloitteisena kokonaislukutaulukkona esitettynä.
-     */
-    private int[][] changeDatatype(){
-        int[][] uusi = new int[2*x+1][2*y+1];
-        int tempx;
-        int tempy = 0;
-        int[] map;
-        for(int i = 1; i < 2*y; i+=2) {
-            tempx = 0;
-            for(int j = 1; j < 2*x; j+=2) {          
-                map = maze[tempy*x+tempx].getMap();
-                uusi[j][i] = 1;
-                if(map[3] == 1) 
-                    uusi[j-1][i] = 1;
-                if(map[1] == 1) 
-                    uusi[j][i-1] = 1;
-                if(map[7] == 1) 
-                    uusi[j][i+1] = 1;
-                if(map[5] == 1) 
-                    uusi[j+1][i] = 1;
-                tempx++;
-            }
-            tempy++;
-        }
-        return uusi;
-    }
-    
-    public Path[] getMaze(){
+    public int[][] getMaze(){
         return this.maze;
-    }
-    
-    public int[][] getNewMaze() {
-        return this.newMaze;
-    }
-    
-    public void setNewMaze(int[][] asd) {
-        newMaze = asd;
     }
     
     public int getX() {
@@ -135,6 +76,10 @@ public class Maze {
     
     public int getY() {
         return this.y;
+    }
+    
+    public ImageView getImage() {
+        return this.image;
     }
     
     /**

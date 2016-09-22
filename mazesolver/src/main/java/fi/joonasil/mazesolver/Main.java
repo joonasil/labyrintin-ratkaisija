@@ -40,11 +40,11 @@ public class Main extends Application {
         
         
         
-        Screen screen = new Screen();
+        
       
-        primaryStage.setResizable(true);
+        primaryStage.setResizable(false);
         primaryStage.setTitle("Maze Solver!");
-        primaryStage.setScene(screen.getScene());
+        primaryStage.setScene(Mazesolver.getScreen().getScene());
         primaryStage.show();
         
     }

@@ -15,12 +15,24 @@ public class Mazesolver {
     private static Maze maze;
     private static Screen screen;
     
-    public Maze getMaze() {
-        if(this.maze == null)
-            this.maze = new Maze();
+    public static Maze getMaze() {
+        if(Mazesolver.maze == null)
+            Mazesolver.maze = new Maze(50,50);
+        return Mazesolver.maze;
     }
     
-   
+    public static Screen getScreen() {
+        if(Mazesolver.screen == null)
+            Mazesolver.screen = new Screen();
+        return Mazesolver.screen;
+    }
     
+    public static void setMaze(Maze maze) {
+        Mazesolver.maze = maze;
+    }
+    
+    public static void setScreen(Screen screen) {
+        Mazesolver.screen = screen;
+    }
     
 }

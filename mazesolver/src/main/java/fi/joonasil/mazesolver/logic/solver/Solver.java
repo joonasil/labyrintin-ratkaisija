@@ -22,12 +22,11 @@ public class Solver {
      * Etsimiseen käytetään leveyssuuntaista läpikäyntiä.
      * @param maze Labyrintti, josta halutaan löytää lyhin reitti.
      */
-    public static int[][] breadthFirst(Maze maze) {
-        int x = 2*maze.getX()+1;
-        int y = 2*maze.getY()+1;
+    public static int[][] breadthFirst(int[][] path) {
+        int x = path.length;
+        int y = path[0].length;
         int currentX;
         int currentY;
-        int[][] path = maze.getNewMaze();
         boolean visited[][] = new boolean[x][y];
         int tree[][] = new int[x][y];
         ArrayDeque<Integer> queue = new ArrayDeque();
@@ -62,12 +61,11 @@ public class Solver {
      * @param maze
      * @return 
      */
-    public static int[][] aStar(Maze maze) {
-        int x = 2*maze.getX()+1;
-        int y = 2*maze.getY()+1;
+    public static int[][] aStar(int[][] path) {
+        int x = path.length;
+        int y = path[0].length;
         int currentX;
         int currentY;
-        int[][] path = maze.getNewMaze();
         boolean visited[][] = new boolean[x][y];
         int tree[][] = new int[x][y];
         PriorityQueue<Estimate> queue = new PriorityQueue();

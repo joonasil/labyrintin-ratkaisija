@@ -5,6 +5,7 @@
  */
 package fi.joonasil.mazesolver.gui;
 
+import fi.joonasil.mazesolver.Mazesolver;
 import fi.joonasil.mazesolver.logic.generator.Maze;
 import fi.joonasil.mazesolver.logic.solver.Solver;
 import java.util.Random;
@@ -24,9 +25,9 @@ public class Screen {
     private final Scene scene;
     
     public Screen() {
-        
-        final int x = 1000;     /* Muuta x:n arvoa jos haluat eri levyisen labyrintin */
-        final int y = 1000;      /* Muuta y:n arvoa jos haluat eri korkuisen labyrintin */
+        Maze maze = Mazesolver.getMaze();
+        final int x = maze.getX();
+        final int y = maze.getY();
         final int newX = 2*x+1;
         final int newY = 2*y+1;
         final int sum = newX+newY;
@@ -38,21 +39,17 @@ public class Screen {
         
         
         
-        /*  --Anna konstruktorille joku kokonaisluku, 
-        jos haluat tietyn kokoisen labyrintin olevan aina sama. */
-        final Random rand = new Random(1234567890);
-        
-        Maze lol = new Maze(x,y,rand);
+       
         long start = System.currentTimeMillis();
-        int[][] newImage = Solver.breadthFirst(lol);
+        maze.solveBreadthFrist();
         System.out.println("Time to solve bfs: " + (System.currentTimeMillis()-start));
-        lol.setNewMaze(newImage);
+        
         
         start = System.currentTimeMillis();
-        newImage = Solver.aStar(lol);
+        maze.solveAStar();
         System.out.println("Time to solve a*: " + (System.currentTimeMillis()-start));
         
-        ImageView test = ImageConverter.getImage(newImage,x,y);
+        ImageView test = maze.getImage();
         test.setFitHeight(newY*multiplier);
         test.setFitWidth(newX*multiplier);
         
@@ -74,6 +71,7 @@ public class Screen {
     public Scene getScene() {
         return this.scene;
     }
+    
     
   
     /**

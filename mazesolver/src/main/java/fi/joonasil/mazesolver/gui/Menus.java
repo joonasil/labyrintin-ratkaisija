@@ -5,6 +5,8 @@
  */
 package fi.joonasil.mazesolver.gui;
 
+import fi.joonasil.mazesolver.Mazesolver;
+import fi.joonasil.mazesolver.logic.generator.Maze;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -24,7 +26,7 @@ public class Menus {
         MenuItem quitMaze = new MenuItem("Quit Program");
         
         selectMaze.setOnAction(e -> {
-//            lol = new Maze(x,y,rand);
+            Mazesolver.setMaze(new Maze(100,100));
         });
 //        quitMaze.setOnAction(e -> );
 
