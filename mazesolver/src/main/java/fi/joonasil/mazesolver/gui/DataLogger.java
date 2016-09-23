@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.joonasil.mazesolver;
+package fi.joonasil.mazesolver.gui;
 
 /**
  *
  * @author Joonas
  */
-public class Settings {
-    private long seed;
-    private int x;
-    private int y;
+public class DataLogger {
     
 }

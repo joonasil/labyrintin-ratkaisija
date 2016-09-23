@@ -17,7 +17,7 @@ public class Mazesolver {
     
     public static Maze getMaze() {
         if(Mazesolver.maze == null)
-            Mazesolver.maze = new Maze(50,50);
+            Mazesolver.maze = new Maze(200,200);
         return Mazesolver.maze;
     }
     

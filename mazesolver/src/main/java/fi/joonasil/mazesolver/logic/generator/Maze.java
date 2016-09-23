@@ -18,6 +18,7 @@ import javafx.scene.image.ImageView;
  */
 public class Maze {
     
+    private long timeToGenerate;
     private ImageView image;
     private int[][] maze;
     private final int x;
@@ -36,7 +37,7 @@ public class Maze {
         this.y = y;
         long start = System.currentTimeMillis();
         maze = Generator.generatePrim(rand, x, y);
-        System.out.println("Time to generate: " + (System.currentTimeMillis()-start));
+        timeToGenerate = System.currentTimeMillis()-start;
         image = ImageConverter.getImage(maze, x, y);
     }
     
@@ -68,6 +69,10 @@ public class Maze {
     
     public int[][] getMaze(){
         return this.maze;
+    }
+    
+    public long getTimeToGenerate() {
+        return this.timeToGenerate;
     }
     
     public int getX() {

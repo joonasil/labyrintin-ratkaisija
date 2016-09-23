@@ -7,6 +7,7 @@ package fi.joonasil.mazesolver;
 
 import fi.joonasil.mazesolver.gui.Screen;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
  * @author Joonas
  */
 public class Main extends Application {
-    
+    private static Stage window;
      /**
      * Käynnistää ohjelman käyttöliittymän.
      * @param args the command line arguments
@@ -37,15 +38,19 @@ public class Main extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        
-        
-        
-        
-      
+        window = primaryStage;
         primaryStage.setResizable(false);
         primaryStage.setTitle("Maze Solver!");
-        primaryStage.setScene(Mazesolver.getScreen().getScene());
-        primaryStage.show();
+        window.setScene(Mazesolver.getScreen().getScene());
+        window.show();
         
+    }
+    
+    /**
+     * Asettaa ohjelman näkymäksi uuden Scene olion.
+     * @param scene Uusi näkymä
+     */
+    public static void setScene(Scene scene) {
+        window.setScene(scene);
     }
 }

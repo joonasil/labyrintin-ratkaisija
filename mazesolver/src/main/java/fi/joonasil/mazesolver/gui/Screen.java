@@ -9,11 +9,14 @@ import fi.joonasil.mazesolver.Mazesolver;
 import fi.joonasil.mazesolver.logic.generator.Maze;
 import fi.joonasil.mazesolver.logic.solver.Solver;
 import java.util.Random;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
@@ -22,58 +25,69 @@ import javafx.scene.layout.VBox;
  */
 public class Screen {
     
-    private final Scene scene;
+    private Scene scene;
     
     public Screen() {
+        setScene();
+    }
+    
+    public void setScene() {
+        VBox layout = new VBox();
+        HBox hbox = new HBox();
+        hbox.getChildren().addAll(setInfo(),setImage());
+        hbox.setPadding(new Insets(10, 10, 10, 10));
+        layout.getChildren().addAll(Menus.setMenuBar(), hbox);
+        scene = new Scene(layout, 1240, 720);
+    }
+    
+    public Scene getScene() {
+        return this.scene;
+    }
+       
+    public static ScrollPane setImage() {
         Maze maze = Mazesolver.getMaze();
-        final int x = maze.getX();
-        final int y = maze.getY();
-        final int newX = 2*x+1;
-        final int newY = 2*y+1;
+        final int newX = 2*maze.getX()+1;
+        final int newY = 2*maze.getY()+1;
         final int sum = newX+newY;
         int multiplier = 4;
         if(sum < 500)
             multiplier = 8;
         if(sum > 2000)
             multiplier = 2;
-        
-        
-        
-       
+        ImageView image = maze.getImage();
+        image.setFitHeight(newY*multiplier);
+        image.setFitWidth(newX*multiplier);
+        ScrollPane scroll = createScrollPane(image);
+        return scroll;
+    }
+    
+    public static VBox setInfo() {
+        VBox info = new VBox();
+        Maze maze = Mazesolver.getMaze();
         long start = System.currentTimeMillis();
+        Label generate = new Label("Time to generate: " + maze.getTimeToGenerate() + "ms");
         maze.solveBreadthFrist();
-        System.out.println("Time to solve bfs: " + (System.currentTimeMillis()-start));
-        
+        Label bfs = new Label("Time to solve bfs: " + (System.currentTimeMillis()-start) + "ms");
         
         start = System.currentTimeMillis();
         maze.solveAStar();
-        System.out.println("Time to solve a*: " + (System.currentTimeMillis()-start));
+        Label astar = new Label("Time to solve a*: " + (System.currentTimeMillis()-start) + "ms");
         
-        ImageView test = maze.getImage();
-        test.setFitHeight(newY*multiplier);
-        test.setFitWidth(newX*multiplier);
-        
-        
-        
-        
-        VBox layout = new VBox();
-        GridPane grid = new GridPane();
-        ScrollPane scroll = createScrollPane(test);
-        grid.setAlignment(Pos.CENTER);
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.add(scroll , 1, 1);
-        layout.getChildren().addAll(Menus.setMenuBar(), grid);
-        scene = new Scene(layout, 1240, 720);
+        final int newX = 2*maze.getX()+1;
+        final int newY = 2*maze.getY()+1;
+        Label size = new Label("Size of maze: " + newX + "x" + newY);
+        size.setStyle("-fx-font-weight: bold");
+        bfs.setStyle("-fx-font-weight: bold");
+        astar.setStyle("-fx-font-weight: bold");
+        generate.setStyle("-fx-font-weight: bold");
+        info.getChildren().add(size);
+        info.getChildren().addAll(generate,bfs,astar);
+        info.setMinWidth(200);
+        info.setSpacing(10);
+        info.setPadding(new Insets(0, 10, 0, 10));
+        return info;
     }
     
-    
-    public Scene getScene() {
-        return this.scene;
-    }
-    
-    
-  
     /**
      * 
      * Metodi luo liikkuvan alustan labyrintin kuvalle, joten koko labyrintin
@@ -82,8 +96,8 @@ public class Screen {
      * @param maze Labyrintin kuva
      * @return Alustan kuvalle, jota pystyy liikuttamaan hiirellä vetämällä tai nuolinäppäimillä.
      */
-    private ScrollPane createScrollPane(ImageView maze) {
-        int x = 1200;
+    private static ScrollPane createScrollPane(ImageView maze) {
+        int x = 1050;
         int y = 680;
         ScrollPane scroll = new ScrollPane();
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
