@@ -54,7 +54,7 @@ public class Maze {
         this.y = y;
         long start = System.currentTimeMillis();
         maze = Generator.generatePrim(rand,x,y);
-        System.out.println("Time to generate: " + (System.currentTimeMillis()-start));
+        timeToGenerate = System.currentTimeMillis()-start;
     }
     
     public void solveBreadthFrist() {

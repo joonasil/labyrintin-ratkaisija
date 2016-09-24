@@ -28,9 +28,11 @@ public class CreateMaze {
     private static Stage window;
     private static Label lengthError;
     private static Label heightError;
+    private static Label seedError;
     public static void display() {
         lengthError = new Label();
         heightError = new Label();
+        seedError = new Label();
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("New maze");
@@ -43,7 +45,7 @@ public class CreateMaze {
         info.setStyle("-fx-font-weight: bold");
         layout.getChildren().addAll(info,setLayout());
         layout.setPadding(new Insets(10,10,10,10));
-        Scene scene = new Scene(layout,500,200);
+        Scene scene = new Scene(layout,600,300);
         window.setResizable(false);
         window.setScene(scene);
         window.show();
@@ -76,22 +78,30 @@ public class CreateMaze {
         TextField heightInput = new TextField();
         GridPane.setConstraints(heightInput, 1, 2);
         
+        Label seed = new Label("Seed:");
+        seed.setStyle("-fx-font-weight: bold");
+        GridPane.setConstraints(seed, 0, 3);
+        
+        TextField seedInput = new TextField();
+        seedInput.setPromptText("Leave plank for random.");
+        GridPane.setConstraints(seedInput, 1, 3);
+        
         Button close = new Button("Close");
-        GridPane.setConstraints(close, 0, 3);
+        GridPane.setConstraints(close, 0, 4);
         close.setOnAction(e -> window.close());
         
         Button create = new Button("Generate");
-        GridPane.setConstraints(create, 1, 3);
-        create.setOnAction(e -> validateInput(layout, lengthInput, heightInput));
+        GridPane.setConstraints(create, 1, 4);
+        create.setOnAction(e -> validateInput(layout, lengthInput, heightInput, seedInput));
         
-        layout.getChildren().addAll(length,lengthInput,height,heightInput,close,create);
+        layout.getChildren().addAll(length,lengthInput,height,heightInput,seed,seedInput,close,create);
         layout.setVgap(8);
         layout.setHgap(10);
         layout.setPadding(new Insets(10,10,10,10));
         return layout;
     }
      
-    private static void validateInput(GridPane grid, TextField length, TextField height) {
+    private static void validateInput(GridPane grid, TextField length, TextField height, TextField seed) {
         
         length.setStyle("-fx-background-color: #FFFFFF;");
         height.setStyle("-fx-background-color: #FFFFFF;");
@@ -99,6 +109,8 @@ public class CreateMaze {
             grid.getChildren().remove(lengthError);
         if(grid.getChildren().contains(heightError))
             grid.getChildren().remove(heightError);
+        if(grid.getChildren().contains(seedError))
+            grid.getChildren().remove(seedError);
         if(!isInt(length)) {
             lengthError.setText("Length is not an integer!");
             GridPane.setConstraints(lengthError, 2, 1);
@@ -109,6 +121,12 @@ public class CreateMaze {
             heightError.setText("Height is not an integer!");
             GridPane.setConstraints(heightError, 2, 2);
             grid.getChildren().add(heightError);
+            return;
+        }
+        if(!seed.getText().isEmpty() && !isInt(seed)) {
+            seedError.setText("Seed is not an integer!");
+            GridPane.setConstraints(seedError, 2, 3);
+            grid.getChildren().add(seedError);
             return;
         }
         int x = Integer.parseInt(length.getText());
@@ -127,8 +145,14 @@ public class CreateMaze {
             grid.getChildren().add(heightError);
             return;
         }
-        if(isInt(length) && isInt(height)) {
+        if(isInt(length) && isInt(height) && seed.getText().isEmpty()) {
             Mazesolver.setMaze(new Maze(x,y));
+            Mazesolver.getScreen().setScene();
+            Main.setScene(Mazesolver.getScreen().getScene());
+            window.close();
+        }
+        if(isInt(length) && isInt(height) && !seed.getText().isEmpty()) {
+            Mazesolver.setMaze(new Maze(x,y,Integer.parseInt(seed.getText())));
             Mazesolver.getScreen().setScene();
             Main.setScene(Mazesolver.getScreen().getScene());
             window.close();
