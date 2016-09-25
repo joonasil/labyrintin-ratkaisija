@@ -1,4 +1,4 @@
-# Viikkoraporti 3
+# Viikkoraportti 3
 
 ### Tehty tällä viikolla
 - Käyttöliittymän päivityksiä
@@ -8,7 +8,7 @@
 - Luokkien ja metodien siistimistä ja pieniä optimointeja.
 - Käytetty aika noin 15 tuntia.
 
-## Ohjelman edistyminen
+### Ohjelman edistyminen
 
 Ohjelma on edistynyt tällä viikolla ehkä vähän vähemmän kuin edellisellä, mutta silti ollaan hyvin aikataulussa. Käyttöliittymä on nyt paljon käyttäjäystäväisempi. Generaatio- ja ratkaisualgoritmien viemä aika ja labyrntin koko esitetään käyttöliittymässä labyrintin kuvan vieressä ja uuden labyrintin voi luoda kayttöliittymästä käsin. Tietorakenteista on tehtynä linkitetty lista ja jono. Vielä olisi tehtävänä ainakin hakupuu toteutettuna todennäköisesti avl-puuna ja prioriteettijono jollain keolla (pairing heap?). Lisäksi jos aikaa riittää niin uusi labyrintin generointialgoritmi tarvitsisi disjoint-set tietorakennetta, jonka toteuttaisin parent pointer treellä.
 
