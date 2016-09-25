@@ -1,29 +1,37 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package fi.joonasil.mazesolver.util;
 
 /**
- *
+ * Linkitetty lista tietorakenne. Remove metodia ei tarvitse ainakaan 
+ * tällä hetkellä toteuttaa.
  * @author Joonas
- * @param <T>
+ * @param <T> Linkitetyn listan tyyppi.
  */
 public class LinkedList <T>{
     private Node<T> first;
     private Node<T> last;
     private int size;
     
+    /**
+     * Konstruktori luo uuden tyhjän linkitetyn listan.
+     */
     public LinkedList() {
         first = new Node<>(null,null);
         size = 0;
     }
     
+    /**
+     * Palauttaa linkitetyn listan pituuden.
+     * @return 
+     */
     public int size(){
         return this.size;
     }
       
+    /**
+     * Lisää objektin linkitettyyn listaan
+     * @param data lisättävä olio
+     */
     public void add(T data) {
         Node<T> l = last;
         Node<T> newNode = new Node(data, null);
@@ -35,6 +43,11 @@ public class LinkedList <T>{
         size++;
     }
     
+    /**
+     * Palauttaa objektin parametrina annetussa indeksissä. 
+     * @param index Halutun 
+     * @return 
+     */
     public T get(int index) {
         checkIndex(index);
         return node(index).data;
