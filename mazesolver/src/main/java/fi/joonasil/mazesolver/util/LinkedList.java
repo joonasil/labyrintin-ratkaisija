@@ -29,7 +29,7 @@ public class LinkedList <T>{
     }
       
     /**
-     * Lisää objektin linkitettyyn listaan
+     * Lisää objektin linkitettyyn listaan.
      * @param data lisättävä olio
      */
     public void add(T data) {
@@ -53,15 +53,28 @@ public class LinkedList <T>{
         return node(index).data;
     }
     
+    /**
+     * Viesti, joka esitetään, jos tulee Index out of bounds exception. 
+     * @param index Indeksi, mikä aiheutti out of bounds exceptionin.
+     * @return Viesti.
+     */
     private String outOfBoundsMessage(int index) {
         return "Index: " + index + ", Size: " + size;
     }
     
+    /**
+     * Tarkistaa onko indeksi sallitulla välillä.
+     * @param index Tarkastettava indeksi.
+     */
     private void checkIndex(int index) {
         if(!(index >= 0 && index < size))
             throw new IndexOutOfBoundsException(outOfBoundsMessage(index));
     }
     
+    /**
+     * Luokka linkitetyn listan yksittäiselle nodelle.
+     * @param <T> Linkitetyn listan tietotyyppi.
+     */
     private static class Node<T>{
         T data;
         Node<T> next;
@@ -72,6 +85,11 @@ public class LinkedList <T>{
         }
     }
     
+    /**
+     * Palauttaa noden linkitetyn listan indeksissä index;
+     * @param index palautettavan noden indeksi.
+     * @return 
+     */
     Node<T> node(int index) {
         Node<T> x = first;
         for(int i = 0; i < index; i++)

@@ -37,9 +37,11 @@
                 <configuration>
                     <targetClasses>
                         <param>fi.joonasil.mazesolver.logic.*</param>
+                        <param>fi.joonasil.mazesolver.util.*</param>
                     </targetClasses>
                     <targetTests>
                         <param>fi.joonasil.mazesolver.logic.*</param>
+                        <param>fi.joonasil.mazesolver.util.*</param>
                     </targetTests>
                 </configuration>
             </plugin>

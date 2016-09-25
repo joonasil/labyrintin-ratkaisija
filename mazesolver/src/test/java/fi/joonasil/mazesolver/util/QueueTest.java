@@ -18,6 +18,7 @@ import static org.junit.Assert.*;
  */
 public class QueueTest {
     
+    Queue queue;
     public QueueTest() {
     }
     
@@ -31,15 +32,44 @@ public class QueueTest {
     
     @Before
     public void setUp() {
+        queue = new Queue();
     }
     
     @After
     public void tearDown() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    @Test
+    public void testConstructor() {
+        assertEquals(true,queue.isEmpty());
+    }
+    
+    @Test
+    public void testConstructor2() {
+        queue = new Queue(2);
+        assertEquals(true,queue.isEmpty());
+    }
+    
+    @Test
+    public void testIsEmpty() {
+        queue.push(1);
+        assertEquals(false,queue.isEmpty());
+    }
+    
+    @Test
+    public void testPop() {
+        queue.push(1);
+        assertEquals(1,queue.pop());
+    }
+    
+    @Test
+    public void testAllocateSpace() {
+        queue = new Queue(2);
+        queue.push(1);
+        queue.push(2);
+        queue.push(3);
+        assertEquals(1,queue.pop());
+    }
+    
+    
 }

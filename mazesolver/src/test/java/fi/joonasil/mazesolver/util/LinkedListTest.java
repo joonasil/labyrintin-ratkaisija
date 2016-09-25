@@ -18,6 +18,7 @@ import static org.junit.Assert.*;
  */
 public class LinkedListTest {
     
+    LinkedList<Integer> list;
     public LinkedListTest() {
     }
     
@@ -31,15 +32,29 @@ public class LinkedListTest {
     
     @Before
     public void setUp() {
+        list = new LinkedList<>();
     }
     
     @After
     public void tearDown() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    @Test
+    public void testConstructor() {
+        assertEquals(0,list.size());
+    }
+    
+    @Test
+    public void testSize() {
+        list.add(1);
+        assertEquals(1,list.size());
+    }
+    
+    @Test
+    public void testGet() {
+        list.add(1);
+        assertEquals(1,(int)list.get(0));
+    }
+    
+    
 }

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package fi.joonasil.mazesolver.gui;
 
 import fi.joonasil.mazesolver.Main;
@@ -19,16 +15,21 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- *
+ * Luokka luo ikkunan uuden labyrintin luomista varten.
  * @author Joonas
  */
 public class CreateMaze {
+    
     private static Stage window;
-    private static Label lengthError;
+    private static Label widthError;
     private static Label heightError;
     private static Label seedError;
+    
+    /**
+     * Luo ikkunan uuden labyrintin luomista varten.
+     */
     public static void display() {
-        lengthError = new Label();
+        widthError = new Label();
         heightError = new Label();
         seedError = new Label();
         window = new Stage();
@@ -49,6 +50,11 @@ public class CreateMaze {
         window.show();
     }
     
+    /**
+     * Palauttaa totuusarvon siitä, onko annettu syöte kokonaisluku.
+     * @param input Käyttäjän syöte.
+     * @return Totuusarvo siitä, onko syöte kokonaisluku.
+     */
     private static boolean isInt(TextField input) {
         try{
             Integer.parseInt(input.getText());
@@ -59,15 +65,19 @@ public class CreateMaze {
         }
     }
     
+    /**
+     * Asettaa ikkunan ulkoasun.
+     * @return Ikkunan ulkoasu.
+     */
     private static GridPane setLayout() {
         GridPane layout = new GridPane();
          
-        Label length = new Label("Length:");
-        length.setStyle("-fx-font-weight: bold");
-        GridPane.setConstraints(length, 0, 1);
+        Label width = new Label("Width:");
+        width.setStyle("-fx-font-weight: bold");
+        GridPane.setConstraints(width, 0, 1);
         
-        TextField lengthInput = new TextField();
-        GridPane.setConstraints(lengthInput, 1, 1);
+        TextField widthInput = new TextField();
+        GridPane.setConstraints(widthInput, 1, 1);
         
         Label height = new Label("Height:");
         height.setStyle("-fx-font-weight: bold");
@@ -90,29 +100,36 @@ public class CreateMaze {
         
         Button create = new Button("Generate");
         GridPane.setConstraints(create, 1, 4);
-        create.setOnAction(e -> validateInput(layout, lengthInput, heightInput, seedInput));
+        create.setOnAction(e -> validateInput(layout, widthInput, heightInput, seedInput));
         
-        layout.getChildren().addAll(length,lengthInput,height,heightInput,seed,seedInput,close,create);
+        layout.getChildren().addAll(width,widthInput,height,heightInput,seed,seedInput,close,create);
         layout.setVgap(8);
         layout.setHgap(10);
         layout.setPadding(new Insets(10,10,10,10));
         return layout;
     }
      
-    private static void validateInput(GridPane grid, TextField length, TextField height, TextField seed) {
+    /**
+     * Tarkistaa annetut syötteet.
+     * @param grid Ikkunan ulkoasu.
+     * @param width Annettu syöte labyrintin leveydeksi.
+     * @param height Annettu syöte labyrintin korkeudeksi.
+     * @param seed Annettu syöte labyrintin generoinnin seediksi.
+     */
+    private static void validateInput(GridPane grid, TextField width, TextField height, TextField seed) {
         
-        length.setStyle("-fx-background-color: #FFFFFF;");
+        width.setStyle("-fx-background-color: #FFFFFF;");
         height.setStyle("-fx-background-color: #FFFFFF;");
-        if(grid.getChildren().contains(lengthError))
-            grid.getChildren().remove(lengthError);
+        if(grid.getChildren().contains(widthError))
+            grid.getChildren().remove(widthError);
         if(grid.getChildren().contains(heightError))
             grid.getChildren().remove(heightError);
         if(grid.getChildren().contains(seedError))
             grid.getChildren().remove(seedError);
-        if(!isInt(length)) {
-            lengthError.setText("Length is not an integer!");
-            GridPane.setConstraints(lengthError, 2, 1);
-            grid.getChildren().add(lengthError);
+        if(!isInt(width)) {
+            widthError.setText("Width is not an integer!");
+            GridPane.setConstraints(widthError, 2, 1);
+            grid.getChildren().add(widthError);
             return;
         }
         if(!isInt(height)) {
@@ -127,13 +144,13 @@ public class CreateMaze {
             grid.getChildren().add(seedError);
             return;
         }
-        int x = Integer.parseInt(length.getText());
+        int x = Integer.parseInt(width.getText());
         int y = Integer.parseInt(height.getText());
         if(x < 2) {
-            length.setStyle("-fx-background-color: #FF0000;");
-            lengthError.setText("Length must be at least 2!");
-            GridPane.setConstraints(lengthError, 2, 1);
-            grid.getChildren().add(lengthError);
+            width.setStyle("-fx-background-color: #FF0000;");
+            widthError.setText("Length must be at least 2!");
+            GridPane.setConstraints(widthError, 2, 1);
+            grid.getChildren().add(widthError);
             return;
         }
         if(y < 2) {
@@ -143,13 +160,13 @@ public class CreateMaze {
             grid.getChildren().add(heightError);
             return;
         }
-        if(isInt(length) && isInt(height) && seed.getText().isEmpty()) {
+        if(isInt(width) && isInt(height) && seed.getText().isEmpty()) {
             Mazesolver.setMaze(new Maze(x,y));
             Mazesolver.getScreen().setScene();
             Main.setScene(Mazesolver.getScreen().getScene());
             window.close();
         }
-        if(isInt(length) && isInt(height) && !seed.getText().isEmpty()) {
+        if(isInt(width) && isInt(height) && !seed.getText().isEmpty()) {
             Mazesolver.setMaze(new Maze(x,y,Integer.parseInt(seed.getText())));
             Mazesolver.getScreen().setScene();
             Main.setScene(Mazesolver.getScreen().getScene());
