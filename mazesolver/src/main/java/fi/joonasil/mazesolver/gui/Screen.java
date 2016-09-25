@@ -7,15 +7,11 @@ package fi.joonasil.mazesolver.gui;
 
 import fi.joonasil.mazesolver.Mazesolver;
 import fi.joonasil.mazesolver.logic.generator.Maze;
-import fi.joonasil.mazesolver.logic.solver.Solver;
-import java.util.Random;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -82,7 +78,7 @@ public class Screen {
         generate.setStyle("-fx-font-weight: bold");
         info.getChildren().add(size);
         info.getChildren().addAll(generate,bfs,astar);
-        info.setMinWidth(200);
+        info.setMinWidth(250);
         info.setSpacing(10);
         info.setPadding(new Insets(0, 10, 0, 10));
         return info;
@@ -97,7 +93,7 @@ public class Screen {
      * @return Alustan kuvalle, jota pystyy liikuttamaan hiirellä vetämällä tai nuolinäppäimillä.
      */
     private static ScrollPane createScrollPane(ImageView maze) {
-        int x = 1050;
+        int x = 1000;
         int y = 680;
         ScrollPane scroll = new ScrollPane();
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);

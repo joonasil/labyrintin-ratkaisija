@@ -5,7 +5,9 @@
  */
 package fi.joonasil.mazesolver.logic.generator;
 
-import java.util.LinkedList;
+import fi.joonasil.mazesolver.util.LinkedList;
+
+
 
 /**
  * Luokka yksittäiselle labyrintin pisteelle. Käytetään vain labyrintin generoimisessa. Valmis labyrintti
@@ -70,9 +72,10 @@ public class Path {
      * @param adjacent Viereinen ruutu, johon halutaan saada polku.
      */
     public void openWall(int adjacent) {
-        for(Wall wall : this.getWalls()){
-            if(wall.inBetween(index, adjacent)){
-                wall.open();
+        LinkedList<Wall> wall = this.getWalls();
+        for(int i = 0; i < wall.size(); i++){
+            if(wall.get(i).inBetween(index, adjacent)){
+                wall.get(i).open();
                 if(index-adjacent == 1) 
                     map[3] = 1;
                 else if(index-adjacent == -1) 

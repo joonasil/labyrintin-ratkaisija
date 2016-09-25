@@ -8,6 +8,7 @@ package fi.joonasil.mazesolver.logic.solver;
 import fi.joonasil.mazesolver.logic.generator.Maze;
 import fi.joonasil.mazesolver.logic.generator.Path;
 import fi.joonasil.mazesolver.util.Estimate;
+import fi.joonasil.mazesolver.util.Queue;
 import java.util.ArrayDeque;
 import java.util.PriorityQueue;
 
@@ -29,11 +30,14 @@ public class Solver {
         int currentY;
         boolean visited[][] = new boolean[x][y];
         int tree[][] = new int[x][y];
-        ArrayDeque<Integer> queue = new ArrayDeque();
+//        ArrayDeque<Integer> queue = new ArrayDeque();
+        Queue queueNew = new Queue();
         visited[1][1] = true;
-        queue.add(coordinateToIndex(1,1,x));
+//        queue.add(coordinateToIndex(1,1,x));
+        queueNew.push(coordinateToIndex(1,1,x));
         while(!visited[x-2][y-2]) {
-            int current = queue.remove();
+//            int current = queue.remove();
+            int current = queueNew.pop();
             for(int i = -1; i < 2; i++) {
                 for(int j = -1; j < 2; j++) {
                     currentX = indexToX(current,x)+i;
@@ -44,7 +48,8 @@ public class Solver {
                         visited[currentX][currentY] = true;
                         tree[currentX][currentY] =  current;
                         path[currentX][currentY] += 2;
-                        queue.add(coordinateToIndex(currentX, currentY, x));
+//                        queue.add(coordinateToIndex(currentX, currentY, x));
+                        queueNew.push(coordinateToIndex(currentX,currentY,x));
                     }
                 }
             }

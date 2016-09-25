@@ -5,12 +5,10 @@
  */
 package fi.joonasil.mazesolver.gui;
 
-import fi.joonasil.mazesolver.Main;
-import fi.joonasil.mazesolver.Mazesolver;
-import fi.joonasil.mazesolver.logic.generator.Maze;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import fi.joonasil.mazesolver.Main;
 
 /**
  *
@@ -28,11 +26,8 @@ public class Menus {
         
         selectMaze.setOnAction(e -> {
             CreateMaze.display();
-//            Mazesolver.setMaze(new Maze(100,100));
-//            Mazesolver.getScreen().setScene();
-//            Main.setScene(Mazesolver.getScreen().getScene());
         });
-//        quitMaze.setOnAction(e ->);
+        quitMaze.setOnAction(e -> Main.close());
 
         mazeMenu.getItems().addAll(selectMaze, quitMaze);
         menuBar.getMenus().add(mazeMenu);

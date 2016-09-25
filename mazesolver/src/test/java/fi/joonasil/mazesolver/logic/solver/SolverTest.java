@@ -34,9 +34,8 @@ public class SolverTest {
     
     @Before
     public void setUp() {
-        Random rand = new Random(1337);
-        maze = new Maze(5,5,rand);
-        result = Solver.breadthFirst(maze);
+        maze = new Maze(5,5,1337);
+        result = Solver.breadthFirst(maze.getMaze());
     }
     
     @After
@@ -53,16 +52,16 @@ public class SolverTest {
     
     @Test
     public void testBreadthFirst2() {
-        assertEquals(3,result[6][1]);
+        assertEquals(3,result[5][1]);
     }
     
     @Test
     public void testBreadthFirst3() {
-        assertEquals(11,result[5][4]);
+        assertEquals(11,result[3][3]);
     }
     
     @Test
     public void testBreadthFirst4() {
-        assertEquals(1,result[1][3]);
+        assertEquals(1,result[7][1]);
     }
 }

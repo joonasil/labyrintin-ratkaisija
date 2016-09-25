@@ -7,7 +7,7 @@ package fi.joonasil.mazesolver.util;
 
 import fi.joonasil.mazesolver.logic.generator.Path;
 import fi.joonasil.mazesolver.logic.generator.Wall;
-import java.util.LinkedList;
+
 import java.util.Random;
 import java.util.TreeMap;
 
@@ -39,13 +39,13 @@ public class Generator {
             index = wallsOfPathInMaze.lastKey();
             wallsOfPathInMaze.replace(current, wallsOfPathInMaze.remove(index));  
             if(output[first].isPartOfMaze() ^ output[second].isPartOfMaze()) {
+                output[first].openWall(second);
+                output[second].openWall(first);
                 if(output[first].isPartOfMaze() == false) {
                     index = setToMaze(output, first, index, wallsOfPathInMaze, walls);
                 } else {
                     index = setToMaze(output, second, index, wallsOfPathInMaze, walls);
                 }
-                output[first].openWall(second);
-                output[second].openWall(first);
             }
         }
         return changeDatatype(output,x,y);
@@ -77,8 +77,10 @@ public class Generator {
      */
     private static int addWalls(int index, TreeMap<Integer, Wall> wallsOfPathInMaze, LinkedList<Wall> walls) {
         for(int i = 0; i < walls.size(); i++) {
-            wallsOfPathInMaze.put(index, walls.get(i));
-            index++;
+            if(!walls.get(i).isOpen()) {
+               wallsOfPathInMaze.put(index, walls.get(i));
+               index++; 
+            }
         }
         return index;
     }

@@ -5,7 +5,6 @@
  */
 package fi.joonasil.mazesolver;
 
-import fi.joonasil.mazesolver.gui.Screen;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -52,5 +51,9 @@ public class Main extends Application {
      */
     public static void setScene(Scene scene) {
         window.setScene(scene);
+    }
+    
+    public static void close() {
+        window.close();
     }
 }

@@ -5,6 +5,8 @@
  */
 package fi.joonasil.mazesolver.util;
 
+import java.util.NoSuchElementException;
+
 /**
  *
  * @author Joonas
@@ -32,17 +34,24 @@ public class Queue{
         head++;
         if(head == queue.length)
             head = 0;
-        if(head + 1 == tail)
+        if(head + 1 == tail || (tail == 0 && head == queue.length-1))
             allocateSpace();
         
     }
     
     public int pop() {
+        if(this.isEmpty()) {
+            throw new NoSuchElementException();
+        }
         int out = queue[tail];
         tail++;
         if(tail == queue.length)
             tail = 0;
         return out;
+    }
+    
+    public boolean isEmpty() {
+        return tail == head;
     }
     
     private void allocateSpace() {
@@ -52,10 +61,18 @@ public class Queue{
             queue = new int[length*2];
         else
             queue = new int[Integer.MAX_VALUE];
-        
+        int x = tail;
         for(int i = 0; i < length-1; i++) {
-            queue[i] = temp[i];
+            queue[i] = temp[x];
+            x++;
+            if(x == length)
+                x = 0;
+            if(x == head) {
+                head = i+1;
+                break;
+            }
         }
+        tail = 0;
     }
     
     

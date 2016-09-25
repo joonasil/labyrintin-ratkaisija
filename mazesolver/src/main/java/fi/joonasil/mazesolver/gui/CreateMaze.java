@@ -8,8 +8,6 @@ package fi.joonasil.mazesolver.gui;
 import fi.joonasil.mazesolver.Main;
 import fi.joonasil.mazesolver.Mazesolver;
 import fi.joonasil.mazesolver.logic.generator.Maze;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

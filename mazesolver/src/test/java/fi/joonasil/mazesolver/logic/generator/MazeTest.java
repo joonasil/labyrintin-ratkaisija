@@ -33,8 +33,7 @@ public class MazeTest {
     
     @Before
     public void setUp() {
-        Random rand = new Random(1337);
-        maze = new Maze(5,5,rand);
+        maze = new Maze(5,5,1337);
     }
     
     @After
@@ -55,52 +54,32 @@ public class MazeTest {
     }
     
     @Test
-    public void testGeneratePrim() {
-        assertEquals(1,maze.getMaze()[0].getMap()[5]);
-    }
-    
-    @Test
-    public void testGeneratePrim2() {
-        assertEquals(1,maze.getMaze()[1].getMap()[3]);
-    }
-    
-    @Test
-    public void testGeneratePrim3() {
-        assertEquals(true,maze.getMaze()[1].isPartOfMaze());
-    }
-    
-    @Test
-    public void testGeneratePrim4() {
-        assertEquals(true,maze.getMaze()[0].isPartOfMaze());
-    }
-    
-    @Test
     public void testChangeDatatype() {
-        assertEquals(1,maze.getNewMaze()[1][1]);
+        assertEquals(1,maze.getMaze()[1][1]);
     }
     
     @Test
     public void testChangeDatatype2() {
-        assertEquals(1,maze.getNewMaze()[5][1]);
+        assertEquals(1,maze.getMaze()[5][1]);
     }
     
     @Test
     public void testChangeDatatype3() {
-        assertEquals(0,maze.getNewMaze()[0][1]);
+        assertEquals(0,maze.getMaze()[0][1]);
     }
     
     @Test
     public void testChangeDatatype4() {
-        assertEquals(0,maze.getNewMaze()[1][0]);
+        assertEquals(0,maze.getMaze()[1][0]);
     }
     
     @Test
     public void testChangeDatatype5() {
-        assertEquals(0,maze.getNewMaze()[1][2]);
+        assertEquals(1,maze.getMaze()[1][2]);
     }
     
     @Test
     public void testChangeDatatype6() {
-        assertEquals(1,maze.getNewMaze()[2][1]);
+        assertEquals(0,maze.getMaze()[2][1]);
     }
 }
