@@ -22,7 +22,7 @@ public class LinkedList <T>{
     
     /**
      * Palauttaa linkitetyn listan pituuden.
-     * @return 
+     * @return Linkitetyn listan pituus.
      */
     public int size(){
         return this.size;
@@ -45,12 +45,19 @@ public class LinkedList <T>{
     
     /**
      * Palauttaa objektin parametrina annetussa indeksissä. 
-     * @param index Halutun 
-     * @return 
+     * @param index Haluttu indeksi.
+     * @return Objekti parametrina annetussa indeksissä.
      */
     public T get(int index) {
         checkIndex(index);
         return node(index).data;
+    }
+    
+    public T removeFirst(){
+        T out = first.data;
+        first = first.next;
+        size--;
+        return out;
     }
     
     /**
@@ -72,7 +79,7 @@ public class LinkedList <T>{
     }
     
     /**
-     * Luokka linkitetyn listan yksittäiselle nodelle.
+     * Luokka linkitetyn listan yksittäiselle solmu.
      * @param <T> Linkitetyn listan tietotyyppi.
      */
     private static class Node<T>{
@@ -86,9 +93,9 @@ public class LinkedList <T>{
     }
     
     /**
-     * Palauttaa noden linkitetyn listan indeksissä index;
-     * @param index palautettavan noden indeksi.
-     * @return 
+     * Palauttaa solmun linkitetyn listan indeksissä index;
+     * @param index palautettavan solmun indeksi.
+     * @return Solmu parametrina annetussa indeksissä.
      */
     Node<T> node(int index) {
         Node<T> x = first;

@@ -13,6 +13,8 @@
 1+2+3+4=10 ---	bfs + dfs + a*
 11 = optimal route
 
+
+Queue test
   1000x1000		     2000x2000
 adq	que	que(x)	que	que(x)	adq
 378	422	456 	1803	1477 	1644
@@ -21,7 +23,9 @@ adq	que	que(x)	que	que(x)	adq
 348	390	369
 349	336	365
 
-  1000x1000
+
+LinkedList test
+  time to generate 1000x1000 seed 1000
 jll	mll
 5384	3804
 3326	3218
@@ -34,6 +38,20 @@ good seeds:
 7 		size 1000x1000
 1234567890 	size 1000x1000
 
-datastructures that still needs to be implemented
-TreeMap as avl-tree
-PriorityQueue as pairing heap or fibbonaci heap
+TreeMap test
+time to generate 1000x1000 seed 1000
+JavaTM	MyTM
+5738	4914
+3543	2701
+3605	2913
+4837	2895
+3900	3149
+
+PriorityQueue test
+time to solve 1000x1000 seed 1000
+JavaPQ	MyPQ
+329	291
+225	170
+220	178
+227	210
+219	179

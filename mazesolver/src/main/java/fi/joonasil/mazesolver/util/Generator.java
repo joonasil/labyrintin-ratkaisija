@@ -7,9 +7,10 @@ package fi.joonasil.mazesolver.util;
 
 import fi.joonasil.mazesolver.logic.generator.Path;
 import fi.joonasil.mazesolver.logic.generator.Wall;
+import fi.joonasil.mazesolver.util.TreeMap;
 
 import java.util.Random;
-import java.util.TreeMap;
+//import java.util.TreeMap;
 
 /**
  *
@@ -29,7 +30,8 @@ public class Generator {
            output[i] = new Path(x,y,i);
         }
         output[current].setToMaze();
-        TreeMap<Integer, Wall> wallsOfPathInMaze = new TreeMap<>();
+//        TreeMap<Integer, Wall> wallsOfPathInMaze = new TreeMap<>();
+        TreeMap<Wall> wallsOfPathInMaze = new TreeMap<>();
         LinkedList<Wall> walls = output[current].getWalls();
         index = addWalls(index, wallsOfPathInMaze, walls);
         while(!wallsOfPathInMaze.isEmpty()) {
@@ -61,7 +63,7 @@ public class Generator {
      * @param walls Lisättävänä olevan ruudun seinät, jotka lisätään yllä olevaan listaan.
      * @return 
      */
-    private static int setToMaze(Path[] output, int current, int index, TreeMap<Integer, Wall> wallsOfPathInMaze, LinkedList<Wall> walls) {
+    private static int setToMaze(Path[] output, int current, int index, TreeMap<Wall> wallsOfPathInMaze, LinkedList<Wall> walls) {
         output[current].setToMaze();
         walls = output[current].getWalls();
         return addWalls(index, wallsOfPathInMaze, walls);
@@ -75,7 +77,7 @@ public class Generator {
      * @param walls Sama kuin edellisessä metodissa.
      * @return 
      */
-    private static int addWalls(int index, TreeMap<Integer, Wall> wallsOfPathInMaze, LinkedList<Wall> walls) {
+    private static int addWalls(int index, TreeMap<Wall> wallsOfPathInMaze, LinkedList<Wall> walls) {
         for(int i = 0; i < walls.size(); i++) {
             if(!walls.get(i).isOpen()) {
                wallsOfPathInMaze.put(index, walls.get(i));

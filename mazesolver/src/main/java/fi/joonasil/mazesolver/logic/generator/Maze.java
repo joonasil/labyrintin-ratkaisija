@@ -56,12 +56,12 @@ public class Maze {
     }
     
     public void solveBreadthFrist() {
-        this.maze = Solver.breadthFirst(maze);
+        Solver.breadthFirst(maze);
         this.image = ImageConverter.getImage(maze, x, y);
     }
     
     public void solveAStar() {
-        this.maze = Solver.aStar(maze);
+        Solver.aStar(maze);
         this.image = ImageConverter.getImage(maze, x, y);
     }
     

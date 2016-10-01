@@ -5,12 +5,9 @@
  */
 package fi.joonasil.mazesolver.logic.solver;
 
-import fi.joonasil.mazesolver.logic.generator.Maze;
-import fi.joonasil.mazesolver.logic.generator.Path;
 import fi.joonasil.mazesolver.util.Estimate;
+import fi.joonasil.mazesolver.util.PriorityQueue;
 import fi.joonasil.mazesolver.util.Queue;
-import java.util.ArrayDeque;
-import java.util.PriorityQueue;
 
 /**
  * Luokka labyrintin ratkaisualgoritmeille.
@@ -22,55 +19,33 @@ public class Solver {
      * Metodi etsii lyhimmän reitin labyrintin ylävasemmasta nurkasta alaoikeaan nurkkaan.
      * Etsimiseen käytetään leveyssuuntaista läpikäyntiä.
      * @param maze Labyrintti, josta halutaan löytää lyhin reitti.
+     * @return Labyrintti 
      */
-    public static int[][] breadthFirst(int[][] path) {
+    public static void breadthFirst(int[][] path) {
         int x = path.length;
         int y = path[0].length;
-        int currentX;
-        int currentY;
         boolean visited[][] = new boolean[x][y];
         int tree[][] = new int[x][y];
-//        ArrayDeque<Integer> queue = new ArrayDeque();
-        Queue queueNew = new Queue();
+        Queue queue = new Queue();
         visited[1][1] = true;
-//        queue.add(coordinateToIndex(1,1,x));
-        queueNew.push(coordinateToIndex(1,1,x));
+        queue.push(coordinateToIndex(1,1,x));
         while(!visited[x-2][y-2]) {
-//            int current = queue.remove();
-            int current = queueNew.pop();
-            for(int i = -1; i < 2; i++) {
-                for(int j = -1; j < 2; j++) {
-                    currentX = indexToX(current,x)+i;
-                    currentY = indexToY(current,x)+j;
-                    if(path[currentX][currentY] == 0 || !(j == 0 && i != 0 || j != 0 && i == 0))
-                        continue;    
-                    if(!visited[currentX][currentY]){
-                        visited[currentX][currentY] = true;
-                        tree[currentX][currentY] =  current;
-                        path[currentX][currentY] += 2;
-//                        queue.add(coordinateToIndex(currentX, currentY, x));
-                        queueNew.push(coordinateToIndex(currentX,currentY,x));
-                    }
-                }
-            }
+            int current = queue.pop();
+            neighbours(x,current,queue,path,tree,visited);
         }
-        return shortestPath(path, tree, x, y);
+        shortestPath(path, tree, x, y);
     }
     
     /**
-     * Muuta queue -> priorityQueue ja laske jokaiselle ruudulle etäisyysarvio, mikä
-     * laitetaan kyseiseen jonoon. etäisyysarvion pitää viitata jotenkin kyseiseen
-     * ruutuun. eteisyysarvio ei ole yksikäsitteinen. kahdella ruudulla voi olla sama
-     * etäisyysarivo. aputietorakenne tarpeellinen!
+     * Metodi etsii lyhyimmän reitin labyrintin vasemmasta yläkulmasta oikeaan alakulmaan
+     * käyttäen A* algoritmia.
      * 
-     * @param maze
+     * @param maze Labyrintti, josta halutaan löytää lyhin reitti.
      * @return 
      */
-    public static int[][] aStar(int[][] path) {
+    public static void aStar(int[][] path) {
         int x = path.length;
         int y = path[0].length;
-        int currentX;
-        int currentY;
         boolean visited[][] = new boolean[x][y];
         int tree[][] = new int[x][y];
         PriorityQueue<Estimate> queue = new PriorityQueue();
@@ -78,26 +53,50 @@ public class Solver {
         queue.add(new Estimate(1,1,x-2,y-2,x));
         while(!visited[x-2][y-2]) {
             int current = queue.poll().getIndex();
-            for(int i = -1; i < 2; i++) {
-                for(int j = -1; j < 2; j++) {
-                    currentX = indexToX(current,x)+i;
-                    currentY = indexToY(current,x)+j;
-                    if(path[currentX][currentY] == 0 || !(j == 0 && i != 0 || j != 0 && i == 0))
-                        continue;    
-                    if(!visited[currentX][currentY]){
-                        visited[currentX][currentY] = true;
-                        tree[currentX][currentY] =  current;
-                        path[currentX][currentY] += 3;
-                        queue.add(new Estimate(currentX,currentY,x-2,y-2,x));
-                    }
+            neighbours(x,y,current,queue,path,tree,visited);
+        }
+        shortestPath(path, tree, x, y);  
+    }
+    
+    private static void neighbours(int x, int current, Queue queue, int[][] path, int[][] tree, boolean[][] visited){
+        int currentX;
+        int currentY;
+        for(int i = -1; i < 2; i++) {
+            for(int j = -1; j < 2; j++) {
+                currentX = indexToX(current,x)+i;
+                currentY = indexToY(current,x)+j;
+                if(path[currentX][currentY] == 0 || !(j == 0 && i != 0 || j != 0 && i == 0))
+                    continue;    
+                if(!visited[currentX][currentY]){
+                    visited[currentX][currentY] = true;
+                    tree[currentX][currentY] =  current;
+                    path[currentX][currentY] += 2;
+                    queue.push(coordinateToIndex(currentX,currentY,x));
                 }
             }
         }
-        return shortestPath(path, tree, x, y);  
     }
     
+    private static void neighbours(int x, int y, int current, PriorityQueue queue, int[][] path, int[][] tree, boolean[][] visited){
+        int currentX;
+        int currentY;
+        for(int i = -1; i < 2; i++) {
+            for(int j = -1; j < 2; j++) {
+                currentX = indexToX(current,x)+i;
+                currentY = indexToY(current,x)+j;
+                if(path[currentX][currentY] == 0 || !(j == 0 && i != 0 || j != 0 && i == 0))
+                    continue;    
+                if(!visited[currentX][currentY]){
+                    visited[currentX][currentY] = true;
+                    tree[currentX][currentY] =  current;
+                    path[currentX][currentY] += 3;
+                    queue.add(new Estimate(currentX,currentY,x-2,y-2,x));
+                }
+            }
+        }
+    }
     
-    private static int[][] shortestPath(int[][] path, int[][] tree, int x, int y){
+    private static void shortestPath(int[][] path, int[][] tree, int x, int y){
         int current = tree[x-2][y-2];
         path[x-2][y-2] = 11;
         path[1][1] = 11;
@@ -105,7 +104,6 @@ public class Solver {
             path[indexToX(current,x)][indexToY(current,x)] = 11;
             current = tree[indexToX(current,x)][indexToY(current,x)];
         }
-        return path;
     }
     
     /**
