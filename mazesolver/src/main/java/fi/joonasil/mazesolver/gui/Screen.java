@@ -16,7 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
- *
+ * Graafisen käyttöliittymän luokka. Luo käyttöliitymän ulkoasun.
  * @author Joonas
  */
 public class Screen {
@@ -27,6 +27,9 @@ public class Screen {
         setScene();
     }
     
+    /**
+     * Asettaa ikkunaan uuden näkymän.
+     */
     public void setScene() {
         VBox layout = new VBox();
         HBox hbox = new HBox();
@@ -36,20 +39,28 @@ public class Screen {
         scene = new Scene(layout, 1240, 720);
     }
     
+    /**
+     * Palauttaa tämänhetkisen näkymän. 
+     * @return Näkymä.
+     */
     public Scene getScene() {
         return this.scene;
     }
        
+    /**
+     * 
+     * @return 
+     */
     public static ScrollPane setImage() {
         Maze maze = Mazesolver.getMaze();
         final int newX = 2*maze.getX()+1;
         final int newY = 2*maze.getY()+1;
         final int sum = newX+newY;
-        int multiplier = 4;
+        int multiplier = 2;
         if(sum < 500)
-            multiplier = 8;
+            multiplier = 4;
         if(sum > 2000)
-            multiplier = 2;
+            multiplier = 1;
         ImageView image = maze.getImage();
         image.setFitHeight(newY*multiplier);
         image.setFitWidth(newX*multiplier);
@@ -60,14 +71,13 @@ public class Screen {
     public static VBox setInfo() {
         VBox info = new VBox();
         Maze maze = Mazesolver.getMaze();
-        long start = System.currentTimeMillis();
-        Label generate = new Label("Time to generate: " + maze.getTimeToGenerate() + "ms");
-        maze.solveBreadthFrist();
-        Label bfs = new Label("Time to solve bfs: " + (System.currentTimeMillis()-start) + "ms");
         
-        start = System.currentTimeMillis();
-        maze.solveAStar();
-        Label astar = new Label("Time to solve a*: " + (System.currentTimeMillis()-start) + "ms");
+        Label generate = new Label("Time to generate: " + maze.getTimeToGenerate()/1000000 + "ms");
+        long time = maze.solveBreadthFrist();
+        Label bfs = new Label("Time to solve bfs: " + (time/1000000) + "ms");
+        
+        time = maze.solveAStar();
+        Label astar = new Label("Time to solve a*: " + (time/1000000) + "ms");
         
         final int newX = 2*maze.getX()+1;
         final int newY = 2*maze.getY()+1;

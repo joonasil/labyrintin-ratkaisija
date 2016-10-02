@@ -23,14 +23,17 @@ public class Menus {
         
         MenuItem selectMaze = new MenuItem("Generate Maze");
         MenuItem quitMaze = new MenuItem("Quit Program");
+        MenuItem logMenu = new MenuItem("Data logger");
         
         selectMaze.setOnAction(e -> {
             CreateMaze.display();
         });
         quitMaze.setOnAction(e -> Main.close());
-
-        mazeMenu.getItems().addAll(selectMaze, quitMaze);
-        menuBar.getMenus().add(mazeMenu);
+        
+        logMenu.setOnAction(e -> DataLogger.display());
+        
+        mazeMenu.getItems().addAll(selectMaze, logMenu, quitMaze);
+        menuBar.getMenus().addAll(mazeMenu);
         return menuBar;
     }
 }

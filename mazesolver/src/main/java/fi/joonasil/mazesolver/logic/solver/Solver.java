@@ -18,8 +18,7 @@ public class Solver {
     /**
      * Metodi etsii lyhimmän reitin labyrintin ylävasemmasta nurkasta alaoikeaan nurkkaan.
      * Etsimiseen käytetään leveyssuuntaista läpikäyntiä.
-     * @param maze Labyrintti, josta halutaan löytää lyhin reitti.
-     * @return Labyrintti 
+     * @param path Labyrintti, josta halutaan löytää lyhin reitti.
      */
     public static void breadthFirst(int[][] path) {
         int x = path.length;
@@ -40,8 +39,7 @@ public class Solver {
      * Metodi etsii lyhyimmän reitin labyrintin vasemmasta yläkulmasta oikeaan alakulmaan
      * käyttäen A* algoritmia.
      * 
-     * @param maze Labyrintti, josta halutaan löytää lyhin reitti.
-     * @return 
+     * @param path Labyrintti, josta halutaan löytää lyhin reitti.
      */
     public static void aStar(int[][] path) {
         int x = path.length;
@@ -58,6 +56,16 @@ public class Solver {
         shortestPath(path, tree, x, y);  
     }
     
+    /**
+     * Lisää jonoon bfs algoritmin tämänhetkisen indeksin viereiset indeksin, joita ei ole vielä
+     * käyty läpi algoritmin toimesta.
+     * @param x Labyrintin leveys.
+     * @param current Algoritmin tämänhetkinen indeksi.
+     * @param queue Jono, josta algoritmi ottaa seuraavan indeksin tarkasteltavaksi.
+     * @param path Labyrintti kaksiuloitteisena kokonaislukutaulukona esitettynä.
+     * @param tree Kaksiuloitteinen lista, mikä tallentaa lyhyimmän reitin labyrintin läpi.
+     * @param visited Kaksiuloitteinen lista, mikä pitää kirjaa vierailluista indekseistä.
+     */
     private static void neighbours(int x, int current, Queue queue, int[][] path, int[][] tree, boolean[][] visited){
         int currentX;
         int currentY;
@@ -77,6 +85,17 @@ public class Solver {
         }
     }
     
+    /**
+     * Lisää prioriteettijonoon a* algoritmin tämänhetkisen indeksin viereiset indeksin, joita ei ole vielä
+     * käyty läpi algoritmin toimesta.
+     * @param x Labyrintin leveys.
+     * @param y Labyrintin korkeus.
+     * @param current Algoritmin tämänhetkinen indeksi.
+     * @param queue Prioriteettijono, josta algoritmi ottaa seuraavan indeksin tarkasteltavaksi.
+     * @param path Labyrintti kaksiuloitteisena kokonaislukutaulukona esitettynä.
+     * @param tree Kaksiuloitteinen lista, mikä tallentaa lyhyimmän reitin labyrintin läpi.
+     * @param visited Kaksiuloitteinen lista, mikä pitää kirjaa vierailluista indekseistä.
+     */
     private static void neighbours(int x, int y, int current, PriorityQueue queue, int[][] path, int[][] tree, boolean[][] visited){
         int currentX;
         int currentY;
@@ -96,6 +115,13 @@ public class Solver {
         }
     }
     
+    /**
+     * "Piirtää" lyhimmän reitin labyrinttiin.
+     * @param path Labyrintti kaksiuloitteisena kokonaislukutaulukona esitettynä.
+     * @param tree Kaksiuloitteinen lista, mikä tallentaa lyhyimmän reitin labyrintin läpi.
+     * @param x Labyrintin leveys.
+     * @param y Labyrintin korkeus.
+     */
     private static void shortestPath(int[][] path, int[][] tree, int x, int y){
         int current = tree[x-2][y-2];
         path[x-2][y-2] = 11;

@@ -33,9 +33,9 @@ public class Maze {
         Random rand = new Random();
         this.x = x;
         this.y = y;
-        long start = System.currentTimeMillis();
+        long start = System.nanoTime();
         maze = Generator.generatePrim(rand, x, y);
-        timeToGenerate = System.currentTimeMillis()-start;
+        timeToGenerate = System.nanoTime()-start;
         image = ImageConverter.getImage(maze, x, y);
     }
     
@@ -50,19 +50,25 @@ public class Maze {
         Random rand = new Random(seed);
         this.x = x;
         this.y = y;
-        long start = System.currentTimeMillis();
+        long start = System.nanoTime();
         maze = Generator.generatePrim(rand,x,y);
-        timeToGenerate = System.currentTimeMillis()-start;
+        timeToGenerate = System.nanoTime()-start;
     }
     
-    public void solveBreadthFrist() {
+    public long solveBreadthFrist() {
+        long start = System.nanoTime();
         Solver.breadthFirst(maze);
+        long end = System.nanoTime()-start;
         this.image = ImageConverter.getImage(maze, x, y);
+        return end;
     }
     
-    public void solveAStar() {
+    public long solveAStar() {
+        long start = System.nanoTime();
         Solver.aStar(maze);
+        long end = System.nanoTime()-start;
         this.image = ImageConverter.getImage(maze, x, y);
+        return end;
     }
     
     public int[][] getMaze(){
@@ -84,40 +90,4 @@ public class Maze {
     public ImageView getImage() {
         return this.image;
     }
-    
-    /**
-     * Apumetodi metodille toString, koska jokaisen ruudun esittämiseen tarvitaan
-     * ainakin tällä hetkellä 3x3 ruudukko merkkejä. 
-     * 
-     * @param i Mikä kolmesta labyrintin yhdellä rivillä olevien ruutujen riveistä
-     * halutaan.
-     * @param currentRow Millä labyritin rivillä mennään.
-     * @return Yksi labyrintin rivi acii koodina.
-     */
-//    private String getRow(int i, int currentRow){
-//        String row = "";
-//        int[] temp = new int[9];
-//        for(int k = currentRow*x; k < currentRow*x+x; k++){
-//            temp = output[k].getMap();
-//            for(int j = (i*3); j < (i*3)+3; j++) {
-//                row += "" + temp[j];
-//            }
-//        }
-//        return row;
-//    }
-    
-   /**
-    *  Jee se toimii! Metodi palauttaa acii esityksen labyrintistä. 
-    * 
-    * @return Labyrintti acii koodina.
-    */
-//    public String toString() {
-//        String output = "";
-//        for(int i = 0; i < y; i++) {
-//            for(int j = 0; j < 3; j++) {
-//                output += getRow(j,i) + "\n";
-//            }
-//        }        
-//        return output;
-//    }
 }
