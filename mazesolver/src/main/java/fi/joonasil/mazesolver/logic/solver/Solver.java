@@ -21,18 +21,18 @@ public class Solver {
      * @param path Labyrintti, josta halutaan löytää lyhin reitti.
      */
     public static void breadthFirst(int[][] path) {
-        int x = path.length;
-        int y = path[0].length;
-        boolean visited[][] = new boolean[x][y];
-        int tree[][] = new int[x][y];
-        Queue queue = new Queue();
-        visited[1][1] = true;
-        queue.push(coordinateToIndex(1,1,x));
-        while(!visited[x-2][y-2]) {
-            int current = queue.pop();
-            neighbours(x,current,queue,path,tree,visited);
+        int x = path.length; /*O(1)*/
+        int y = path[0].length; /*O(1)*/
+        boolean visited[][] = new boolean[x][y]; /*O(x*y)*/
+        int tree[][] = new int[x][y]; /*O(x*y)*/
+        Queue queue = new Queue(); /*O(1)*/
+        visited[1][1] = true; /*O(1)*/
+        queue.push(coordinateToIndex(1,1,x)); /*O(1)*/
+        while(!visited[x-2][y-2]) { /*O(x*y) worst case O(x+y) best case*/
+            int current = queue.pop(); /*O(1)*/
+            neighbours(x,current,queue,path,tree,visited); /*O(1)*/
         }
-        shortestPath(path, tree, x, y);
+        shortestPath(path, tree, x, y); /*O(x+y)*/
     }
     
     /**

@@ -10,7 +10,6 @@ import fi.joonasil.mazesolver.logic.generator.Wall;
 import fi.joonasil.mazesolver.util.TreeMap;
 
 import java.util.Random;
-//import java.util.TreeMap;
 
 /**
  *
@@ -30,7 +29,6 @@ public class Generator {
            output[i] = new Path(x,y,i);
         }
         output[current].setToMaze();
-//        TreeMap<Integer, Wall> wallsOfPathInMaze = new TreeMap<>();
         TreeMap<Wall> wallsOfPathInMaze = new TreeMap<>();
         LinkedList<Wall> walls = output[current].getWalls();
         index = addWalls(index, wallsOfPathInMaze, walls);
