@@ -14,4 +14,4 @@ Testit ja javadoc vähän jäljessä muuta sovellusta, mutta niitä teen sitten 
 
 Opin tällä viikolla toteuttamaan keko ja avl-puu tietorakenteet. Koodikatselmointia tehdessä tutustuin uuteen verkon ratkaisualgoritmiin, jonka voisi aikataulun salliessa toteuttaa. Oman projektin issueta lukiessani sain lisää vaihtoehtoja labyrintin generointialgoritmeihin ja huomasin taas kuinka ärsyttävä maven voi olla :/
 
-Ei tässä oikeestaan mitään epäselvää oo tällä hetkellä. Kunhan löytää vähän paremmin aikaa tehdä projektia niin ei pitäisi olla ongelmia. Seuraavaksi olisi tarkoitus tehdä lisää dokumentaatioita ja enemmän aikavaativuustestejä. Labyrintin generointialgoritmia olisi kiva tehostaa/tehdä toinen algoritmi ja ehkä kolmas ratkaisualgoritmi.
+Ei tässä oikeestaan mitään epäselvää oo tällä hetkellä. Kunhan löytää vähän paremmin aikaa tehdä projektia niin ei pitäisi olla ongelmia. Seuraavaksi olisi tarkoitus tehdä lisää dokumentaatioita ja enemmän aikavaativuustestejä. Labyrintin generointialgoritmia olisi kiva tehostaa/tehdä toinen algoritmi ja ehkä kolmas ratkaisualgoritmi. Koodin luettavuutta voisin myös parantaa siistimällä ja jakamalla koodia.
