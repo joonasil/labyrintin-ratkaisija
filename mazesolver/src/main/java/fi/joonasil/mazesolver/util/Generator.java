@@ -7,7 +7,6 @@ package fi.joonasil.mazesolver.util;
 
 import fi.joonasil.mazesolver.logic.generator.Path;
 import fi.joonasil.mazesolver.logic.generator.Wall;
-import fi.joonasil.mazesolver.util.TreeMap;
 
 import java.util.Random;
 
@@ -21,35 +20,97 @@ public class Generator {
      * Generoi labyrintin käyttäen randomisoitua Primin algoritmia.
      * 
      * @param rand Satunnaislukugeneraattori labyrintin luomista varten.
+     * @param x Labyrintin leveys.
+     * @param y Labyrintin korkeus.
      */
     public static int[][] generatePrim(Random rand, int x, int y){
         int size = x*y, first, second, current = rand.nextInt(size), index = 0;
         Path[] output = new Path[size];
+        
         for(int i = 0; i < x*y; i++) {
            output[i] = new Path(x,y,i);
         }
+        
         output[current].setToMaze();
-        TreeMap<Wall> wallsOfPathInMaze = new TreeMap<>();
+        TreeMap<Wall> wallMap = new TreeMap<>();
+//        HashMap<Integer, Wall> hash = new HashMap<>();
         LinkedList<Wall> walls = output[current].getWalls();
-        index = addWalls(index, wallsOfPathInMaze, walls);
-        while(!wallsOfPathInMaze.isEmpty()) {
+        
+        index = addWalls(index, wallMap, walls);
+        
+        while(!wallMap.isEmpty()) {
             current = rand.nextInt(index);
-            first = wallsOfPathInMaze.get(current).getFirst();
-            second = wallsOfPathInMaze.get(current).getSecond();
-            index = wallsOfPathInMaze.lastKey();
-            wallsOfPathInMaze.replace(current, wallsOfPathInMaze.remove(index));  
+            first = wallMap.get(current).getFirst();
+            second = wallMap.get(current).getSecond();
+            index--;
+            wallMap.replace(current, wallMap.remove(index));  
+            
             if(output[first].isPartOfMaze() ^ output[second].isPartOfMaze()) {
                 output[first].openWall(second);
                 output[second].openWall(first);
+                
                 if(output[first].isPartOfMaze() == false) {
-                    index = setToMaze(output, first, index, wallsOfPathInMaze, walls);
+                    index = setToMaze(output, first, index, wallMap, walls);
                 } else {
-                    index = setToMaze(output, second, index, wallsOfPathInMaze, walls);
+                    index = setToMaze(output, second, index, wallMap, walls);
                 }
             }
         }
         return changeDatatype(output,x,y);
     }
+    
+    /**
+     * Generoi labyrintin käyttäen depth-first search algoritmia.
+     * @param rand Satunnaislukugeneraattori labyrintin luomista varten.
+     * @param x Labyrintin leveys.
+     * @param y Labyrintin korkeus.
+     * @return 
+     */
+    public static int[][] generateDFS(Random rand, int x, int y){
+        int size = x*y, first, second, current = rand.nextInt(size);
+        int unvisited = size-1;
+        Path[] output = new Path[size];
+        LinkedList<Wall> walls;
+        Wall wall;
+        Path currentPath;
+        LinkedList<Path> stack = new LinkedList<>();
+        for(int i = 0; i < x*y; i++) {
+           output[i] = new Path(x,y,i);
+        }
+        (currentPath = output[current]).setToMaze();
+        while(unvisited != 0){
+            walls = currentPath.getUnopenedWalls();
+            removeWalls(walls, output);
+            if(walls.size() != 0){
+                wall = walls.get(rand.nextInt(walls.size()));
+                first = wall.getFirst();
+                second = wall.getSecond();
+                openWall(first, second, output);
+                
+                stack.add(currentPath);
+                (currentPath = output[second]).setToMaze();
+                unvisited--;
+            } else if(stack.size() != 0){
+                currentPath = stack.removeLast();
+            }
+        }
+        return changeDatatype(output,x,y);
+    }
+    
+    private static void openWall(int first, int second, Path[] output){
+        output[first].openWall(second);
+        output[second].openWall(first);
+    }
+    
+    private static void removeWalls(LinkedList<Wall> walls, Path[] output){
+        for(int i = 0; i < walls.size(); i++){
+            if(output[walls.get(i).getFirst()].isPartOfMaze() && output[walls.get(i).getSecond()].isPartOfMaze()){
+                walls.remove(i);
+                i--;
+            }
+        }
+    }
+    
     
     /**
      * Metodi asettaa yhden ruudun osaksi labyrinttiä.
@@ -61,10 +122,10 @@ public class Generator {
      * @param walls Lisättävänä olevan ruudun seinät, jotka lisätään yllä olevaan listaan.
      * @return 
      */
-    private static int setToMaze(Path[] output, int current, int index, TreeMap<Wall> wallsOfPathInMaze, LinkedList<Wall> walls) {
+    private static int setToMaze(Path[] output, int current, int index, TreeMap<Wall> wallMap, LinkedList<Wall> walls) {
         output[current].setToMaze();
         walls = output[current].getWalls();
-        return addWalls(index, wallsOfPathInMaze, walls);
+        return addWalls(index, wallMap, walls);
     }
     
     /**
@@ -75,11 +136,11 @@ public class Generator {
      * @param walls Sama kuin edellisessä metodissa.
      * @return 
      */
-    private static int addWalls(int index, TreeMap<Wall> wallsOfPathInMaze, LinkedList<Wall> walls) {
+    private static int addWalls(int index, TreeMap<Wall> wallMap, LinkedList<Wall> walls) {
         for(int i = 0; i < walls.size(); i++) {
             if(!walls.get(i).isOpen()) {
-               wallsOfPathInMaze.put(index, walls.get(i));
-               index++; 
+               wallMap.put(index, walls.get(i));
+               index++;
             }
         }
         return index;

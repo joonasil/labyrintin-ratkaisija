@@ -73,6 +73,9 @@ public class Screen {
         Maze maze = Mazesolver.getMaze();
         
         Label generate = new Label("Time to generate: " + maze.getTimeToGenerate()/1000000 + "ms");
+        
+        Label genAlg = new Label("Generation algorithm: " + maze.getGenAlg());
+        
         long time = maze.solveBreadthFrist();
         Label bfs = new Label("Time to solve bfs: " + (time/1000000) + "ms");
         
@@ -86,8 +89,8 @@ public class Screen {
         bfs.setStyle("-fx-font-weight: bold");
         astar.setStyle("-fx-font-weight: bold");
         generate.setStyle("-fx-font-weight: bold");
-        info.getChildren().add(size);
-        info.getChildren().addAll(generate,bfs,astar);
+        genAlg.setStyle("-fx-font-weight: bold");
+        info.getChildren().addAll(genAlg,size,generate,bfs,astar);
         info.setMinWidth(250);
         info.setSpacing(10);
         info.setPadding(new Insets(0, 10, 0, 10));

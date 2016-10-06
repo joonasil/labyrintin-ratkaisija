@@ -1,7 +1,7 @@
+fi\joonasil\mazesolver\gui\ImageConverter.class
+fi\joonasil\mazesolver\logic\generator\Path.class
 fi\joonasil\mazesolver\util\Tree.class
 fi\joonasil\mazesolver\Mazesolver.class
 fi\joonasil\mazesolver\logic\generator\Wall.class
-fi\joonasil\mazesolver\gui\ImageConverter.class
 fi\joonasil\mazesolver\logic\generator\Maze.class
 fi\joonasil\mazesolver\logic\solver\Solver.class
-fi\joonasil\mazesolver\logic\generator\Path.class

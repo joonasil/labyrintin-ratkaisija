@@ -4,9 +4,11 @@ package fi.joonasil.mazesolver.gui;
 import fi.joonasil.mazesolver.Main;
 import fi.joonasil.mazesolver.Mazesolver;
 import fi.joonasil.mazesolver.logic.generator.Maze;
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -94,15 +96,23 @@ public class CreateMaze {
         seedInput.setPromptText("Leave plank for random.");
         GridPane.setConstraints(seedInput, 1, 3);
         
+        Label gen = new Label("Generation algorithm:");
+        gen.setStyle("-fx-font-weight: bold");
+        GridPane.setConstraints(gen, 0, 4);
+        
+        ChoiceBox<String> genAlg = new ChoiceBox<String>(FXCollections.observableArrayList("Prim's","Depth-first search"));
+        genAlg.getSelectionModel().selectFirst();
+        GridPane.setConstraints(genAlg, 1, 4);
+        
         Button close = new Button("Close");
-        GridPane.setConstraints(close, 0, 4);
+        GridPane.setConstraints(close, 0, 5);
         close.setOnAction(e -> window.close());
         
         Button create = new Button("Generate");
-        GridPane.setConstraints(create, 1, 4);
-        create.setOnAction(e -> validateInput(layout, widthInput, heightInput, seedInput));
+        GridPane.setConstraints(create, 1, 5);
+        create.setOnAction(e -> validateInput(layout, widthInput, heightInput, seedInput, genAlg));
         
-        layout.getChildren().addAll(width,widthInput,height,heightInput,seed,seedInput,close,create);
+        layout.getChildren().addAll(width,widthInput,height,heightInput,seed,seedInput,gen,genAlg,close,create);
         layout.setVgap(8);
         layout.setHgap(10);
         layout.setPadding(new Insets(10,10,10,10));
@@ -116,7 +126,7 @@ public class CreateMaze {
      * @param height Annettu syöte labyrintin korkeudeksi.
      * @param seed Annettu syöte labyrintin generoinnin seediksi.
      */
-    private static void validateInput(GridPane grid, TextField width, TextField height, TextField seed) {
+    private static void validateInput(GridPane grid, TextField width, TextField height, TextField seed, ChoiceBox<String> genAlg) {
         
         width.setStyle("-fx-background-color: #FFFFFF;");
         height.setStyle("-fx-background-color: #FFFFFF;");
@@ -161,13 +171,13 @@ public class CreateMaze {
             return;
         }
         if(isInt(width) && isInt(height) && seed.getText().isEmpty()) {
-            Mazesolver.setMaze(new Maze(x,y));
+            Mazesolver.setMaze(new Maze(x,y,genAlg.getSelectionModel().getSelectedIndex()));
             Mazesolver.getScreen().setScene();
             Main.setScene(Mazesolver.getScreen().getScene());
             window.close();
         }
         if(isInt(width) && isInt(height) && !seed.getText().isEmpty()) {
-            Mazesolver.setMaze(new Maze(x,y,Integer.parseInt(seed.getText())));
+            Mazesolver.setMaze(new Maze(x,y,(long)Integer.parseInt(seed.getText()),genAlg.getSelectionModel().getSelectedIndex()));
             Mazesolver.getScreen().setScene();
             Main.setScene(Mazesolver.getScreen().getScene());
             window.close();

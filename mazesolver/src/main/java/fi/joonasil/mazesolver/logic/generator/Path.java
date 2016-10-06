@@ -96,6 +96,19 @@ public class Path {
         return this.walls;
     }
     
+    public Wall getWall(int index){
+        return walls.get(index);
+    }
+    
+    public LinkedList<Wall> getUnopenedWalls() {
+        LinkedList<Wall> unopened = new LinkedList<>();
+        for(int i = 0; i < this.walls.size(); i++){
+            if(!this.walls.get(i).isOpen())
+                unopened.add(this.walls.get(i));
+        }
+        return unopened;
+    }
+    
     /**
      * Metodi palauttaa kokonaislukuesityksen ruudusta.
      * @return Lista kokonaislukuja, jotka esittävät ruudun tilaa.

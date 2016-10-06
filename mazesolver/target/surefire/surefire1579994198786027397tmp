@@ -1,0 +1,7 @@
+#surefire
+#Wed Oct 05 23:20:35 EEST 2016
+maven.ext.class.path=D\:\\Program Files\\NetBeans 8.1\\java\\maven-nblib\\netbeans-eventspy.jar
+user.dir=D\:\\GitHub\\labyrintin-ratkaisija\\mazesolver
+file.encoding=UTF-8
+localRepository=C\:\\Users\\Joonas\\.m2\\repository
+basedir=D\:\\GitHub\\labyrintin-ratkaisija\\mazesolver

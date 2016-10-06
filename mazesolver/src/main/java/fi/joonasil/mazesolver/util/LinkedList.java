@@ -16,7 +16,7 @@ public class LinkedList <T>{
      * Konstruktori luo uuden tyhjän linkitetyn listan.
      */
     public LinkedList() {
-        first = new Node<>(null,null);
+        first = new Node<>(null,null,null);
         size = 0;
     }
     
@@ -34,12 +34,14 @@ public class LinkedList <T>{
      */
     public void add(T data) {
         Node<T> l = last;
-        Node<T> newNode = new Node(data, null);
+        Node<T> newNode = new Node(data, null, l);
         last = newNode;
         if(l == null)
             first = newNode;
-        else
+        else{
             l.next = newNode;
+            newNode.prev = l;
+        }
         size++;
     }
     
@@ -53,11 +55,38 @@ public class LinkedList <T>{
         return node(index).data;
     }
     
+    
     public T removeFirst(){
         T out = first.data;
         first = first.next;
         size--;
+        if(size == 0)
+            last = null;
+        if(first == null)
+            return out;
+        first.prev = null;
         return out;
+    }
+    
+    public T removeLast(){
+        T out = last.data;
+        last = last.prev;
+        last.next = null;
+        size--;
+        return out;
+    }
+    
+    public T remove(int index){
+        if(index == 0)
+            return removeFirst();
+        if(index == size-1)
+            return removeLast();
+        Node<T> out = node(index);
+        Node<T> prev = node(index-1);
+        prev.next = out.next;
+        prev.next.prev = prev;
+        size--;
+        return out.data;
     }
     
     /**
@@ -85,10 +114,12 @@ public class LinkedList <T>{
     private static class Node<T>{
         T data;
         Node<T> next;
+        Node<T> prev;
         
-        Node(T data, Node<T> next) {
+        Node(T data, Node<T> next, Node<T> prev) {
             this.data = data;
             this.next = next;
+            this.prev = prev;
         }
     }
     

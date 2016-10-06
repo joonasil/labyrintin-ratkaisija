@@ -6,6 +6,7 @@
 package fi.joonasil.mazesolver.logic.solver;
 
 import fi.joonasil.mazesolver.util.Estimate;
+import fi.joonasil.mazesolver.util.LinkedList;
 import fi.joonasil.mazesolver.util.PriorityQueue;
 import fi.joonasil.mazesolver.util.Queue;
 
@@ -23,13 +24,14 @@ public class Solver {
     public static void breadthFirst(int[][] path) {
         int x = path.length; /*O(1)*/
         int y = path[0].length; /*O(1)*/
+        int current = 0;
         boolean visited[][] = new boolean[x][y]; /*O(x*y)*/
         int tree[][] = new int[x][y]; /*O(x*y)*/
         Queue queue = new Queue(); /*O(1)*/
         visited[1][1] = true; /*O(1)*/
         queue.push(coordinateToIndex(1,1,x)); /*O(1)*/
         while(!visited[x-2][y-2]) { /*O(x*y) worst case O(x+y) best case*/
-            int current = queue.pop(); /*O(1)*/
+            current = queue.pop(); /*O(1)*/
             neighbours(x,current,queue,path,tree,visited); /*O(1)*/
         }
         shortestPath(path, tree, x, y); /*O(x+y)*/

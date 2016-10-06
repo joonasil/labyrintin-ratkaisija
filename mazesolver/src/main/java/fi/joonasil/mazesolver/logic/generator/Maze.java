@@ -21,7 +21,7 @@ public class Maze {
     private int[][] maze;
     private final int x;
     private final int y;
-    
+    private final String genAlg;
     /**
      * 
      * Konstruktori luo uuden labyrintin käyttäen randomisoitua primin algoritmia tällä hetkellä.
@@ -35,6 +35,23 @@ public class Maze {
         this.y = y;
         long start = System.nanoTime();
         maze = Generator.generatePrim(rand, x, y);
+        genAlg = "Prim's";
+        timeToGenerate = System.nanoTime()-start;
+        image = ImageConverter.getImage(maze, x, y);
+    }
+    
+    public Maze(int x, int y, int genAlg) {
+        Random rand = new Random();
+        this.x = x;
+        this.y = y;
+        long start = System.nanoTime();
+        if(genAlg == 0){
+            maze = Generator.generatePrim(rand, x, y);
+            this.genAlg = "Prim's";
+        }else{
+            maze = Generator.generateDFS(rand, x, y);
+            this.genAlg = "Depth-first search";
+        }
         timeToGenerate = System.nanoTime()-start;
         image = ImageConverter.getImage(maze, x, y);
     }
@@ -50,8 +67,32 @@ public class Maze {
         Random rand = new Random(seed);
         this.x = x;
         this.y = y;
+        this.genAlg = "Prim's";
         long start = System.nanoTime();
         maze = Generator.generatePrim(rand,x,y);
+        timeToGenerate = System.nanoTime()-start;
+    }
+    
+    /**
+     * Konstruktori luo uuden labyrintin käyttäen randomisoitua primin algoritmiä, jolle on annettu tietty seedi.
+     * 
+     * @param x Labyrintin leveys.
+     * @param y Labyrintin korkeus.
+     * @param seed Seedi labyrintin luomista varten.
+     * @param genAlg Mitä generointialgoritmia käytetään.
+     */
+    public Maze(int x, int y, long seed, int genAlg) {
+        Random rand = new Random(seed);
+        this.x = x;
+        this.y = y;
+        long start = System.nanoTime();
+        if(genAlg == 0){
+            maze = Generator.generatePrim(rand, x, y);
+            this.genAlg = "Prim's";
+        }else{
+            maze = Generator.generateDFS(rand, x, y);
+            this.genAlg = "Depth-first search";
+        }
         timeToGenerate = System.nanoTime()-start;
     }
     
@@ -89,5 +130,9 @@ public class Maze {
     
     public ImageView getImage() {
         return this.image;
+    }
+    
+    public String getGenAlg(){
+        return this.genAlg;
     }
 }

@@ -23,12 +23,12 @@ public class Data {
     private Button button;
     private final ImageView image;
     
-    public Data(int x, int y){
-        Maze maze = new Maze(x,y);
+    public Data(int x, int y, int gen){
+        Maze maze = new Maze(x,y, gen);
         generate = maze.getTimeToGenerate()/1000000;
         bfs = maze.solveBreadthFrist()/1000000;
         astar = maze.solveAStar()/1000000;
-        genAlg = "Prim's";
+        genAlg = maze.getGenAlg();
         size = x + " x " + y;
         button = new Button("image");
         button.setOnAction(e -> buttonPressed(x,y));

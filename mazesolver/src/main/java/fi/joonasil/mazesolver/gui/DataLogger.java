@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -98,15 +99,23 @@ public class DataLogger {
         quantityInput.setPromptText("Number of mazes to generate");
         GridPane.setConstraints(quantityInput, 1, 3);
         
+        Label gen = new Label("Generation algorithm:");
+        gen.setStyle("-fx-font-weight: bold");
+        GridPane.setConstraints(gen, 0, 4);
+        
+        ChoiceBox<String> genAlg = new ChoiceBox<String>(FXCollections.observableArrayList("Prim's","Depth-first search"));
+        genAlg.getSelectionModel().selectFirst();
+        GridPane.setConstraints(genAlg, 1, 4);
+        
         Button close = new Button("Close");
         GridPane.setConstraints(close, 0, 5);
         close.setOnAction(e -> window.close());
         
         Button create = new Button("Log Data");
         GridPane.setConstraints(create, 1, 5);
-        create.setOnAction(e -> validateInput(layout, widthInput, heightInput, quantityInput));
+        create.setOnAction(e -> validateInput(layout, widthInput, heightInput, quantityInput, genAlg));
         
-        layout.getChildren().addAll(width,widthInput,height,heightInput,quantity,quantityInput,close,create);
+        layout.getChildren().addAll(width,widthInput,height,heightInput,quantity,quantityInput,gen,genAlg,close,create);
         layout.setVgap(8);
         layout.setHgap(10);
         layout.setPadding(new Insets(10,10,10,10));
@@ -120,7 +129,7 @@ public class DataLogger {
      * @param height Annettu syöte labyrintin korkeudeksi.
      * @param seed Annettu syöte labyrintin generoinnin seediksi.
      */
-    private static void validateInput(GridPane grid, TextField width, TextField height, TextField quantity) {
+    private static void validateInput(GridPane grid, TextField width, TextField height, TextField quantity, ChoiceBox<String> genAlg) {
         
         width.setStyle("-fx-background-color: #FFFFFF;");
         height.setStyle("-fx-background-color: #FFFFFF;");
@@ -177,7 +186,7 @@ public class DataLogger {
         genAvg = bfsAvg = aStarAvg = gMax = bMax = aMax = 0;
         gMin = bMin = aMin = Integer.MAX_VALUE;
         for(int i = 0; i < q; i++){
-            Data d = new Data(x,y);
+            Data d = new Data(x,y,genAlg.getSelectionModel().getSelectedIndex());
             if(d.getGenerate() > gMax)
                 gMax = d.getGenerate();
             if(d.getGenerate() < gMin)
