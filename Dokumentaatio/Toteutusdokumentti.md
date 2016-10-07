@@ -10,7 +10,7 @@ datankeräys toiminnosta, mikä listaa halutun määrän labyrinttejä ja ajat n
 ######Luokkakaavio (tulee myöhemmin)
 
 ### Algoritmien aikavaativuudet
-#### Labyrintin generointi primin algoritmilla
+#### Labyrintin generointi primin algoritmilla !!!!! Algoritmista tehty uusi versio, joten aikavaativuus ei enää päde!!!!!!!
 Algoritmin toimintaperiaate: 
 * aloitetaan ruudukosta täynnä seiniä **O(n)**
 * valitaan satunnainen ruutu, merkataan se osaksi labyrinttia ja laitetaan sen seinät listaan **O(4log(m)) = O(log(m))**
@@ -30,3 +30,4 @@ Seinän poistaminen listasta vie aikaa O(log(m)+log(m)) = O(log(m)), koska avl-p
 Tästä nähdään, että algoritmin teoreettinen aikavaativuus on O(nlog(m)). While loopin sisällä tapahtuvien listaan kohdistuvien
 operaatioiden määrä on sen verran suuri, että vaikka teoreettinen aikavaativuus ei olekkaan kuin O(nlog(m)), niin algoritmi on silti
 huomattavasti hitaampi kuin labyrintin ratkaisualgoritmit, joiden teoreettinen aikavaativuus pitäisi myös olla O(nlog(n)).
+Generointialgoritmi on nyt yhtä nopea bfs ratkaisualgoritmin kanssa!!!
