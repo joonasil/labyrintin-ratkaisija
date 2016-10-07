@@ -6,7 +6,6 @@
 package fi.joonasil.mazesolver.logic.solver;
 
 import fi.joonasil.mazesolver.util.Estimate;
-import fi.joonasil.mazesolver.util.LinkedList;
 import fi.joonasil.mazesolver.util.PriorityQueue;
 import fi.joonasil.mazesolver.util.Queue;
 

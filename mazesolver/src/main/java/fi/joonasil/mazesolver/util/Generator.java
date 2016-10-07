@@ -24,39 +24,84 @@ public class Generator {
      * @param y Labyrintin korkeus.
      */
     public static int[][] generatePrim(Random rand, int x, int y){
-        int size = x*y, first, second, current = rand.nextInt(size), index = 0;
-        Path[] output = new Path[size];
+        int newX = 2*x+1;
+        int newY = 2*y+1;
+        int index = (1+((newX)*(1+2*rand.nextInt(y)))+2*rand.nextInt(x));
         
-        for(int i = 0; i < x*y; i++) {
-           output[i] = new Path(x,y,i);
+        int[][] maze = new int[newX][newY];
+        ArrayList wallIndex = new ArrayList(rand);
+        maze[indexToX(index,newX)][indexToY(index,newX)] = 1;
+        addWalls(newX,newY,wallIndex,index,maze);
+        while(!wallIndex.isEmpty()){
+            index = wallIndex.getRandom();
+            setToMaze(newX,newY,index,maze,wallIndex);
         }
-        
-        output[current].setToMaze();
-        TreeMap<Wall> wallMap = new TreeMap<>();
-//        HashMap<Integer, Wall> hash = new HashMap<>();
-        LinkedList<Wall> walls = output[current].getWalls();
-        
-        index = addWalls(index, wallMap, walls);
-        
-        while(!wallMap.isEmpty()) {
-            current = rand.nextInt(index);
-            first = wallMap.get(current).getFirst();
-            second = wallMap.get(current).getSecond();
-            index--;
-            wallMap.replace(current, wallMap.remove(index));  
-            
-            if(output[first].isPartOfMaze() ^ output[second].isPartOfMaze()) {
-                output[first].openWall(second);
-                output[second].openWall(first);
-                
-                if(output[first].isPartOfMaze() == false) {
-                    index = setToMaze(output, first, index, wallMap, walls);
-                } else {
-                    index = setToMaze(output, second, index, wallMap, walls);
-                }
-            }
+        return maze;
+    }
+    
+    private static void setToMaze(int x, int y, int index, int[][] maze, ArrayList wallIndex){
+        int newx, newy;
+        if(!(indexToX(index,x) == 1 || indexToX(index,x) == x-2)){
+            if(maze[indexToX(index,x)-1][indexToY(index,x)] == 1 && maze[indexToX(index,x)+1][indexToY(index,x)] == 0){
+                newx = indexToX(index,x)+1;
+                newy = indexToY(index,x);
+                maze[newx][newy] = 1;
+                addWalls(x,y,wallIndex,coordinateToIndex(newx,newy,x),maze);
+                maze[indexToX(index,x)][indexToY(index,x)] = 1;
+            }else if(maze[indexToX(index,x)+1][indexToY(index,x)] == 1 && maze[indexToX(index,x)-1][indexToY(index,x)] == 0){
+                newx = indexToX(index,x)-1;
+                newy = indexToY(index,x);
+                maze[newx][newy] = 1;
+                addWalls(x,y,wallIndex,coordinateToIndex(newx,newy,x),maze);
+                maze[indexToX(index,x)][indexToY(index,x)] = 1;
+            }    
         }
-        return changeDatatype(output,x,y);
+        if(!(indexToY(index,x) == 1 || indexToY(index,x) == y-2)){
+            if(maze[indexToX(index,x)][indexToY(index,x)-1] == 1 && maze[indexToX(index,x)][indexToY(index,x)+1] == 0){
+                newx = indexToX(index,x);
+                newy = indexToY(index,x)+1;
+                maze[newx][newy] = 1;
+                addWalls(x,y,wallIndex,coordinateToIndex(newx,newy,x),maze);
+                maze[indexToX(index,x)][indexToY(index,x)] = 1;
+            }else if(maze[indexToX(index,x)][indexToY(index,x)+1] == 1 && maze[indexToX(index,x)][indexToY(index,x)-1] == 0){
+                newx = indexToX(index,x);
+                newy = indexToY(index,x)-1;
+                maze[newx][newy] = 1;
+                addWalls(x,y,wallIndex,coordinateToIndex(newx,newy,x),maze);
+                maze[indexToX(index,x)][indexToY(index,x)] = 1;
+            }     
+        } 
+    }
+    
+    private static void addWalls(int x, int y, ArrayList wallIndex, int index, int[][] maze){
+        if(!(indexToX(index,x) == 1)){
+            if(maze[indexToX(index,x)-2][indexToY(index,x)] == 0)
+                wallIndex.add(index-1);
+        }
+        if(!(indexToX(index,x) == x-2)){
+            if(maze[indexToX(index,x)+2][indexToY(index,x)] == 0)
+                wallIndex.add(index+1);
+        }
+        if(!(indexToY(index,x) == 1)){
+            if(maze[indexToX(index,x)][indexToY(index,x)-2] == 0)
+                wallIndex.add(index-x);
+        }
+        if(!(indexToY(index,x) == y-2)){
+            if(maze[indexToX(index,x)][indexToY(index,x)+2] == 0)
+                wallIndex.add(index+x);
+        }
+    }
+    
+    private static int indexToX(int index, int x) {
+        return index%x;
+    }
+    
+    private static int indexToY(int index, int x) {
+        return index/x;
+    }
+    
+    private static int coordinateToIndex(int x, int y, int MaxX) {
+        return y*MaxX+x;
     }
     
     /**

@@ -41,7 +41,7 @@ public class CreateMaze {
         window.setMinWidth(200);
         VBox layout = new VBox();
         Label info = new Label("Note: \nLength and height of the generated maze will be \n"
-                + "2 times the size specified. I.e. if the specified space is 100x100 \n"
+                + "2 times the size specified. I.e. if the specified size is 100x100 \n"
                 + "the maze generated will be 200x200 and so will be 4 times larger than specified.");
         info.setStyle("-fx-font-weight: bold");
         layout.getChildren().addAll(info,setLayout());
