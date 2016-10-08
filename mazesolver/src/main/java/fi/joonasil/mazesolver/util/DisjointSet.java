@@ -8,29 +8,44 @@ package fi.joonasil.mazesolver.util;
 /**
  *
  * @author Joonas
- * @param <T>
  */
-public class DisjointSet<T> {
-    private TreeMap<Set<T>> sets;
-    private int size;
-    public DisjointSet(){
-        sets = new TreeMap<>();
-        size = 0;
+public class DisjointSet {
+    private final int[] rank;
+    private final int[] parent;
+    private final int size;
+    
+    public DisjointSet(int size){
+        rank = new int[size];
+        parent = new int[size];
+        this.size = size;
+        makeSet();
     }
     
-    public void makeSet(T data){
-        sets.put(size,new Set(data));
-        size++;
+    private void makeSet(){
+        for(int i = 0; i < size; i++)
+            parent[i] = i;
     }
     
-    private class Set<T>{
-        Set<T> parent;
-        T data;
-        int rank;
-        public Set(T data){
-            parent = null;
-            this.data = data;
-            rank = 1;
+    public int find(int x){
+        if(parent[x] != x)
+            parent[x] = find(parent[x]);
+        return parent[x];
+    }
+    
+    public void union(int x, int y){
+        int rootX = find(x);
+        int rootY = find(y);
+        
+        if(rootX == rootY)
+            return;
+        
+        if(rank[rootX] < rank[rootY]) {
+            parent[rootX] = rootY;
+        } else if(rank[rootY] < rank[rootX]) {
+            parent[rootY] = rootX;
+        } else {
+            parent[rootY] = rootX;
+            rank[rootX] = rank[rootX]+1;
         }
     }
 }

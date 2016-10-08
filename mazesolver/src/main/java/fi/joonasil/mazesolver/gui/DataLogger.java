@@ -103,7 +103,7 @@ public class DataLogger {
         gen.setStyle("-fx-font-weight: bold");
         GridPane.setConstraints(gen, 0, 4);
         
-        ChoiceBox<String> genAlg = new ChoiceBox<String>(FXCollections.observableArrayList("Prim's","Depth-first search"));
+        ChoiceBox<String> genAlg = new ChoiceBox<String>(FXCollections.observableArrayList("Prim's","Depth-first search","Kruskal's"));
         genAlg.getSelectionModel().selectFirst();
         GridPane.setConstraints(genAlg, 1, 4);
         

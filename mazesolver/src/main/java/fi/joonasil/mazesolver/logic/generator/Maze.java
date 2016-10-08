@@ -45,12 +45,21 @@ public class Maze {
         this.x = x;
         this.y = y;
         long start = System.nanoTime();
-        if(genAlg == 0){
-            maze = Generator.generatePrim(rand, x, y);
-            this.genAlg = "Prim's";
-        }else{
-            maze = Generator.generateDFS(rand, x, y);
-            this.genAlg = "Depth-first search";
+        switch (genAlg) {
+            case 0:
+                maze = Generator.generatePrim(rand, x, y);
+                this.genAlg = "Prim's";
+                break;
+            case 1:
+                maze = Generator.generateDFS(rand, x, y);
+                this.genAlg = "Depth-first search";
+                break;
+            case 2:
+                maze = Generator.generateKruskal(rand, x, y);
+                this.genAlg = "Kruskal's";
+                break;
+            default:
+                this.genAlg = "Error";
         }
         timeToGenerate = System.nanoTime()-start;
         image = ImageConverter.getImage(maze, x, y);
@@ -86,12 +95,21 @@ public class Maze {
         this.x = x;
         this.y = y;
         long start = System.nanoTime();
-        if(genAlg == 0){
-            maze = Generator.generatePrim(rand, x, y);
-            this.genAlg = "Prim's";
-        }else{
-            maze = Generator.generateDFS(rand, x, y);
-            this.genAlg = "Depth-first search";
+        switch (genAlg) {
+            case 0:
+                maze = Generator.generatePrim(rand, x, y);
+                this.genAlg = "Prim's";
+                break;
+            case 1:
+                maze = Generator.generateDFS(rand, x, y);
+                this.genAlg = "Depth-first search";
+                break;
+            case 2:
+                maze = Generator.generateKruskal(rand, x, y);
+                this.genAlg = "Kruskal's";
+                break;
+            default:
+                this.genAlg = "Error";
         }
         timeToGenerate = System.nanoTime()-start;
     }

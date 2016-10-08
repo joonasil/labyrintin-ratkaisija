@@ -29,8 +29,10 @@ public class Generator {
         
         int[][] maze = new int[newX][newY];
         ArrayList wallIndex = new ArrayList(rand);
+       
         maze[indexToX(index,newX)][indexToY(index,newX)] = 1;
         addWalls(newX,newY,wallIndex,index,maze);
+       
         while(!wallIndex.isEmpty()){
             index = wallIndex.getRandom();
             setToMaze(newX,newY,index,maze,wallIndex);
@@ -49,15 +51,19 @@ public class Generator {
      */
     private static void setToMaze(int x, int y, int index, int[][] maze, ArrayList wallIndex){
         if(!(indexToX(index,x) == 1 || indexToX(index,x) == x-2)){
+           
             if(maze[indexToX(index,x)-1][indexToY(index,x)] == 1 && maze[indexToX(index,x)+1][indexToY(index,x)] == 0){
                 setX(x,y,index,1,maze,wallIndex);
+           
             }else if(maze[indexToX(index,x)+1][indexToY(index,x)] == 1 && maze[indexToX(index,x)-1][indexToY(index,x)] == 0){
                 setX(x,y,index,-1,maze,wallIndex);
             }    
         }
         if(!(indexToY(index,x) == 1 || indexToY(index,x) == y-2)){
+            
             if(maze[indexToX(index,x)][indexToY(index,x)-1] == 1 && maze[indexToX(index,x)][indexToY(index,x)+1] == 0){
                 setY(x,y,index,1,maze,wallIndex);
+            
             }else if(maze[indexToX(index,x)][indexToY(index,x)+1] == 1 && maze[indexToX(index,x)][indexToY(index,x)-1] == 0){
                 setY(x,y,index,-1,maze,wallIndex);
             }     
@@ -152,12 +158,15 @@ public class Generator {
         int index = (1+((newX)*(1+2*rand.nextInt(y)))+2*rand.nextInt(x));
         int wall;
         int[][] maze = new int[newX][newY];
-        maze[indexToX(index,newX)][indexToY(index,newX)] = 1;
+        
         ArrayList stack = new ArrayList(rand);
         ArrayList neighbours;
         
+        maze[indexToX(index,newX)][indexToY(index,newX)] = 1;
+        
         while(unvisited != 0){
             neighbours = unvisitedNeighbours(newX,newY,index,maze,rand);
+            
             if(!neighbours.isEmpty()){
                 wall = neighbours.getRandom();
                 stack.add(index);
@@ -203,5 +212,54 @@ public class Generator {
                 unvisited.add(index+x);
         }
         return unvisited;
+    }
+    
+    public static int[][] generateKruskal(Random rand, int x, int y){
+        int newX = 2*x+1;
+        int newY = 2*y+1;
+        int size = x*y;
+        int index;
+        int[][]maze = new int[newX][newY];
+        
+        ArrayList walls = new ArrayList(rand);
+        
+        for(int i = 0; i < size; i++){
+            index = smallToBig(i,x,newX);
+            maze[indexToX(index,newX)][indexToY(index,newX)] = 1;
+            if(!(indexToX(index,newX) == newX-2))
+                walls.add(index+1);
+            if(!(indexToY(index,newX) == newY-2))
+                walls.add(index+newX);
+        }
+        
+        DisjointSet cells = new DisjointSet(size);
+        
+        while(!walls.isEmpty()){
+            index = walls.getRandom();
+            if(maze[indexToX(index,newX)+1][indexToY(index,newX)] == 1){
+                if(cells.find(bigToSmall(index-1,x,newX)) != cells.find(bigToSmall(index+1,x,newX))){
+                    maze[indexToX(index,newX)][indexToY(index,newX)] = 1;
+                    cells.union(bigToSmall(index-1,x,newX), bigToSmall(index+1,x,newX));
+                }
+            }else{
+                if(cells.find(bigToSmall(index-newX,x,newX)) != cells.find(bigToSmall(index+newX,x,newX))){
+                    maze[indexToX(index,newX)][indexToY(index,newX)] = 1;
+                    cells.union(bigToSmall(index-newX,x,newX), bigToSmall(index+newX,x,newX));
+                }
+            }
+        }
+        return maze;
+    }
+    
+    private static int bigToSmall(int index, int smallX, int bigX){
+        int x = ((index%bigX)-1)/2;
+        int y = ((index/bigX)-1)/2;
+        return y*smallX+x;
+    }
+    
+    private static int smallToBig(int index, int smallX, int bigX){
+        int x = index%smallX;
+        int y = index/smallX;
+        return (1+((bigX)*(1+2*y))+2*x);
     }
 }
