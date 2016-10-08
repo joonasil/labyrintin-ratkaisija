@@ -76,21 +76,21 @@ public class Screen {
         
         Label genAlg = new Label("Generation algorithm: " + maze.getGenAlg());
         
-        long time = maze.solveBreadthFrist();
-        Label bfs = new Label("Time to solve bfs: " + (time/1000000) + "ms");
+//        long time = maze.solveBreadthFrist();
+//        Label bfs = new Label("Time to solve bfs: " + (time/1000000) + "ms");
         
-        time = maze.solveAStar();
-        Label astar = new Label("Time to solve a*: " + (time/1000000) + "ms");
+//        long time = maze.solveAStar();
+//        Label astar = new Label("Time to solve a*: " + (time/1000000) + "ms");
         
         final int newX = 2*maze.getX()+1;
         final int newY = 2*maze.getY()+1;
         Label size = new Label("Size of maze: " + newX + "x" + newY);
         size.setStyle("-fx-font-weight: bold");
-        bfs.setStyle("-fx-font-weight: bold");
-        astar.setStyle("-fx-font-weight: bold");
+//        bfs.setStyle("-fx-font-weight: bold");
+//        astar.setStyle("-fx-font-weight: bold");
         generate.setStyle("-fx-font-weight: bold");
         genAlg.setStyle("-fx-font-weight: bold");
-        info.getChildren().addAll(genAlg,size,generate,bfs,astar);
+        info.getChildren().addAll(genAlg,size,generate/*,bfs,astar*/);
         info.setMinWidth(250);
         info.setSpacing(10);
         info.setPadding(new Insets(0, 10, 0, 10));
