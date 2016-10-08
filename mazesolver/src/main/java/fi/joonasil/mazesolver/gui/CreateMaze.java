@@ -171,16 +171,16 @@ public class CreateMaze {
             return;
         }
         if(isInt(width) && isInt(height) && seed.getText().isEmpty()) {
+            window.close();
             Mazesolver.setMaze(new Maze(x,y,genAlg.getSelectionModel().getSelectedIndex()));
             Mazesolver.getScreen().setScene();
             Main.setScene(Mazesolver.getScreen().getScene());
-            window.close();
         }
         if(isInt(width) && isInt(height) && !seed.getText().isEmpty()) {
+            window.close();
             Mazesolver.setMaze(new Maze(x,y,(long)Integer.parseInt(seed.getText()),genAlg.getSelectionModel().getSelectedIndex()));
             Mazesolver.getScreen().setScene();
             Main.setScene(Mazesolver.getScreen().getScene());
-            window.close();
         }
     }
     
