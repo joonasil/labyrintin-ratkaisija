@@ -32,12 +32,14 @@ public class ArrayList {
     public int getRandom(){
         int index = rand.nextInt(size);
         size--;
-        if(index == size){
-            return array[index];
-        }
         int temp = array[size];
         array[size] = array[index];
         array[index] = temp;
+        return array[size];
+    }
+    
+    public int pop(){
+        size--;
         return array[size];
     }
     
