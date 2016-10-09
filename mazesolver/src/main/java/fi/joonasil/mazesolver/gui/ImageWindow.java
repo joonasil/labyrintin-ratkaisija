@@ -8,7 +8,6 @@ package fi.joonasil.mazesolver.gui;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**

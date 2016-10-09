@@ -5,6 +5,7 @@
  */
 package fi.joonasil.mazesolver.logic.solver;
 
+import fi.joonasil.mazesolver.util.ArrayList;
 import fi.joonasil.mazesolver.util.Estimate;
 import fi.joonasil.mazesolver.util.PriorityQueue;
 import fi.joonasil.mazesolver.util.Queue;
@@ -55,6 +56,94 @@ public class Solver {
             neighbours(x,y,current,queue,path,tree,visited);
         }
         shortestPath(path, tree, x, y);  
+    }
+    
+    public static void IDA(int[][] maze){
+        int x = maze.length;
+        int y = maze[0].length;
+        int bound = (x-3) + (y-3);
+        int index = coordinateToIndex(1,1,x);
+        int t = 0;
+        
+        
+        while(t != -1){
+            t = search(index,0,0,bound,x,y,maze);
+            bound = t;
+        }
+    }
+    
+    private static int search(int index, int prev, int cost, int bound, int x, int y, int[][] maze){
+        int estimate = (x-2-indexToX(index,x)) + (y-2-indexToY(index,x));
+        int f = cost + estimate;
+        int test = maze[indexToX(index,x)][indexToY(index,x)];
+        if(test == 1 || test == 3 || test == 4 || test == 6){
+            maze[indexToX(index,x)][indexToY(index,x)] += 4;
+            paintWall(index,prev,maze,x);
+        }
+        if(f > bound)
+            return f;
+        if(index == coordinateToIndex(x-2,y-2,x)){
+            maze[indexToX(index,x)][indexToY(index,x)] = 11;
+            paintWallShortest(index,prev,maze,x);
+            return -1;
+        }
+        int min = Integer.MAX_VALUE;
+        int t;
+        ArrayList succ = successors(index,prev,maze,x,y);
+        for(int i = 0; i < succ.size(); i++){
+            t = search(succ.get(i),index,cost+1,bound,x,y,maze);
+            if(t == -1){
+                maze[indexToX(index,x)][indexToY(index,x)] = 11;
+                paintWallShortest(index,prev,maze,x);
+                return -1;
+            }
+            if(t < min)
+                min = t;
+        }
+        return min;
+    }
+    
+    private static void paintWall(int index, int prev, int[][] maze, int x){
+        if(prev == index-2)
+            maze[indexToX(index,x)-1][indexToY(index,x)] += 4;
+        if(prev == index+2)
+            maze[indexToX(index,x)+1][indexToY(index,x)] += 4;
+        if(prev == index-(2*x))
+            maze[indexToX(index,x)][indexToY(index,x)-1] += 4;
+        if(prev == index+(2*x))
+            maze[indexToX(index,x)][indexToY(index,x)+1] += 4;
+    }
+    
+    private static void paintWallShortest(int index, int prev, int[][] maze, int x){
+        if(prev == index-2)
+            maze[indexToX(index,x)-1][indexToY(index,x)] = 11;
+        if(prev == index+2)
+            maze[indexToX(index,x)+1][indexToY(index,x)] = 11;
+        if(prev == index-(2*x))
+            maze[indexToX(index,x)][indexToY(index,x)-1] = 11;
+        if(prev == index+(2*x))
+            maze[indexToX(index,x)][indexToY(index,x)+1] = 11;
+    }
+    
+    private static ArrayList successors(int index, int prev, int[][] maze, int x, int y){
+        ArrayList adj = new ArrayList(3);
+        if(!(indexToX(index,x) == 1)){
+            if(maze[indexToX(index,x)-1][indexToY(index,x)] != 0 && prev != index-2)
+                adj.add(index-2);
+        }
+        if(!(indexToX(index,x) == x-2)){
+            if(maze[indexToX(index,x)+1][indexToY(index,x)] != 0 && prev != index+2)
+                adj.add(index+2);
+        }
+        if(!(indexToY(index,x) == 1)){
+            if(maze[indexToX(index,x)][indexToY(index,x)-1] != 0 && prev != index-(2*x))
+                adj.add(index-(2*x));
+        }
+        if(!(indexToY(index,x) == y-2)){
+            if(maze[indexToX(index,x)][indexToY(index,x)+1] != 0 && prev != index+(2*x)) 
+                adj.add(index+(2*x));
+        }
+        return adj;
     }
     
     /**

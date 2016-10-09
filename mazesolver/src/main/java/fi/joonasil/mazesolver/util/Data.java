@@ -18,6 +18,7 @@ public class Data {
     private long generate;
     private long bfs;
     private long astar;
+    private long ida;
     private String genAlg;
     private String size;
     private Button button;
@@ -28,6 +29,7 @@ public class Data {
         generate = maze.getTimeToGenerate()/1000000;
         bfs = maze.solveBreadthFrist()/1000000;
         astar = maze.solveAStar()/1000000;
+        ida = maze.solveIDA()/1000000;
         genAlg = maze.getGenAlg();
         size = x + " x " + y;
         button = new Button("image");
@@ -35,10 +37,11 @@ public class Data {
         image = maze.getImage();
     }
     
-    public Data(long generate, long bfs, long aStar, String s, String a){
+    public Data(long generate, long bfs, long aStar, long ida, String s, String a){
         this.generate = generate;
         this.bfs = bfs;
         this.astar = aStar;
+        this.ida = ida;
         genAlg = s;
         size = a;
         button = new Button();
@@ -51,6 +54,14 @@ public class Data {
 
     public long getGenerate() {
         return generate;
+    }
+
+    public long getIda() {
+        return ida;
+    }
+
+    public void setIda(long ida) {
+        this.ida = ida;
     }
 
     public void setGenerate(long generate) {

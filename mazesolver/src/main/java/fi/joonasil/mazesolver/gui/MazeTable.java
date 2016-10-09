@@ -26,7 +26,7 @@ public class MazeTable {
         Stage window = new Stage();
         window.setTitle("Maze");
         window.initModality(Modality.APPLICATION_MODAL);
-        Scene scene = new Scene(table,600,600);
+        Scene scene = new Scene(table,700,600);
         window.setResizable(false);
         window.setScene(scene);
         window.show();
@@ -56,9 +56,14 @@ public class MazeTable {
         bfsColumn.setCellValueFactory(new PropertyValueFactory<>("bfs"));
         
         //AStar column
-        TableColumn<Data, Long> aStarColumn = new TableColumn("AStar");
+        TableColumn<Data, Long> aStarColumn = new TableColumn("A-star");
         aStarColumn.setMinWidth(100);
         aStarColumn.setCellValueFactory(new PropertyValueFactory<>("astar"));
+        
+        //AStar column
+        TableColumn<Data, Long> idaColumn = new TableColumn("IDA");
+        idaColumn.setMinWidth(100);
+        idaColumn.setCellValueFactory(new PropertyValueFactory<>("ida"));
         
         //Button column
         TableColumn<Data, Button> buttonColumn = new TableColumn("Image");
@@ -66,7 +71,7 @@ public class MazeTable {
         buttonColumn.setCellValueFactory(new PropertyValueFactory<>("button"));
         
         table.setItems(data);
-        table.getColumns().addAll(genAlgColumn,sizeColumn,generateColumn,bfsColumn,aStarColumn,buttonColumn);
+        table.getColumns().addAll(genAlgColumn,sizeColumn,generateColumn,bfsColumn,aStarColumn,idaColumn,buttonColumn);
         return table;
     }
 }

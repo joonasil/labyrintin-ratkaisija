@@ -37,8 +37,7 @@ public class CreateMaze {
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("New maze");
-        window.setMinHeight(200);
-        window.setMinWidth(200);
+
         VBox layout = new VBox();
         Label info = new Label("Note: \nLength and height of the generated maze will be \n"
                 + "2 times the size specified. I.e. if the specified size is 100x100 \n"

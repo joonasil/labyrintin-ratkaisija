@@ -16,7 +16,7 @@ import javafx.scene.image.ImageView;
  */
 public class Maze {
     
-    private long timeToGenerate;
+    private final long timeToGenerate;
     private ImageView image;
     private int[][] maze;
     private final int x;
@@ -125,6 +125,14 @@ public class Maze {
     public long solveAStar() {
         long start = System.nanoTime();
         Solver.aStar(maze);
+        long end = System.nanoTime()-start;
+        this.image = ImageConverter.getImage(maze, x, y);
+        return end;
+    }
+    
+    public long solveIDA() {
+        long start = System.nanoTime();
+        Solver.IDA(maze);
         long end = System.nanoTime()-start;
         this.image = ImageConverter.getImage(maze, x, y);
         return end;

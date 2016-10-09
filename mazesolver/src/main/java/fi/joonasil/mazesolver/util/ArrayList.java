@@ -22,11 +22,25 @@ public class ArrayList {
         this.rand = rand;
     }
     
+    public ArrayList(int s){
+        array = new int[s];
+        size = 0;
+        rand = new Random();
+    }
+    
     public void add(int i){
         if(size == array.length)
             resize();
         array[size] = i;
         size++;
+    }
+    
+    public int get(int index){
+        return array[index];
+    }
+    
+    public int size(){
+        return size;
     }
     
     public int getRandom(){

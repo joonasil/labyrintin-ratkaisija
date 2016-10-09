@@ -103,7 +103,7 @@ public class DataLogger {
         gen.setStyle("-fx-font-weight: bold");
         GridPane.setConstraints(gen, 0, 4);
         
-        ChoiceBox<String> genAlg = new ChoiceBox<String>(FXCollections.observableArrayList("Prim's","Depth-first search","Kruskal's"));
+        ChoiceBox<String> genAlg = new ChoiceBox<>(FXCollections.observableArrayList("Prim's","Depth-first search","Kruskal's"));
         genAlg.getSelectionModel().selectFirst();
         GridPane.setConstraints(genAlg, 1, 4);
         
@@ -182,9 +182,9 @@ public class DataLogger {
             return;
         }
         ObservableList<Data> data = FXCollections.observableArrayList();
-        long genAvg, bfsAvg, aStarAvg, gMax, bMax, aMax, gMin, bMin, aMin;
-        genAvg = bfsAvg = aStarAvg = gMax = bMax = aMax = 0;
-        gMin = bMin = aMin = Integer.MAX_VALUE;
+        long genAvg, bfsAvg, aStarAvg, gMax, bMax, aMax, gMin, bMin, aMin, idaAvg, idaMin, idaMax;
+        genAvg = bfsAvg = aStarAvg = idaAvg = gMax = bMax = aMax = idaMax = 0;
+        gMin = bMin = aMin = idaMin = Integer.MAX_VALUE;
         for(int i = 0; i < q; i++){
             Data d = new Data(x,y,genAlg.getSelectionModel().getSelectedIndex());
             if(d.getGenerate() > gMax)
@@ -199,13 +199,18 @@ public class DataLogger {
                 aMax = d.getAstar();
             if(d.getAstar() < aMin)
                 aMin = d.getAstar();
+            if(d.getIda() > idaMax)
+                idaMax = d.getIda();
+            if(d.getIda() < idaMin)
+                idaMin = d.getIda();
             genAvg += d.getGenerate();
             bfsAvg += d.getBfs();
             aStarAvg += d.getAstar();
+            idaAvg += d.getIda();
             data.add(d);
         }
-        data.add(new Data(genAvg/q,bfsAvg/q,aStarAvg/q,"Average","times"));
-        data.add(new Data(gMax-gMin,bMax-bMin,aMax-aMin,"Range",""));
+        data.add(new Data(genAvg/q,bfsAvg/q,aStarAvg/q,idaAvg/q,"Average","times"));
+        data.add(new Data(gMax-gMin,bMax-bMin,aMax-aMin,idaMax-idaMin,"Range",""));
         window.close();
         MazeTable.display(data);
     }
