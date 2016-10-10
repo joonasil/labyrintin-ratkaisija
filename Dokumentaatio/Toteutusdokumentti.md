@@ -12,7 +12,9 @@ datankeräys toiminnosta, mikä listaa halutun määrän labyrinttejä ja ajat n
 ### Algoritmien aikavaativuudet
 #### Labyrintin generointi primin algoritmilla !!!!! Algoritmista tehty uusi versio, joten aikavaativuus ei enää päde!!!!!!!
 
-![Prim's](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/prim4.gif)
+![Prim's](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/prim.gif)
+
+![DFS's](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/dfs.gif)
 
 Algoritmin toimintaperiaate: 
 * aloitetaan ruudukosta täynnä seiniä **O(n)**
