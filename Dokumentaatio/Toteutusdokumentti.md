@@ -11,6 +11,10 @@ datankeräys toiminnosta, mikä listaa halutun määrän labyrinttejä ja ajat n
 
 ### Algoritmien aikavaativuudet
 #### Labyrintin generointi primin algoritmilla !!!!! Algoritmista tehty uusi versio, joten aikavaativuus ei enää päde!!!!!!!
+
+
+![Prim's](https://github.com/joonasil/labyrintin-ratkaisija/Dokumentaatio/Kuvia/prim.gif)
+
 Algoritmin toimintaperiaate: 
 * aloitetaan ruudukosta täynnä seiniä **O(n)**
 * valitaan satunnainen ruutu, merkataan se osaksi labyrinttia ja laitetaan sen seinät listaan **O(4log(m)) = O(log(m))**
