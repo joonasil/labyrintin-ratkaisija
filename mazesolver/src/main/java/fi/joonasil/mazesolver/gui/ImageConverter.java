@@ -5,10 +5,18 @@
  */
 package fi.joonasil.mazesolver.gui;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+import javax.imageio.ImageIO;
 
 /**
  * Luokka labyrintin esittämiseksi graafisesti.
@@ -20,16 +28,13 @@ public class ImageConverter {
      * Metodi luo labyrintistä kuvan kaksiuloitteisen kokonaislukutaulukon pohjalta.
      * 
      * @param base Labyrintti esitettynä kaksiuloitteisena kokonaislukutaulukkona.
-     * @param x Labyrintin leveys.
-     * @param y Labyrintin korkeus.
      * @return ImageView-tyyppinen kuva labyrintista.
      */
-    public static ImageView getImage(int[][] base,int x, int y) {
-        
-        WritableImage output = new WritableImage(2*x+1,2*y+1);
+    public static ImageView getImage(int[][] base) {
+        WritableImage output = new WritableImage(base.length,base[0].length);
         PixelWriter writer = output.getPixelWriter();
-        for (int i = 0; i < 2*y+1; i++) {
-            for (int j = 0; j < 2*x+1; j++) {
+        for (int i = 0; i < base[0].length; i++) {
+            for (int j = 0; j < base.length; j++) {
                 if(base[j][i] == 0) {
                     writer.setColor(j, i, Color.BLACK);
                 }
@@ -63,5 +68,17 @@ public class ImageConverter {
             }
         }
         return new ImageView(output);
+    }
+    
+    public static void saveImage(Image image){
+        new File(System.getProperty("user.dir")+"/images").mkdir();
+        Path path = Paths.get(System.getProperty("user.dir") + "/images/" + System.nanoTime() + ".png");
+        File outputFile = new File(path.toUri());
+        BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
+        try {
+          ImageIO.write(bImage, "png", outputFile);
+        } catch (IOException e) {
+          throw new RuntimeException(e);
+        }
     }
 }

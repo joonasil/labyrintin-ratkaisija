@@ -9,6 +9,7 @@ import fi.joonasil.mazesolver.Mazesolver;
 import fi.joonasil.mazesolver.logic.generator.Maze;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
@@ -85,6 +86,9 @@ public class Screen {
         time = maze.solveIDA();
         Label ida = new Label("Time to solve ida*: " + (time/1000000) + "ms");
         
+        Button save = new Button("Save");
+        save.setOnAction(e -> ImageConverter.saveImage(Mazesolver.getMaze().getImage().getImage()));
+        
         final int newX = 2*maze.getX()+1;
         final int newY = 2*maze.getY()+1;
         Label size = new Label("Size of maze: " + newX + "x" + newY);
@@ -94,7 +98,7 @@ public class Screen {
         ida.setStyle("-fx-font-weight: bold");
         generate.setStyle("-fx-font-weight: bold");
         genAlg.setStyle("-fx-font-weight: bold");
-        info.getChildren().addAll(genAlg,size,generate,bfs,astar,ida);
+        info.getChildren().addAll(genAlg,size,generate,bfs,astar,ida,save);
         info.setMinWidth(250);
         info.setSpacing(10);
         info.setPadding(new Insets(0, 10, 0, 10));

@@ -5,6 +5,7 @@
  */
 package fi.joonasil.mazesolver.logic.solver;
 
+import fi.joonasil.mazesolver.gui.ImageConverter;
 import fi.joonasil.mazesolver.util.ArrayList;
 import fi.joonasil.mazesolver.util.Estimate;
 import fi.joonasil.mazesolver.util.PriorityQueue;
@@ -77,14 +78,18 @@ public class Solver {
         int f = cost + estimate;
         int test = maze[indexToX(index,x)][indexToY(index,x)];
         if(test == 1 || test == 3 || test == 4 || test == 6){
-            maze[indexToX(index,x)][indexToY(index,x)] += 4;
             paintWall(index,prev,maze,x);
+//            ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
+            maze[indexToX(index,x)][indexToY(index,x)] += 4;
+//            ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
         }
         if(f > bound)
             return f;
         if(index == coordinateToIndex(x-2,y-2,x)){
             maze[indexToX(index,x)][indexToY(index,x)] = 11;
+//            ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
             paintWallShortest(index,prev,maze,x);
+//            ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
             return -1;
         }
         int min = Integer.MAX_VALUE;
@@ -94,7 +99,9 @@ public class Solver {
             t = search(succ.get(i),index,cost+1,bound,x,y,maze);
             if(t == -1){
                 maze[indexToX(index,x)][indexToY(index,x)] = 11;
+//                ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
                 paintWallShortest(index,prev,maze,x);
+//                ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
                 return -1;
             }
             if(t < min)
@@ -169,6 +176,7 @@ public class Solver {
                     visited[currentX][currentY] = true;
                     tree[currentX][currentY] =  current;
                     path[currentX][currentY] += 2;
+//                    ImageConverter.saveImage(ImageConverter.getImage(path).getImage());
                     queue.push(coordinateToIndex(currentX,currentY,x));
                 }
             }
@@ -199,6 +207,7 @@ public class Solver {
                     visited[currentX][currentY] = true;
                     tree[currentX][currentY] =  current;
                     path[currentX][currentY] += 3;
+//                    ImageConverter.saveImage(ImageConverter.getImage(path).getImage());
                     queue.add(new Estimate(currentX,currentY,x-2,y-2,x));
                 }
             }
@@ -218,6 +227,7 @@ public class Solver {
         path[1][1] = 11;
         while(current != coordinateToIndex(1,1,x)) {
             path[indexToX(current,x)][indexToY(current,x)] = 11;
+//            ImageConverter.saveImage(ImageConverter.getImage(path).getImage());
             current = tree[indexToX(current,x)][indexToY(current,x)];
         }
     }

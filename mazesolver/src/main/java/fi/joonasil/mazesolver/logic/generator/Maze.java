@@ -37,7 +37,7 @@ public class Maze {
         maze = Generator.generatePrim(rand, x, y);
         genAlg = "Prim's";
         timeToGenerate = System.nanoTime()-start;
-        image = ImageConverter.getImage(maze, x, y);
+        image = ImageConverter.getImage(maze);
     }
     
     public Maze(int x, int y, int genAlg) {
@@ -62,7 +62,7 @@ public class Maze {
                 this.genAlg = "Error";
         }
         timeToGenerate = System.nanoTime()-start;
-        image = ImageConverter.getImage(maze, x, y);
+        image = ImageConverter.getImage(maze);
     }
     
     /**
@@ -118,7 +118,7 @@ public class Maze {
         long start = System.nanoTime();
         Solver.breadthFirst(maze);
         long end = System.nanoTime()-start;
-        this.image = ImageConverter.getImage(maze, x, y);
+        this.image = ImageConverter.getImage(maze);
         return end;
     }
     
@@ -126,7 +126,7 @@ public class Maze {
         long start = System.nanoTime();
         Solver.aStar(maze);
         long end = System.nanoTime()-start;
-        this.image = ImageConverter.getImage(maze, x, y);
+        this.image = ImageConverter.getImage(maze);
         return end;
     }
     
@@ -134,7 +134,7 @@ public class Maze {
         long start = System.nanoTime();
         Solver.IDA(maze);
         long end = System.nanoTime()-start;
-        this.image = ImageConverter.getImage(maze, x, y);
+        this.image = ImageConverter.getImage(maze);
         return end;
     }
     

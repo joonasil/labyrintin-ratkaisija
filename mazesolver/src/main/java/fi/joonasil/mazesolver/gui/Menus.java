@@ -13,7 +13,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -48,7 +47,6 @@ public class Menus {
     
     private static void displayHelp(){
         Stage window = new Stage();
-        window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Help");
         VBox layout = new VBox();
         Label info = new Label("Colorcodes: \n\nBlack: Wall.\nWhite: Path visited by no algorithm.\n"

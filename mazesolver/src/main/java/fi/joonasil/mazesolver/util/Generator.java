@@ -6,6 +6,7 @@
 package fi.joonasil.mazesolver.util;
 
 
+import fi.joonasil.mazesolver.gui.ImageConverter;
 import java.util.Random;
 
 /**
@@ -30,7 +31,12 @@ public class Generator {
         int[][] maze = new int[newX][newY];
         ArrayList wallIndex = new ArrayList(rand);
        
+//        ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
+        
         maze[indexToX(index,newX)][indexToY(index,newX)] = 1;
+        
+//        ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
+        
         addWalls(newX,newY,wallIndex,index,maze);
        
         while(!wallIndex.isEmpty()){
@@ -76,6 +82,7 @@ public class Generator {
         maze[newx][newy] = 1;
         addWalls(x,y,wallIndex,coordinateToIndex(newx,newy,x),maze);
         maze[indexToX(index,x)][indexToY(index,x)] = 1;
+//        ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
     }
     
     private static void setY(int x, int y, int index,int diff, int[][] maze, ArrayList wallIndex){
@@ -84,6 +91,7 @@ public class Generator {
         maze[newx][newy] = 1;
         addWalls(x,y,wallIndex,coordinateToIndex(newx,newy,x),maze);
         maze[indexToX(index,x)][indexToY(index,x)] = 1;
+//        ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
     }
     
     /**
@@ -158,11 +166,15 @@ public class Generator {
         int index = (1+((newX)*(1+2*rand.nextInt(y)))+2*rand.nextInt(x));
         int wall;
         int[][] maze = new int[newX][newY];
+                
+//        ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
         
         ArrayList stack = new ArrayList(rand);
         ArrayList neighbours;
         
         maze[indexToX(index,newX)][indexToY(index,newX)] = 1;
+        
+//        ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
         
         while(unvisited != 0){
             neighbours = unvisitedNeighbours(newX,newY,index,maze,rand);
@@ -171,8 +183,10 @@ public class Generator {
                 wall = neighbours.getRandom();
                 stack.add(index);
                 maze[indexToX(wall,newX)][indexToY(wall,newX)] = 1;
+//                ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
                 index = newIndex(index,wall,newX);
                 maze[indexToX(index,newX)][indexToY(index,newX)] = 1;
+//                ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
                 unvisited--;
             } else if(!stack.isEmpty()){
                 index = stack.pop();
@@ -231,7 +245,7 @@ public class Generator {
             if(!(indexToY(index,newX) == newY-2))
                 walls.add(index+newX);
         }
-        
+//        ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
         DisjointSet cells = new DisjointSet(size);
         
         while(!walls.isEmpty()){
@@ -239,11 +253,13 @@ public class Generator {
             if(maze[indexToX(index,newX)+1][indexToY(index,newX)] == 1){
                 if(cells.find(bigToSmall(index-1,x,newX)) != cells.find(bigToSmall(index+1,x,newX))){
                     maze[indexToX(index,newX)][indexToY(index,newX)] = 1;
+//                    ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
                     cells.union(bigToSmall(index-1,x,newX), bigToSmall(index+1,x,newX));
                 }
             }else{
                 if(cells.find(bigToSmall(index-newX,x,newX)) != cells.find(bigToSmall(index+newX,x,newX))){
                     maze[indexToX(index,newX)][indexToY(index,newX)] = 1;
+//                    ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
                     cells.union(bigToSmall(index-newX,x,newX), bigToSmall(index+newX,x,newX));
                 }
             }
