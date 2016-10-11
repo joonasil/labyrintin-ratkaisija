@@ -31,11 +31,11 @@ public class Generator {
         int[][] maze = new int[newX][newY];
         ArrayList wallIndex = new ArrayList(rand);
        
-        ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
+//        ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
         
         maze[indexToX(index,newX)][indexToY(index,newX)] = 1;
         
-        ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
+//        ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
         
         addWalls(newX,newY,wallIndex,index,maze);
        
@@ -82,7 +82,7 @@ public class Generator {
         maze[newx][newy] = 1;
         addWalls(x,y,wallIndex,coordinateToIndex(newx,newy,x),maze);
         maze[indexToX(index,x)][indexToY(index,x)] = 1;
-        ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
+//        ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
     }
     
     private static void setY(int x, int y, int index,int diff, int[][] maze, ArrayList wallIndex){
@@ -91,7 +91,7 @@ public class Generator {
         maze[newx][newy] = 1;
         addWalls(x,y,wallIndex,coordinateToIndex(newx,newy,x),maze);
         maze[indexToX(index,x)][indexToY(index,x)] = 1;
-        ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
+//        ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
     }
     
     /**
