@@ -9,7 +9,7 @@ datankeräys toiminnosta, mikä listaa taulukkoon halutun määrän labyrinttej�
 
 ######Luokkakaavio (tulee myöhemmin)
 
-## Algoritmien aikavaativuudet
+## Generointialgoritmien aika- ja tilavaativuudet
 ### Labyrintin generointi Primin algoritmilla O(n)
 
 ![Prim's](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/prim.gif)
@@ -74,6 +74,10 @@ Algoritmin toimintaperiaate:
   * jos ruudut, joita kyseinen seinä jakaa kuuluvat eri kokoelmiin
     * poista kyseinen seinä **O(1)**
     * yhdistä kyseisten ruutujen kokoelmat
+    
+
+
+## Ratkaisualgoritmien aika- ja tilavaativuudet
 
 ![BFS's](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/bfs.gif)
 
