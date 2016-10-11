@@ -10,7 +10,7 @@ datankeräys toiminnosta, mikä listaa taulukkoon halutun määrän labyrinttej�
 ######Luokkakaavio (tulee myöhemmin)
 
 ## Algoritmien aikavaativuudet
-### Labyrintin generointi primin algoritmilla O(n)
+### Labyrintin generointi Primin algoritmilla O(n)
 
 ![Prim's](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/prim.gif)
 
@@ -34,7 +34,8 @@ Seinän poistaminen listasta vie aikaa O(1).
 Algoritmin siis täytyy käydä kaikki seinät läpi kerran, ja koska kaikki muutokset tehdään taulukon indekseihin O(1) ajassa, ainoaksi aikaavieväksi toiminnoksi jää taulukon alustus O(n) ja kaikkien seinien läpikäynti O(n).  
   
 Kaksiuloitteisen taulukon tilavaativuus on O(n), missä n on kaksiuloitteisen taulukon leveys x korkeus.  Listan tilavaativuus on myös O(n), koska listalla on kerralla maksimissaan 2/3 labyrintin seinistä. Näin ollen algoritmin tilavaativuus on O(n).
-
+  
+  
 ### Labyrintin generointi depth-first search algoritmilla O(n)
 
 ![DFS's](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/dfs.gif)
@@ -62,8 +63,17 @@ Pinon päällimmäisen arvon hakeminen ja sen asettaminen tämänhetkiseksi ruud
 Näin ollen algoritmin aikavaativuus on O(n).  
   
 Ruudukon tilavaativus on O(n). Naapurilistan tilavaativuus on O(1), koska naapureita on enintään neljä ja vain yksi naapurilista on käytössä kerrallaan. Näin ollen algoritmin tilavaativuus on O(n).
+  
+### Labyrintin generointi Kruskalin algoritmilla
 
 ![Kruskal's](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/kruskal.gif)
+
+Algoritmin toimintaperiaate:
+* luodaan lista kaikista seinistä ja kokoelma, jossa on vain kyseinen ruutu, jokaiselle ruudulle. **O(n)**
+* jokaiselle seinälle satunnaisessa järjestyksessä **O(n)**
+  * jos ruudut, joita kyseinen seinä jakaa kuuluvat eri kokoelmiin
+    * poista kyseinen seinä **O(1)**
+    * yhdistä kyseisten ruutujen kokoelmat
 
 ![BFS's](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/bfs.gif)
 
