@@ -23,15 +23,16 @@ Algoritmin toimintaperiaate:
   * lisätään labyrinttiin lisätyn ruudun seinät listaan **O(1)**
 * poistetaan kyseinen seinä listasta **O(1)**
 
-Ruudukon (2-uloitteienen taulukko) luominen vie aikaa O(n), missä n on ruudukon leveys x ruudukon korkeus.
-Koska ruudulla on aina enintään 4 seinää, vie niiden listaan lisääminen aikaa O(4) = O(1). Lista on toteutettu dynaamisella taulukolla.
-Koska ruudulla on 4 seinää ja ruutuja on n kappaletta, vie while-looppi aikaa O(4n) = O(n).
-Sattumanvaraisen seinän valitseminen listasta vie aikaa O(1).
-Käytävän teko seinästä vie aikaa O(1) koska ruudukko on taulukko.
-Toisen ruudun lisäys labyrinttiin vie aikaa O(1). Ruudun seinien lisäys listaan vie aikaa O(1).
-Seinän poistaminen listasta vie aikaa O(1), koska sitä ei periaatteessa poisteta ikinä vaan päälle kirjoitetaan seuraava seinän indeksi.
-Algoritmin siis täytyy käydä kaikki seinät läpi kerran, ja koska kaikki muutokset tehdään taulukon indekseihin O(1) ajassa, ainoaksi aikaavieväksi toiminnoksi jää taulukon alustus O(n) ja kaikkien seinien läpikäynti O(n).
-Kaksiuloitteisen taulukon tilavaativuus on O(n), missä n on kaksiuloitteisen taulukon leveys x korkeus. Listan tilavaativuus on myös O(n), koska listalla on kerralla maksimissaan 2/3 labyrintin seinistä. Näin ollen algoritmin tilavaativuus on O(n).
+Ruudukon (2-uloitteinen taulukko) luominen vie aikaa O(n), missä n on ruudukon leveys x ruudukon korkeus.  
+Koska ruudulla on aina enintään 4 seinää, vie niiden listaan lisääminen aikaa O(4) = O(1).  
+Lista on toteutettu dynaamisella taulukolla.    
+Koska ruudulla on 4 seinää ja ruutuja on n kappaletta, vie while-looppi aikaa O(4n) = O(n).  
+Sattumanvaraisen seinän valitseminen listasta vie aikaa O(1).  
+Käytävän teko seinästä vie aikaa O(1), koska ruudukko on taulukko.  
+Toisen ruudun lisäys labyrinttiin vie aikaa O(1). Ruudun seinien lisäys listaan vie aikaa O(1).  
+Seinän poistaminen listasta vie aikaa O(1).  
+Algoritmin siis täytyy käydä kaikki seinät läpi kerran, ja koska kaikki muutokset tehdään taulukon indekseihin O(1) ajassa, ainoaksi aikaavieväksi toiminnoksi jää taulukon alustus O(n) ja kaikkien seinien läpikäynti O(n).  
+Kaksiuloitteisen taulukon tilavaativuus on O(n), missä n on kaksiuloitteisen taulukon leveys x korkeus.  Listan tilavaativuus on myös O(n), koska listalla on kerralla maksimissaan 2/3 labyrintin seinistä. Näin ollen algoritmin tilavaativuus on O(n).
 
 ![DFS's](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/dfs.gif)
 
