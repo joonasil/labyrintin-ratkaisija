@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -126,9 +127,10 @@ public class CreateMaze {
      * @param seed Annettu syöte labyrintin generoinnin seediksi.
      */
     private static void validateInput(GridPane grid, TextField width, TextField height, TextField seed, ChoiceBox<String> genAlg) {
-        
+        int errors = 0;
         width.setStyle("-fx-background-color: #FFFFFF;");
         height.setStyle("-fx-background-color: #FFFFFF;");
+        seed.setStyle("-fx-background-color: #FFFFFF;");
         if(grid.getChildren().contains(widthError))
             grid.getChildren().remove(widthError);
         if(grid.getChildren().contains(heightError))
@@ -139,20 +141,23 @@ public class CreateMaze {
             widthError.setText("Width is not an integer!");
             GridPane.setConstraints(widthError, 2, 1);
             grid.getChildren().add(widthError);
-            return;
+            errors++;
         }
         if(!isInt(height)) {
             heightError.setText("Height is not an integer!");
             GridPane.setConstraints(heightError, 2, 2);
             grid.getChildren().add(heightError);
-            return;
+            errors++;
         }
         if(!seed.getText().isEmpty() && !isInt(seed)) {
             seedError.setText("Seed is not an integer!");
             GridPane.setConstraints(seedError, 2, 3);
             grid.getChildren().add(seedError);
-            return;
+            errors++;
         }
+        if(errors != 0)
+            return;
+        errors = 0;
         int x = Integer.parseInt(width.getText());
         int y = Integer.parseInt(height.getText());
         if(x < 2) {
@@ -160,26 +165,26 @@ public class CreateMaze {
             widthError.setText("Length must be at least 2!");
             GridPane.setConstraints(widthError, 2, 1);
             grid.getChildren().add(widthError);
-            return;
+            errors++;
         }
         if(y < 2) {
             height.setStyle("-fx-background-color: #FF0000;");
             heightError.setText("Height must be at lest 2!");
             GridPane.setConstraints(heightError, 2, 2);
             grid.getChildren().add(heightError);
-            return;
+            errors++;
         }
+        if(errors != 0)
+            return;
         if(isInt(width) && isInt(height) && seed.getText().isEmpty()) {
             window.close();
-            Mazesolver.setMaze(new Maze(x,y,genAlg.getSelectionModel().getSelectedIndex()));
+            Mazesolver.setMaze(new Maze(x,y,genAlg));
             Mazesolver.getScreen().setScene();
-            Main.setScene(Mazesolver.getScreen().getScene());
         }
         if(isInt(width) && isInt(height) && !seed.getText().isEmpty()) {
             window.close();
-            Mazesolver.setMaze(new Maze(x,y,(long)Integer.parseInt(seed.getText()),genAlg.getSelectionModel().getSelectedIndex()));
+            Mazesolver.setMaze(new Maze(x,y,Integer.parseInt(seed.getText()),genAlg));
             Mazesolver.getScreen().setScene();
-            Main.setScene(Mazesolver.getScreen().getScene());
         }
     }
     

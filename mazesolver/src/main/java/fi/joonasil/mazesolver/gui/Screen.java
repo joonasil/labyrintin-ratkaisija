@@ -5,6 +5,7 @@
  */
 package fi.joonasil.mazesolver.gui;
 
+import fi.joonasil.mazesolver.Main;
 import fi.joonasil.mazesolver.Mazesolver;
 import fi.joonasil.mazesolver.logic.generator.Maze;
 import javafx.geometry.Insets;
@@ -38,6 +39,7 @@ public class Screen {
         hbox.setPadding(new Insets(10, 10, 10, 10));
         layout.getChildren().addAll(Menus.setMenuBar(), hbox);
         scene = new Scene(layout, 1240, 720);
+        Main.setScene(scene);
     }
     
     /**
@@ -72,33 +74,67 @@ public class Screen {
     public static VBox setInfo() {
         VBox info = new VBox();
         Maze maze = Mazesolver.getMaze();
+        boolean[] solved = maze.getSolved();
+        long time;
         
         Label generate = new Label("Time to generate: " + maze.getTimeToGenerate()/1000000 + "ms");
         
         Label genAlg = new Label("Generation algorithm: " + maze.getGenAlg());
         
-        long time = maze.solveBreadthFrist();
-        Label bfs = new Label("Time to solve bfs: " + (time/1000000) + "ms");
-        
-        time = maze.solveAStar();
-        Label astar = new Label("Time to solve a*: " + (time/1000000) + "ms");
-        
-        time = maze.solveIDA();
-        Label ida = new Label("Time to solve ida*: " + (time/1000000) + "ms");
-        
-        Button save = new Button("Save");
-        save.setOnAction(e -> ImageConverter.saveImage(Mazesolver.getMaze().getImage().getImage()));
-        
         final int newX = 2*maze.getX()+1;
         final int newY = 2*maze.getY()+1;
         Label size = new Label("Size of maze: " + newX + "x" + newY);
         size.setStyle("-fx-font-weight: bold");
-        bfs.setStyle("-fx-font-weight: bold");
-        astar.setStyle("-fx-font-weight: bold");
-        ida.setStyle("-fx-font-weight: bold");
         generate.setStyle("-fx-font-weight: bold");
         genAlg.setStyle("-fx-font-weight: bold");
-        info.getChildren().addAll(genAlg,size,generate,bfs,astar,ida,save);
+        info.getChildren().addAll(genAlg,size,generate);
+        
+        if(solved[0]){
+            time = maze.getTimeBFS();
+            Label bfs = new Label("Time to solve bfs: " + (time/1000000) + "ms");
+            bfs.setStyle("-fx-font-weight: bold");
+            info.getChildren().add(bfs);
+        }else{
+            Button solveBFS = new Button("Solve BFS");
+            solveBFS.setOnAction(e -> {
+                maze.solveBreadthFrist();
+                Mazesolver.getScreen().setScene();
+            });
+            info.getChildren().add(solveBFS);
+        }
+        
+        if(solved[1]){
+            time = maze.getTimeAStar();
+            Label astar = new Label("Time to solve a*: " + (time/1000000) + "ms");
+            astar.setStyle("-fx-font-weight: bold");
+            info.getChildren().add(astar);
+        }else{
+            Button solveAStar = new Button("Solve A-Star");
+            solveAStar.setOnAction(e -> {
+                Mazesolver.getMaze().solveAStar();
+                Mazesolver.getScreen().setScene();
+            });
+            info.getChildren().add(solveAStar);
+        }
+       
+        if(solved[2]){
+            time = maze.getTimeIDA();
+            Label ida = new Label("Time to solve ida*: " + (time/1000000) + "ms");
+            ida.setStyle("-fx-font-weight: bold");
+            info.getChildren().add(ida);
+        }else{
+            Button solveIDA = new Button("Solve IDA-Star");
+            solveIDA.setOnAction(e -> {
+                maze.solveIDA();
+                Mazesolver.getScreen().setScene();
+            });
+            info.getChildren().add(solveIDA);
+        }
+          
+        Button save = new Button("Save");
+        save.setOnAction(e -> ImageConverter.saveImage(Mazesolver.getMaze().getImage().getImage()));
+        
+        info.getChildren().add(save);
         info.setMinWidth(250);
         info.setSpacing(10);
         info.setPadding(new Insets(0, 10, 0, 10));

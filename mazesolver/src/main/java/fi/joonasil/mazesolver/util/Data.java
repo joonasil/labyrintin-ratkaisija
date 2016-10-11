@@ -26,10 +26,13 @@ public class Data {
     
     public Data(int x, int y, int gen){
         Maze maze = new Maze(x,y, gen);
+        maze.solveBreadthFrist();
+        maze.solveAStar();
+        maze.solveIDA();
         generate = maze.getTimeToGenerate()/1000000;
-        bfs = maze.solveBreadthFrist()/1000000;
-        astar = maze.solveAStar()/1000000;
-        ida = maze.solveIDA()/1000000;
+        bfs = maze.getTimeBFS()/1000000;
+        astar = maze.getTimeAStar()/1000000;
+        ida = maze.getTimeIDA()/1000000;
         genAlg = maze.getGenAlg();
         size = x + " x " + y;
         button = new Button("image");

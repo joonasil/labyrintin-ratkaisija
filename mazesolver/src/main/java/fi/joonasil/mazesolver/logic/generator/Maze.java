@@ -9,6 +9,7 @@ import fi.joonasil.mazesolver.gui.ImageConverter;
 import fi.joonasil.mazesolver.logic.solver.Solver;
 import fi.joonasil.mazesolver.util.Generator;
 import java.util.Random;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.ImageView;
 /**
  * Luokka labyrintille.
@@ -17,6 +18,8 @@ import javafx.scene.image.ImageView;
 public class Maze {
     
     private final long timeToGenerate;
+    private final boolean[] solved;
+    private final long[] timeToSolve;
     private ImageView image;
     private int[][] maze;
     private final int x;
@@ -38,14 +41,16 @@ public class Maze {
         genAlg = "Prim's";
         timeToGenerate = System.nanoTime()-start;
         image = ImageConverter.getImage(maze);
+        solved = new boolean[3];
+        timeToSolve = new long[3];
     }
     
-    public Maze(int x, int y, int genAlg) {
+    public Maze(int x, int y, ChoiceBox<String> genAlg) {
         Random rand = new Random();
         this.x = x;
         this.y = y;
         long start = System.nanoTime();
-        switch (genAlg) {
+        switch (genAlg.getSelectionModel().getSelectedIndex()) {
             case 0:
                 maze = Generator.generatePrim(rand, x, y);
                 this.genAlg = "Prim's";
@@ -60,9 +65,12 @@ public class Maze {
                 break;
             default:
                 this.genAlg = "Error";
+                System.out.println("Error!");
         }
         timeToGenerate = System.nanoTime()-start;
         image = ImageConverter.getImage(maze);
+        solved = new boolean[3];
+        timeToSolve = new long[3];
     }
     
     /**
@@ -80,6 +88,9 @@ public class Maze {
         long start = System.nanoTime();
         maze = Generator.generatePrim(rand,x,y);
         timeToGenerate = System.nanoTime()-start;
+        image = ImageConverter.getImage(maze);
+        solved = new boolean[3];
+        timeToSolve = new long[3];
     }
     
     /**
@@ -90,12 +101,12 @@ public class Maze {
      * @param seed Seedi labyrintin luomista varten.
      * @param genAlg Mitä generointialgoritmia käytetään.
      */
-    public Maze(int x, int y, long seed, int genAlg) {
+    public Maze(int x, int y, long seed, ChoiceBox<String> genAlg) {
         Random rand = new Random(seed);
         this.x = x;
         this.y = y;
         long start = System.nanoTime();
-        switch (genAlg) {
+        switch (genAlg.getSelectionModel().getSelectedIndex()) {
             case 0:
                 maze = Generator.generatePrim(rand, x, y);
                 this.genAlg = "Prim's";
@@ -110,32 +121,40 @@ public class Maze {
                 break;
             default:
                 this.genAlg = "Error";
+                System.out.println("Error!");
         }
         timeToGenerate = System.nanoTime()-start;
+        image = ImageConverter.getImage(maze);
+        solved = new boolean[3];
+        timeToSolve = new long[3];
+        
     }
     
-    public long solveBreadthFrist() {
+    public void solveBreadthFrist() {
         long start = System.nanoTime();
         Solver.breadthFirst(maze);
         long end = System.nanoTime()-start;
         this.image = ImageConverter.getImage(maze);
-        return end;
+        timeToSolve[0] = end;
+        solved[0] = true;
     }
     
-    public long solveAStar() {
+    public void solveAStar() {
         long start = System.nanoTime();
         Solver.aStar(maze);
         long end = System.nanoTime()-start;
         this.image = ImageConverter.getImage(maze);
-        return end;
+        timeToSolve[1] = end;
+        solved[1] = true;
     }
     
-    public long solveIDA() {
+    public void solveIDA() {
         long start = System.nanoTime();
         Solver.IDA(maze);
         long end = System.nanoTime()-start;
         this.image = ImageConverter.getImage(maze);
-        return end;
+        timeToSolve[2] = end;
+        solved[2] = true;
     }
     
     public int[][] getMaze(){
@@ -160,5 +179,21 @@ public class Maze {
     
     public String getGenAlg(){
         return this.genAlg;
+    }
+    
+    public long getTimeBFS(){
+        return timeToSolve[0];
+    }
+    
+    public long getTimeAStar(){
+        return timeToSolve[1];
+    }
+    
+    public long getTimeIDA(){
+        return timeToSolve[2];
+    }
+    
+    public boolean[] getSolved(){
+        return solved;
     }
 }
