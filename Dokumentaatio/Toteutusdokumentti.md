@@ -2,10 +2,10 @@
 
 ### Yleisrakenne
 Ohjelman runkona toimii Mazesolver luokka, joka luo labyrintin ja graafisen käyttöliittymän oliot. Labyrintin tietorakenneluokka Maze 
-käyttää Generator luokan algoritmeja (prim's algorithm) labyrintin luomiselle. Generator luokka käyttää Path ja Wall luokkia labyrintin generoimiseen.
-Labyrintin ratkaisemisesta huolehtii Solver luokka, joka käyttää A-star ja breadth first search algoritmeja. Käyttöliittymäluokka Screen piirtää labyrintin näytölle käyttäen ImageConverter luokan
+käyttää Generator luokan algoritmeja labyrintin luomiselle.
+Labyrintin ratkaisemisesta huolehtii Solver luokka, joka käyttää A-star, breadth-first search ja iterative deepening A-star algoritmeja. Käyttöliittymäluokka Screen piirtää labyrintin näytölle käyttäen ImageConverter luokan
 luomaa kuvaa labyrintistä. Menus luokka vastaa ohjelman valikosta. Loput käyttöliittymän luokat vastaavat uuden labyrintin luonnista ja
-datankeräys toiminnosta, mikä listaa halutun määrän labyrinttejä ja ajat niiden generoimiselle ja ratkaisemiselle taulukkoon.
+datankeräys toiminnosta, mikä listaa taulukkoon halutun määrän labyrinttejä ja ajat niiden generoimiselle ja ratkaisemiselle.
 
 ######Luokkakaavio (tulee myöhemmin)
 
