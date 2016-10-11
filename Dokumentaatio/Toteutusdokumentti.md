@@ -24,6 +24,8 @@ datankeräys toiminnosta, mikä listaa halutun määrän labyrinttejä ja ajat n
 
 ![IDAStar's](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/idastar.gif)
 
+![IDAStar's 2](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/ida.gif)
+
 
 Algoritmin toimintaperiaate: 
 * aloitetaan ruudukosta täynnä seiniä **O(n)**
