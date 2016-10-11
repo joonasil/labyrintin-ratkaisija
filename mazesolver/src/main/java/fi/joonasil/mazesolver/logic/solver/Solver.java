@@ -30,7 +30,7 @@ public class Solver {
         int tree[][] = new int[x][y]; /*O(x*y)*/
         Queue queue = new Queue(); /*O(1)*/
         visited[1][1] = true; /*O(1)*/
-        queue.push(coordinateToIndex(1,1,x)); /*O(1) 0(n) worst case (queue has to allocate more space)*/
+        queue.push(coordinateToIndex(1,1,x)); /*O(1)*/
         while(!visited[x-2][y-2]) { /*O(x*y) worst case O(x+y) best case*/
             current = queue.pop(); /*O(1)*/
             neighbours(x,current,queue,path,tree,visited); /*O(1)*/
@@ -65,23 +65,23 @@ public class Solver {
         int bound = (x-3) + (y-3);
         int index = coordinateToIndex(1,1,x);
         int t = 0;
-        int[][] base = new int[x][y];
-        for(int i = 0; i < x; i++){
-            for(int j = 0; j < y; j++){
-                base[i][j] = maze[i][j];
-            }
-        }
+//        int[][] base = new int[x][y];
+//        for(int i = 0; i < x; i++){
+//            for(int j = 0; j < y; j++){
+//                base[i][j] = maze[i][j];
+//            }
+//        }
         
         while(t != -1){
             t = search(index,0,0,bound,x,y,maze);
             bound = t;
-            if(t != -1){
-                for(int i = 0; i < x; i++){
-                    for(int j = 0; j < y; j++){
-                        maze[i][j] = base[i][j];
-                    }
-                }
-            }
+//            if(t != -1){
+//                for(int i = 0; i < x; i++){
+//                    for(int j = 0; j < y; j++){
+//                        maze[i][j] = base[i][j];
+//                    }
+//                }
+//            }
         }
     }
     
@@ -93,15 +93,15 @@ public class Solver {
             paintWall(index,prev,maze,x);
 //            ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
             maze[indexToX(index,x)][indexToY(index,x)] += 4;
-            ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
+//            ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
         }
         if(f > bound)
             return f;
         if(index == coordinateToIndex(x-2,y-2,x)){
             maze[indexToX(index,x)][indexToY(index,x)] = 11;
-            ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
+//            ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
             paintWallShortest(index,prev,maze,x);
-            ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
+//            ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
             return -1;
         }
         int min = Integer.MAX_VALUE;
@@ -111,9 +111,9 @@ public class Solver {
             t = search(succ.get(i),index,cost+1,bound,x,y,maze);
             if(t == -1){
                 maze[indexToX(index,x)][indexToY(index,x)] = 11;
-                ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
+//                ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
                 paintWallShortest(index,prev,maze,x);
-                ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
+//                ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
                 return -1;
             }
             if(t < min)

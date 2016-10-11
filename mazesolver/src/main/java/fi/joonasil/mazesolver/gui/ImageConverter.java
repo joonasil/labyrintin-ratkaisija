@@ -45,10 +45,10 @@ public class ImageConverter {
                     writer.setColor(j, i, Color.RED);
                 }
                 if(base[j][i] == 4) {
-                    writer.setColor(j, i, Color.YELLOW);
+                    writer.setColor(j, i, Color.rgb(220, 220, 0));
                 }
                 if(base[j][i] == 5) {
-                    writer.setColor(j, i, Color.RED);
+                    writer.setColor(j, i, Color.BLUE);
                 }
                 if(base[j][i] == 6) {
                     writer.setColor(j, i, Color.ORANGE);
