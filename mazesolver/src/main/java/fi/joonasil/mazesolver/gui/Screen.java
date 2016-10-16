@@ -50,10 +50,7 @@ public class Screen {
         return this.scene;
     }
        
-    /**
-     * 
-     * @return 
-     */
+
     public static ScrollPane setImage() {
         Maze maze = Mazesolver.getMaze();
         final int newX = 2*maze.getX()+1;
@@ -78,16 +75,20 @@ public class Screen {
         long time;
         
         Label generate = new Label("Time to generate: " + maze.getTimeToGenerate()/1000000 + "ms");
+        generate.setStyle("-fx-font-weight: bold");
         
         Label genAlg = new Label("Generation algorithm: " + maze.getGenAlg());
+        genAlg.setStyle("-fx-font-weight: bold");
         
         final int newX = 2*maze.getX()+1;
         final int newY = 2*maze.getY()+1;
         Label size = new Label("Size of maze: " + newX + "x" + newY);
         size.setStyle("-fx-font-weight: bold");
-        generate.setStyle("-fx-font-weight: bold");
-        genAlg.setStyle("-fx-font-weight: bold");
-        info.getChildren().addAll(genAlg,size,generate);
+        
+        Label length = new Label("Shortest path length: " + maze.getPathLength());
+        length.setStyle("-fx-font-weight: bold");
+        
+        info.getChildren().addAll(genAlg,size,generate,length);
         
         if(solved[0]){
             time = maze.getTimeBFS();
@@ -130,11 +131,11 @@ public class Screen {
             });
             info.getChildren().add(solveIDA);
         }
-          
+        
         Button save = new Button("Save");
         save.setOnAction(e -> ImageConverter.saveImage(Mazesolver.getMaze().getImage().getImage()));
         
-        info.getChildren().add(save);
+        info.getChildren().addAll(save);
         info.setMinWidth(250);
         info.setSpacing(10);
         info.setPadding(new Insets(0, 10, 0, 10));

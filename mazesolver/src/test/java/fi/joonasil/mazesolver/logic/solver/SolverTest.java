@@ -35,33 +35,75 @@ public class SolverTest {
     @Before
     public void setUp() {
         maze = new Maze(5,5,1337);
-        Solver.breadthFirst(maze.getMaze());
     }
     
     @After
     public void tearDown() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
     @Test
     public void testBreadthFirst() {
+        Solver.breadthFirst(maze.getMaze());
         assertEquals(11,maze.getMaze()[1][1]);
     }
     
     @Test
     public void testBreadthFirst2() {
+        Solver.breadthFirst(maze.getMaze());
         assertEquals(3,maze.getMaze()[5][1]);
     }
     
     @Test
     public void testBreadthFirst3() {
+        Solver.breadthFirst(maze.getMaze());
         assertEquals(11,maze.getMaze()[3][3]);
     }
     
     @Test
     public void testBreadthFirst4() {
-        assertEquals(1,maze.getMaze()[7][1]);
+        Solver.breadthFirst(maze.getMaze());
+        assertEquals(1,maze.getMaze()[7][8]);
+    }
+    
+    @Test
+    public void testAstar() {
+        Solver.aStar(maze.getMaze());
+        assertEquals(11,maze.getMaze()[1][1]);
+    }
+    
+    @Test
+    public void testAstar2() {
+        Solver.aStar(maze.getMaze());
+        assertEquals(4,maze.getMaze()[3][2]);
+    }
+    
+    @Test
+    public void testAstar3() {
+        Solver.aStar(maze.getMaze());
+        assertEquals(11,maze.getMaze()[3][3]);
+    }
+    
+    @Test
+    public void testAstar4() {
+        Solver.aStar(maze.getMaze());
+        assertEquals(1,maze.getMaze()[7][8]);
+    }
+    
+    @Test
+    public void testIDA() {
+        Solver.IDA(maze.getMaze());
+        assertEquals(11,maze.getMaze()[1][1]);
+    }
+    
+    @Test
+    public void testIDA2() {
+        Solver.IDA(maze.getMaze());
+        assertEquals(11,maze.getMaze()[3][3]);
+    }
+    
+    @Test
+    public void testIDA3() {
+        Solver.IDA(maze.getMaze());
+        assertEquals(1,maze.getMaze()[7][8]);
     }
 }

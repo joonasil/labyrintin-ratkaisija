@@ -2,8 +2,15 @@
 package fi.joonasil.mazesolver.util;
 
 /**
- * Linkitetty lista tietorakenne. Remove metodia ei tarvitse ainakaan 
- * tällä hetkellä toteuttaa.
+ * -- HUOM! --
+ * 
+ * Linkitettyä listaa ei tällä hetkellä käytetä sovelluksessa, mutta en halua
+ * poistaa luokkaa jos vaikka tarvitsen linkitettyä listaa joskus.
+ * Luokan voi siis jättää huomioimatta.
+ * 
+ * -----------
+ * 
+ * Linkitetty lista tietorakenne.
  * @author Joonas
  * @param <T> Linkitetyn listan tyyppi.
  */

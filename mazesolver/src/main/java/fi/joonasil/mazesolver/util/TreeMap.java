@@ -4,6 +4,14 @@ package fi.joonasil.mazesolver.util;
 import java.util.NoSuchElementException;
 
 /**
+ * -- HUOM! --
+ * 
+ * En tarvitse luokkaa tällä hetellä sovelluksessani, mutta käytin niin paljon vaivaa sen tekemiseen ja
+ * javassa ei ole valmiina avl-puuta käyttävää tietorakennetta, niin en viitsi poistaa luokkaa sovelluksestani.
+ * Luokan voi siis jättää huomioimatta.
+ * 
+ * -----------
+ * 
  * Tasapainotettu hakupuu kartta, jossa avaimet ovat aina kokonaislukuja ja
  * hakupuu toteutettuna AVL-puuna.
  * @author Joonas

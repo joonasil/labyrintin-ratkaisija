@@ -57,6 +57,12 @@ public class EstimateTest {
     }
     
     @Test
+    public void testCompareTo4() {
+        Estimate second = new Estimate(1,1,3,2,4);
+        assertEquals(1,second.compareTo(estimate));
+    }
+    
+    @Test
     public void testCompareTo2() {
         assertEquals(0,estimate.compareTo(estimate));
     }

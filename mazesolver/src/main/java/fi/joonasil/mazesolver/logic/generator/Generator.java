@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package fi.joonasil.mazesolver.util;
+package fi.joonasil.mazesolver.logic.generator;
 
+import fi.joonasil.mazesolver.util.ArrayList;
+import fi.joonasil.mazesolver.util.DisjointSet;
 import java.util.Random;
 
 /**
- *
+ * Luokka labyrintin generoimisalgoritmeille.
  * @author Joonas
  */
 public class Generator {
@@ -25,7 +22,7 @@ public class Generator {
         int newX = 2*x+1;
         int newY = 2*y+1;
         int index = (1+((newX)*(1+2*rand.nextInt(y)))+2*rand.nextInt(x));
-        
+
         int[][] maze = new int[newX][newY];
         ArrayList wallIndex = new ArrayList(rand);
         
@@ -113,36 +110,7 @@ public class Generator {
         }
     }
     
-    /**
-     * Muuttaa yksiuloitteisen taulukon indeksin kaksiuloitteisen taulukon x-koordinaatiksi.
-     * @param index yksiuloitteisen taulukon indeksi.
-     * @param x Kaksiuloitteisen taulukon leveys.
-     * @return Vastaava kaksiuloitteisen taulukon x-koordinaatti.
-     */
-    private static int indexToX(int index, int x) {
-        return index%x;
-    }
     
-    /**
-     * Muuttaa yksiuloitteisen taulukon indeksin kaksiuloitteisen taulukon y-koordinaatiksi.
-     * @param index yksiuloitteisen taulukon indeksi.
-     * @param x Kaksiuloitteisen taulukon leveys.
-     * @return Vastaava kaksiuloitteisen taulukon y-koordinaatti.
-     */
-    private static int indexToY(int index, int x) {
-        return index/x;
-    }
-    
-    /**
-     * Muuttaa kaksiuloitteisen taulukon (x,y)-koordinaatin yksiuloitteisen taulukon indeksiksi.
-     * @param x Kaksiuloitteisen taulukon x-koordinaatti.
-     * @param y Kaksiuloitteisen taulukon y-koordinaatti.
-     * @param MaxX Kaksiuloitteisen taulukon leveys.
-     * @return Vastaava yksiuloitteisen taulukon indeksi.
-     */
-    private static int coordinateToIndex(int x, int y, int MaxX) {
-        return y*MaxX+x;
-    }
     
     /**
      * Generoi labyrintin käyttäen depth-first search algoritmia.
@@ -181,6 +149,14 @@ public class Generator {
         return maze;
     }
     
+    /**
+     * Metodi tarkistaa mikä ruudun seinistä oli valittu ja valitsee uudeksi
+     * ruudun indeksiksi oikean indeksin.
+     * @param index nykyisen ruudun indeksi
+     * @param wall nykyisen ruudun seinä, joka on valittu poistettavaksi
+     * @param x labyrintin leveys
+     * @return 
+     */
     private static int newIndex(int index, int wall, int x){
         if(index-wall == x)
             return index-(2*x);
@@ -193,6 +169,16 @@ public class Generator {
         return 0;
     }
     
+    /**
+     * Metodi palauttaa listan parametrina annetun ruudun naapureista, jotka
+     * eivät vielä ole osa labyrinttia.
+     * @param x labyrintin leveys
+     * @param y labyrintin korkeus
+     * @param index nykyisen ruudun indeksi
+     * @param maze labyrintti kaksiuloitteisena taulukkona
+     * @param rand generoinnissa käytettävä satunnaislukugeneraattori
+     * @return lista naapuriruuduista, jotka eivät vielä ole osa labyrinttia
+     */
     private static ArrayList unvisitedNeighbours(int x, int y, int index, int[][] maze, Random rand){
         ArrayList unvisited = new ArrayList(rand);
         if(!(indexToX(index,x) == 1)){
@@ -214,6 +200,14 @@ public class Generator {
         return unvisited;
     }
     
+    
+    /**
+     * Generoi labyrintin käyttäen randomisoitua kruskalin algoritmia.
+     * @param rand generoinnissa käytetty satunnaislukugeneraattori 
+     * @param x labyrintin korkeus
+     * @param y labyrintin leveys
+     * @return labyrintti kaksiuloitteisena kokonaislukutaulukkona esitettynä
+     */
     public static int[][] generateKruskal(Random rand, int x, int y){
         int newX = 2*x+1;
         int newY = 2*y+1;
@@ -221,16 +215,7 @@ public class Generator {
         int index;
         int[][]maze = new int[newX][newY];
         
-        ArrayList walls = new ArrayList(rand);
-        
-        for(int i = 0; i < size; i++){
-            index = smallToBig(i,x,newX);
-            maze[indexToX(index,newX)][indexToY(index,newX)] = 1;
-            if(!(indexToX(index,newX) == newX-2))
-                walls.add(index+1);
-            if(!(indexToY(index,newX) == newY-2))
-                walls.add(index+newX);
-        }
+        ArrayList walls = listWalls(newX, newY, x, size, maze, rand);
         DisjointSet cells = new DisjointSet(size);
         
         while(!walls.isEmpty()){
@@ -250,15 +235,87 @@ public class Generator {
         return maze;
     }
     
+    /**
+     * Metodi palauttaa listan labyrintin kaikista seinistä.
+     * @param newX labyrintin lopullinen leveys
+     * @param newY labyrintin lopullinen korkeus
+     * @param x labyrintille syötteenä annettu leveys
+     * @param size labyrintille syötteenä annettu koko (leveys*korkeus)
+     * @param maze labyrintti kaksiuloitteisena taulukkona
+     * @param rand labyrintin generoinnissa käytetty satunnaislukugeneraattori
+     * @return lista labyrintin seinistä
+     */
+    private static ArrayList listWalls(int newX, int newY, int x, int size, int[][] maze,  Random rand){
+        ArrayList walls = new ArrayList(rand);
+        int index;
+        for(int i = 0; i < size; i++){
+            index = smallToBig(i,x,newX);
+            maze[indexToX(index,newX)][indexToY(index,newX)] = 1;
+            if(!(indexToX(index,newX) == newX-2))
+                walls.add(index+1);
+            if(!(indexToY(index,newX) == newY-2))
+                walls.add(index+newX);
+        }
+        return walls;
+    }
+    
+    /**
+     * Muuttaa labyrintin labyrintin listan indeksin labyrintin ruutujen listan indeksiksi.
+     * Yksityiskohtaisempi selitys dokumentaatiossa.
+     * @param index ison taulukon ruudun indeksi
+     * @param smallX labyrintille syötteenä annettu leveys
+     * @param bigX labyrintin leveys
+     * @return vastaava pienen taulukon indeksi
+     */
     private static int bigToSmall(int index, int smallX, int bigX){
         int x = ((index%bigX)-1)/2;
         int y = ((index/bigX)-1)/2;
         return y*smallX+x;
     }
     
+    /**
+     * Muuttaa labyrintin ruutujen listan indeksin vastaavaksi labyrintin listan indeksiksi.
+     * Metodin pohjana on returnissa itse kehittäväni kaava, joka mahdollisti kaikkien generointialgoritmien uudelleenkirjoittamisen siten,
+     * että labyrintti voidaan suoraan generoida kaksiuloitteisena kokonaislukutaulukkona nopeuttaen generoinnin lineaariseen aikavaativuuteen.
+     * @param index pienen taulukon indeksi
+     * @param smallX labyrintille syötteenä annattu leveys
+     * @param bigX labyrintin leveys
+     * @return vastaava suuren taulukon indeksi
+     */
     private static int smallToBig(int index, int smallX, int bigX){
         int x = index%smallX;
         int y = index/smallX;
         return (1+((bigX)*(1+2*y))+2*x);
+    }
+    
+    /**
+     * Muuttaa yksiuloitteisen taulukon indeksin kaksiuloitteisen taulukon x-koordinaatiksi.
+     * @param index yksiuloitteisen taulukon indeksi.
+     * @param x Kaksiuloitteisen taulukon leveys.
+     * @return Vastaava kaksiuloitteisen taulukon x-koordinaatti.
+     */
+    private static int indexToX(int index, int x) {
+        return index%x;
+    }
+    
+    /**
+     * Muuttaa yksiuloitteisen taulukon indeksin kaksiuloitteisen taulukon y-koordinaatiksi.
+     * @param index yksiuloitteisen taulukon indeksi.
+     * @param x Kaksiuloitteisen taulukon leveys.
+     * @return Vastaava kaksiuloitteisen taulukon y-koordinaatti.
+     */
+    private static int indexToY(int index, int x) {
+        return index/x;
+    }
+    
+    /**
+     * Muuttaa kaksiuloitteisen taulukon (x,y)-koordinaatin yksiuloitteisen taulukon indeksiksi.
+     * @param x Kaksiuloitteisen taulukon x-koordinaatti.
+     * @param y Kaksiuloitteisen taulukon y-koordinaatti.
+     * @param MaxX Kaksiuloitteisen taulukon leveys.
+     * @return Vastaava yksiuloitteisen taulukon indeksi.
+     */
+    private static int coordinateToIndex(int x, int y, int MaxX) {
+        return y*MaxX+x;
     }
 }

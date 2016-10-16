@@ -7,7 +7,6 @@ package fi.joonasil.mazesolver.logic.generator;
 
 import fi.joonasil.mazesolver.gui.ImageConverter;
 import fi.joonasil.mazesolver.logic.solver.Solver;
-import fi.joonasil.mazesolver.util.Generator;
 import java.util.Random;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.ImageView;
@@ -25,6 +24,7 @@ public class Maze {
     private final int x;
     private final int y;
     private final String genAlg;
+    private int pathLength;
     /**
      * 
      * Konstruktori luo uuden labyrintin käyttäen randomisoitua primin algoritmia tällä hetkellä.
@@ -43,6 +43,7 @@ public class Maze {
         image = ImageConverter.getImage(maze);
         solved = new boolean[3];
         timeToSolve = new long[3];
+        pathLength = 0;
     }
     
     public Maze(int x, int y, ChoiceBox<String> genAlg) {
@@ -71,6 +72,7 @@ public class Maze {
         image = ImageConverter.getImage(maze);
         solved = new boolean[3];
         timeToSolve = new long[3];
+        pathLength = 0;
     }
     
     /**
@@ -91,6 +93,7 @@ public class Maze {
         image = ImageConverter.getImage(maze);
         solved = new boolean[3];
         timeToSolve = new long[3];
+        pathLength = 0;
     }
     
     /**
@@ -127,7 +130,7 @@ public class Maze {
         image = ImageConverter.getImage(maze);
         solved = new boolean[3];
         timeToSolve = new long[3];
-        
+        pathLength = 0;
     }
     
     public void solveBreadthFrist() {
@@ -168,6 +171,14 @@ public class Maze {
     public int getX() {
         return this.x;
     }
+
+    public int getPathLength() {
+        return pathLength;
+    }
+
+    public void setPathLength(int pathLength) {
+        this.pathLength = pathLength;
+    }
     
     public int getY() {
         return this.y;
@@ -195,5 +206,19 @@ public class Maze {
     
     public boolean[] getSolved(){
         return solved;
+    }
+    
+    @Override
+    public String toString(){
+        String s = "";
+        for(int i = 0; i < 2*y+1; i++){
+            for(int j = 0; j < 2*x+1; j++){
+                s += maze[j][i];
+                if(maze[j][i] != 11)
+                    s += " ";
+            }
+            s += "\n";
+        }
+        return s;
     }
 }

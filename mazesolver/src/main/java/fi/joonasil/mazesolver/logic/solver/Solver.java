@@ -5,6 +5,7 @@
  */
 package fi.joonasil.mazesolver.logic.solver;
 
+import fi.joonasil.mazesolver.Mazesolver;
 import fi.joonasil.mazesolver.gui.ImageConverter;
 import fi.joonasil.mazesolver.util.ArrayList;
 import fi.joonasil.mazesolver.util.Estimate;
@@ -59,6 +60,10 @@ public class Solver {
         shortestPath(path, tree, x, y);  
     }
     
+    /**
+     * Metodi etsii labyrintista lyhyimmän reitin käyttäen iterative deepening A* algoritmia.
+     * @param maze labyrintti, josta halutaan löytää lyhin reitti.
+     */
     public static void IDA(int[][] maze){
         int x = maze.length;
         int y = maze[0].length;
@@ -85,6 +90,17 @@ public class Solver {
         }
     }
     
+    /**
+     * Iterative deepening A* algoritmin käyttämä rekursiivinen funktio.
+     * @param index nykyinen labyrintin indeksi
+     * @param prev edellinen labyrintin indeksi
+     * @param cost alusta nykyiseen indeksiin johtavan reitin pituus
+     * @param boun reitin maksimipituus
+     * @param x labyrintin leveys
+     * @param y labyrintin korkeus
+     * @param maze labyrintti
+     * @return -1 jos reitti haluttuun pisteeseen on löytynyt, muuten pienin liian pitkä reitti, mikä karsittiin pois.
+     */
     private static int search(int index, int prev, int cost, int bound, int x, int y, int[][] maze){
         int estimate = ((x-2-indexToX(index,x)) + (y-2-indexToY(index,x)));
         int f = cost + estimate;
@@ -102,6 +118,7 @@ public class Solver {
 //            ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
             paintWallShortest(index,prev,maze,x);
 //            ImageConverter.saveImage(ImageConverter.getImage(maze).getImage());
+            Mazesolver.getMaze().setPathLength((cost*2));
             return -1;
         }
         int min = Integer.MAX_VALUE;
@@ -144,6 +161,15 @@ public class Solver {
             maze[indexToX(index,x)][indexToY(index,x)+1] = 11;
     }
     
+    /**
+     * Palauttaa listan parametrina annetun indeksin naapuriruuduista, joihin rekursivinen funktio voi mennä.
+     * @param index nykyinen indeksi
+     * @param prev edelinen indeksi
+     * @param maze labyrintti
+     * @param x labyrintin leveys
+     * @param y labyrintin korkeus
+     * @return lista naapuriruuduista
+     */
     private static ArrayList successors(int index, int prev, int[][] maze, int x, int y){
         ArrayList adj = new ArrayList(3);
         
@@ -235,6 +261,7 @@ public class Solver {
      * @param y Labyrintin korkeus.
      */
     private static void shortestPath(int[][] path, int[][] tree, int x, int y){
+        int length = 1;
         int current = tree[x-2][y-2];
         path[x-2][y-2] = 11;
         path[1][1] = 11;
@@ -242,7 +269,9 @@ public class Solver {
             path[indexToX(current,x)][indexToY(current,x)] = 11;
 //            ImageConverter.saveImage(ImageConverter.getImage(path).getImage());
             current = tree[indexToX(current,x)][indexToY(current,x)];
+            length++;
         }
+        Mazesolver.getMaze().setPathLength(length);
     }
     
     /**

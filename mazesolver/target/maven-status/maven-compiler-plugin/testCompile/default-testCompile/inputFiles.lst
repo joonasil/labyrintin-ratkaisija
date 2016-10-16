@@ -1,7 +1,5 @@
-D:\GitHub\labyrintin-ratkaisija\mazesolver\src\test\java\fi\joonasil\mazesolver\logic\generator\PathTest.java
-D:\GitHub\labyrintin-ratkaisija\mazesolver\src\test\java\fi\joonasil\mazesolver\util\QueueTest.java
-D:\GitHub\labyrintin-ratkaisija\mazesolver\src\test\java\fi\joonasil\mazesolver\logic\generator\MazeTest.java
-D:\GitHub\labyrintin-ratkaisija\mazesolver\src\test\java\fi\joonasil\mazesolver\util\LinkedListTest.java
-D:\GitHub\labyrintin-ratkaisija\mazesolver\src\test\java\fi\joonasil\mazesolver\logic\solver\SolverTest.java
-D:\GitHub\labyrintin-ratkaisija\mazesolver\src\test\java\fi\joonasil\mazesolver\util\EstimateTest.java
-D:\GitHub\labyrintin-ratkaisija\mazesolver\src\test\java\fi\joonasil\mazesolver\logic\generator\WallTest.java
+D:\Users\Joonas\Documents\GitHub\labyrintin-ratkaisija\mazesolver\src\test\java\fi\joonasil\mazesolver\util\QueueTest.java
+D:\Users\Joonas\Documents\GitHub\labyrintin-ratkaisija\mazesolver\src\test\java\fi\joonasil\mazesolver\util\ArrayListTest.java
+D:\Users\Joonas\Documents\GitHub\labyrintin-ratkaisija\mazesolver\src\test\java\fi\joonasil\mazesolver\logic\solver\SolverTest.java
+D:\Users\Joonas\Documents\GitHub\labyrintin-ratkaisija\mazesolver\src\test\java\fi\joonasil\mazesolver\logic\generator\MazeTest.java
+D:\Users\Joonas\Documents\GitHub\labyrintin-ratkaisija\mazesolver\src\test\java\fi\joonasil\mazesolver\util\EstimateTest.java
