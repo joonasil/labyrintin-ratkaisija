@@ -1,8 +1,0 @@
-#surefire
-#Sun Oct 16 14:13:08 EEST 2016
-maven.ext.class.path=D\:\\Program Files\\NetBeans 8.1\\java\\maven-nblib\\netbeans-eventspy.jar
-user.dir=D\:\\Users\\Joonas\\Documents\\GitHub\\labyrintin-ratkaisija\\mazesolver
-file.encoding=UTF-8
-localRepository=C\:\\Users\\Joonas\\.m2\\repository
-basedir=D\:\\Users\\Joonas\\Documents\\GitHub\\labyrintin-ratkaisija\\mazesolver
-test=fi.joonasil.mazesolver.util.PriorityQueueTest

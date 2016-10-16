@@ -1,0 +1,9 @@
+fi\joonasil\mazesolver\logic\generator\MazeTest.class
+fi\joonasil\mazesolver\util\EstimateTest.class
+fi\joonasil\mazesolver\util\LinkedListTest.class
+fi\joonasil\mazesolver\util\QueueTest.class
+fi\joonasil\mazesolver\logic\solver\SolverTest.class
+fi\joonasil\mazesolver\util\DisjointSetTest.class
+fi\joonasil\mazesolver\util\PriorityQueueTest.class
+fi\joonasil\mazesolver\logic\generator\GeneratorTest.class
+fi\joonasil\mazesolver\util\ArrayListTest.class

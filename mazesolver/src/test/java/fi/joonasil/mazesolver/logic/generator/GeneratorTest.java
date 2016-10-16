@@ -38,5 +38,7 @@ public class GeneratorTest {
     }
 
     @Test
-    public void hello() {}
+    public void asd() {
+    
+    }
 }
