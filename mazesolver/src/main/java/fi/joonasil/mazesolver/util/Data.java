@@ -29,10 +29,10 @@ public class Data {
         maze.solveBreadthFrist();
         maze.solveAStar();
         maze.solveIDA();
-        generate = maze.getTimeToGenerate()/1000000;
-        bfs = maze.getTimeBFS()/1000000;
-        astar = maze.getTimeAStar()/1000000;
-        ida = maze.getTimeIDA()/1000000;
+        generate = maze.getTimeToGenerate()/1000;
+        bfs = maze.getTimeBFS()/1000;
+        astar = maze.getTimeAStar()/1000;
+        ida = maze.getTimeIDA()/1000;
         genAlg = maze.getGenAlg();
         size = x + " x " + y;
         button = new Button("image");

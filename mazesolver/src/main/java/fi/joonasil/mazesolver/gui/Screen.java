@@ -8,12 +8,17 @@ package fi.joonasil.mazesolver.gui;
 import fi.joonasil.mazesolver.Main;
 import fi.joonasil.mazesolver.Mazesolver;
 import fi.joonasil.mazesolver.logic.generator.Maze;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -52,19 +57,35 @@ public class Screen {
        
 
     public static ScrollPane setImage() {
+        
         Maze maze = Mazesolver.getMaze();
         final int newX = 2*maze.getX()+1;
         final int newY = 2*maze.getY()+1;
-        final int sum = newX+newY;
-        int multiplier = 2;
-        if(sum < 500)
-            multiplier = 4;
-        if(sum > 2000)
-            multiplier = 1;
+        
         ImageView image = maze.getImage();
-        image.setFitHeight(newY*multiplier);
-        image.setFitWidth(newX*multiplier);
+        image.setFitHeight(newY*4);
+        image.setFitWidth(newX*4);
+        
         ScrollPane scroll = createScrollPane(image);
+        
+        DoubleProperty zoomProperty = new SimpleDoubleProperty(newX+newY);
+
+        zoomProperty.addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable arg0) {
+                image.setFitWidth(zoomProperty.get() * 2);
+                image.setFitHeight(zoomProperty.get() * 2);
+            }
+        });
+
+        scroll.addEventFilter(ScrollEvent.ANY, (e ->  {
+            if (e.getDeltaY() > 0) {
+                zoomProperty.set(zoomProperty.get() * 1.1);
+            } else if (e.getDeltaY() < 0) {
+                zoomProperty.set(zoomProperty.get() / 1.1);
+            }
+        }));
+        
         return scroll;
     }
     
@@ -157,10 +178,6 @@ public class Screen {
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scroll.setPannable(true);
-        if(maze.getFitWidth() < 1200)
-            x = (int)maze.getFitWidth()+1;
-        if(maze.getFitHeight() < 680)
-            y = (int)maze.getFitHeight()+1;
         scroll.setPrefSize(x, y);
         scroll.setContent(maze);
         return scroll;

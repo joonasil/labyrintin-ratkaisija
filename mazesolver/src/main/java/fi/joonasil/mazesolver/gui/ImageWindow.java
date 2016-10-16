@@ -5,9 +5,16 @@
  */
 package fi.joonasil.mazesolver.gui;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ScrollEvent;
 import javafx.stage.Stage;
 
 /**
@@ -17,9 +24,28 @@ import javafx.stage.Stage;
 public class ImageWindow {
     
     public static void display(ImageView image, int x, int y) {
-        image.setFitHeight(y);
-        image.setFitWidth(x);
+        image.setFitHeight(y*2);
+        image.setFitWidth(x*2);
         ScrollPane pane = createScrollPane(image);
+        
+        DoubleProperty zoomProperty = new SimpleDoubleProperty(x+y);
+
+        zoomProperty.addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable arg0) {
+                image.setFitWidth(zoomProperty.get() * 1);
+                image.setFitHeight(zoomProperty.get() * 1);
+            }
+        });
+
+        pane.addEventFilter(ScrollEvent.ANY, (e ->  {
+            if (e.getDeltaY() > 0) {
+                zoomProperty.set(zoomProperty.get() * 1.1);
+            } else if (e.getDeltaY() < 0) {
+                zoomProperty.set(zoomProperty.get() / 1.1);
+            }
+        }));
+        
         Stage window = new Stage();
         window.setTitle("Maze" + x + " x " + y);
         Scene scene = new Scene(pane,1240,780);
@@ -43,10 +69,6 @@ public class ImageWindow {
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scroll.setPannable(true);
-        if(maze.getFitWidth() < 1000)
-            x = (int)maze.getFitWidth()+1;
-        if(maze.getFitHeight() < 680)
-            y = (int)maze.getFitHeight()+1;
         scroll.setPrefSize(x, y);
         scroll.setContent(maze);
         return scroll;
