@@ -2,13 +2,6 @@
 package fi.joonasil.mazesolver.util;
 
 /**
- * -- HUOM! --
- * 
- * Linkitettyä listaa ei tällä hetkellä käytetä sovelluksessa, mutta en halua
- * poistaa luokkaa jos vaikka tarvitsen linkitettyä listaa joskus.
- * Luokan voi siis jättää huomioimatta.
- * 
- * -----------
  * 
  * Linkitetty lista tietorakenne.
  * @author Joonas
@@ -19,26 +12,16 @@ public class LinkedList <T>{
     private Node<T> last;
     private int size;
     
-    /**
-     * Konstruktori luo uuden tyhjän linkitetyn listan.
-     */
+
     public LinkedList() {
         first = new Node<>(null,null,null);
         size = 0;
     }
     
-    /**
-     * Palauttaa linkitetyn listan pituuden.
-     * @return Linkitetyn listan pituus.
-     */
     public int size(){
         return this.size;
     }
       
-    /**
-     * Lisää objektin linkitettyyn listaan.
-     * @param data lisättävä olio
-     */
     public void add(T data) {
         Node<T> l = last;
         Node<T> newNode = new Node(data, null, l);
@@ -52,17 +35,11 @@ public class LinkedList <T>{
         size++;
     }
     
-    /**
-     * Palauttaa objektin parametrina annetussa indeksissä. 
-     * @param index Haluttu indeksi.
-     * @return Objekti parametrina annetussa indeksissä.
-     */
     public T get(int index) {
         checkIndex(index);
         return node(index).data;
     }
-    
-    
+      
     public T removeFirst(){
         T out = first.data;
         first = first.next;

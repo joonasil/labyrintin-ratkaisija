@@ -77,10 +77,9 @@ public class Queue{
     private void allocateSpace() {
         int[] temp = queue;
         int length = queue.length;
-        if(length*2 < Integer.MAX_VALUE)
-            queue = new int[length*2];
-        else
-            queue = new int[Integer.MAX_VALUE];
+            
+        queue = new int[length*2];
+        
         int x = head;
         for(int i = 0; i < length-1; i++) {
             queue[i] = temp[x];

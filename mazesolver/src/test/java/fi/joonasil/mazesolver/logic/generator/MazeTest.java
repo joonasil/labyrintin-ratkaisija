@@ -5,6 +5,7 @@
  */
 package fi.joonasil.mazesolver.logic.generator;
 
+import fi.joonasil.mazesolver.Mazesolver;
 import java.util.Random;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -18,8 +19,7 @@ import static org.junit.Assert.*;
  * @author Joonas
  */
 public class MazeTest {
-    
-    Maze maze;
+
     public MazeTest() {
     }
     
@@ -33,7 +33,7 @@ public class MazeTest {
     
     @Before
     public void setUp() {
-        maze = new Maze(5,5,1337);
+        Mazesolver.setMaze(new Maze(5,5,1337));
     }
     
     @After
@@ -45,41 +45,59 @@ public class MazeTest {
     //
     @Test
     public void testConstructor() {
-        assertEquals(5,maze.getX());
+        assertEquals(5,Mazesolver.getMaze().getX());
     }
     
     @Test
     public void testConstructor2() {
-        assertEquals(5,maze.getY());
+        assertEquals(5,Mazesolver.getMaze().getY());
     }
     
     @Test
-    public void testChangeDatatype() {
-        assertEquals(1,maze.getMaze()[1][1]);
+    public void testConstructor3() {
+        assertEquals(1,Mazesolver.getMaze().getMaze()[1][1]);
     }
     
     @Test
-    public void testChangeDatatype2() {
-        assertEquals(1,maze.getMaze()[5][1]);
+    public void testConstructor4() {
+        assertEquals(1,Mazesolver.getMaze().getMaze()[5][1]);
     }
     
     @Test
-    public void testChangeDatatype3() {
-        assertEquals(0,maze.getMaze()[0][1]);
+    public void testConstructor5() {
+        assertEquals(0,Mazesolver.getMaze().getMaze()[0][1]);
     }
     
     @Test
-    public void testChangeDatatype4() {
-        assertEquals(0,maze.getMaze()[1][0]);
+    public void testConstructor6() {
+        assertEquals(0,Mazesolver.getMaze().getMaze()[1][0]);
     }
     
     @Test
-    public void testChangeDatatype5() {
-        assertEquals(1,maze.getMaze()[1][2]);
+    public void testConstructor7() {
+        assertEquals(1,Mazesolver.getMaze().getMaze()[1][2]);
     }
     
     @Test
-    public void testChangeDatatype6() {
-        assertEquals(0,maze.getMaze()[2][1]);
+    public void testConstructor8() {
+        assertEquals(0,Mazesolver.getMaze().getMaze()[2][1]);
+    }
+    
+    @Test
+    public void testSolveBFS() {
+        Mazesolver.getMaze().solveBreadthFrist();
+        assertEquals(16,Mazesolver.getMaze().getPathLength());
+    }
+    
+    @Test
+    public void testSolveAStar() {
+        Mazesolver.getMaze().solveAStar();
+        assertEquals(16,Mazesolver.getMaze().getPathLength());
+    }
+    
+    @Test
+    public void testSolveIDA() {
+        Mazesolver.getMaze().solveIDA();
+        assertEquals(16,Mazesolver.getMaze().getPathLength());
     }
 }

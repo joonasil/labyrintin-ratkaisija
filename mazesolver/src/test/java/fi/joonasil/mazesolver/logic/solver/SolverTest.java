@@ -5,6 +5,7 @@
  */
 package fi.joonasil.mazesolver.logic.solver;
 
+import fi.joonasil.mazesolver.Mazesolver;
 import fi.joonasil.mazesolver.logic.generator.Maze;
 import java.util.Random;
 import org.junit.After;
@@ -34,7 +35,7 @@ public class SolverTest {
     
     @Before
     public void setUp() {
-        maze = new Maze(5,5,1337);
+        Mazesolver.setMaze(new Maze(5,5,1337));
     }
     
     @After
@@ -43,67 +44,85 @@ public class SolverTest {
 
     @Test
     public void testBreadthFirst() {
-        Solver.breadthFirst(maze.getMaze());
-        assertEquals(11,maze.getMaze()[1][1]);
+        Solver.breadthFirst(Mazesolver.getMaze().getMaze());
+        assertEquals(11,Mazesolver.getMaze().getMaze()[1][1]);
     }
     
     @Test
     public void testBreadthFirst2() {
-        Solver.breadthFirst(maze.getMaze());
-        assertEquals(3,maze.getMaze()[5][1]);
+        Solver.breadthFirst(Mazesolver.getMaze().getMaze());
+        assertEquals(3,Mazesolver.getMaze().getMaze()[5][1]);
     }
     
     @Test
     public void testBreadthFirst3() {
-        Solver.breadthFirst(maze.getMaze());
-        assertEquals(11,maze.getMaze()[3][3]);
+        Solver.breadthFirst(Mazesolver.getMaze().getMaze());
+        assertEquals(11,Mazesolver.getMaze().getMaze()[3][3]);
     }
     
     @Test
     public void testBreadthFirst4() {
-        Solver.breadthFirst(maze.getMaze());
-        assertEquals(1,maze.getMaze()[7][8]);
+        Solver.breadthFirst(Mazesolver.getMaze().getMaze());
+        assertEquals(1,Mazesolver.getMaze().getMaze()[7][8]);
+    }
+    
+    @Test
+    public void testBreadthFirst5() {
+        Solver.breadthFirst(Mazesolver.getMaze().getMaze());
+        assertEquals(16,Mazesolver.getMaze().getPathLength());
     }
     
     @Test
     public void testAstar() {
-        Solver.aStar(maze.getMaze());
-        assertEquals(11,maze.getMaze()[1][1]);
+        Solver.aStar(Mazesolver.getMaze().getMaze());
+        assertEquals(11,Mazesolver.getMaze().getMaze()[1][1]);
     }
     
     @Test
     public void testAstar2() {
-        Solver.aStar(maze.getMaze());
-        assertEquals(4,maze.getMaze()[3][2]);
+        Solver.aStar(Mazesolver.getMaze().getMaze());
+        assertEquals(4,Mazesolver.getMaze().getMaze()[3][2]);
     }
     
     @Test
     public void testAstar3() {
-        Solver.aStar(maze.getMaze());
-        assertEquals(11,maze.getMaze()[3][3]);
+        Solver.aStar(Mazesolver.getMaze().getMaze());
+        assertEquals(11,Mazesolver.getMaze().getMaze()[3][3]);
     }
     
     @Test
     public void testAstar4() {
-        Solver.aStar(maze.getMaze());
-        assertEquals(1,maze.getMaze()[7][8]);
+        Solver.aStar(Mazesolver.getMaze().getMaze());
+        assertEquals(1,Mazesolver.getMaze().getMaze()[7][8]);
+    }
+    
+    @Test
+    public void testAstar5() {
+        Solver.aStar(Mazesolver.getMaze().getMaze());
+        assertEquals(16,Mazesolver.getMaze().getPathLength());
     }
     
     @Test
     public void testIDA() {
-        Solver.IDA(maze.getMaze());
-        assertEquals(11,maze.getMaze()[1][1]);
+        Solver.IDA(Mazesolver.getMaze().getMaze());
+        assertEquals(11,Mazesolver.getMaze().getMaze()[1][1]);
     }
     
     @Test
     public void testIDA2() {
-        Solver.IDA(maze.getMaze());
-        assertEquals(11,maze.getMaze()[3][3]);
+        Solver.IDA(Mazesolver.getMaze().getMaze());
+        assertEquals(11,Mazesolver.getMaze().getMaze()[3][3]);
     }
     
     @Test
     public void testIDA3() {
-        Solver.IDA(maze.getMaze());
-        assertEquals(1,maze.getMaze()[7][8]);
+        Solver.IDA(Mazesolver.getMaze().getMaze());
+        assertEquals(1,Mazesolver.getMaze().getMaze()[7][8]);
+    }
+    
+    @Test
+    public void testIDA4() {
+        Solver.IDA(Mazesolver.getMaze().getMaze());
+        assertEquals(16,Mazesolver.getMaze().getPathLength());
     }
 }

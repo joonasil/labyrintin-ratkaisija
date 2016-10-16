@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
  */
 public class DisjointSetTest {
     
-    private DisjointSet djs = new DisjointSet(10);
+    private DisjointSet djs;
     
     public DisjointSetTest() {
     }
@@ -33,6 +33,7 @@ public class DisjointSetTest {
     
     @Before
     public void setUp() {
+        djs = new DisjointSet(10);
     }
     
     @After
@@ -112,5 +113,14 @@ public class DisjointSetTest {
             djs.union(i, i+1);
         }
         assertEquals(0,djs.find(9999));
+    }
+    
+    @Test
+    public void testUnionLarge2() {
+        djs = new DisjointSet(1000000);
+        for(int i = 0; i < 999999; i++){
+            djs.union(i, i+1);
+        }
+        assertEquals(0,djs.find(999999));
     }
 }

@@ -37,11 +37,21 @@
                 <configuration>
                     <targetClasses>
                         <param>fi.joonasil.mazesolver.logic.*</param>
-                        <param>fi.joonasil.mazesolver.util.*</param>
+                        <param>fi.joonasil.mazesolver.util.ArrayList</param>
+                        <param>fi.joonasil.mazesolver.util.DisjointSet</param>
+                        <param>fi.joonasil.mazesolver.util.Estimate</param>
+                        <param>fi.joonasil.mazesolver.util.LinkedList</param>
+                        <param>fi.joonasil.mazesolver.util.PriorityQueue</param>
+                        <param>fi.joonasil.mazesolver.util.Queue</param>
                     </targetClasses>
                     <targetTests>
                         <param>fi.joonasil.mazesolver.logic.*</param>
-                        <param>fi.joonasil.mazesolver.util.*</param>
+                        <param>fi.joonasil.mazesolver.util.ArrayListTest</param>
+                        <param>fi.joonasil.mazesolver.util.DisjointSetTest</param>
+                        <param>fi.joonasil.mazesolver.util.EstimateTest</param>
+                        <param>fi.joonasil.mazesolver.util.LinkedListTest</param>
+                        <param>fi.joonasil.mazesolver.util.PriorityQueueTest</param>
+                        <param>fi.joonasil.mazesolver.util.QueueTest</param>
                     </targetTests>
                 </configuration>
             </plugin>
