@@ -71,10 +71,19 @@ Ruudukon tilavaativus on O(n). Naapurilistan tilavaativuus on O(1), koska naapur
 Algoritmin toimintaperiaate:
 * luodaan lista kaikista seinistä ja kokoelma, jossa on vain kyseinen ruutu, jokaiselle ruudulle. **O(n)**
 * jokaiselle seinälle satunnaisessa järjestyksessä **O(n)**
-  * jos ruudut, joita kyseinen seinä jakaa kuuluvat eri kokoelmiin
+  * jos ruudut, joita kyseinen seinä jakaa kuuluvat eri kokoelmiin **O(1) amortized**
     * poista kyseinen seinä **O(1)**
-    * yhdistä kyseisten ruutujen kokoelmat
-    
+    * yhdistä kyseisten ruutujen kokoelmat **O(1) amortized**
+
+Listan luominen vie aikaa O(n), missä n on seinien määrä labyrintissa.  
+Disjoint-Set kokoelman luonti vie aikaa O(m), missä m on ruutujen määrä labyrintissa.  
+While loopissa käydään läpi kaikki seinät, joten sen aikavaativuus on O(n).  
+Tarkistaminen mihin kokoelmaan ruutu kuuluu vie aikaa O(1) amortized eli n määrä tarkistuksia vie aikaa O(n).  
+Yksittäinen tarkistus vie aikaa yleensä O(1) ja harvoin O(n).  
+Seinän poistaminen vie aikaa O(1), koska kyseessä on taulukon yhden indeksin arvon muutos.  
+Kahden ruudun kokoelmien yhdistäminen vie aikaa taas O(1) amortized, koska operaatio kutsuu samaa funktiota kuin tarkistaminen ja muuten on aikavaativuudeltaan O(1).
+
+Tilavaativuus on O(2n+m), missä n on ruutujen määrä ja m on seinien määrä.
 
 
 ## Ratkaisualgoritmien aika- ja tilavaativuudet
