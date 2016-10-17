@@ -8,6 +8,7 @@
   * Luokille tehty lisää dokumentaatiota
   * Käyttöliittymään lisätty labyrintin zoomaus ja tallennusominaisuudet
   * Toteutus- ja testausdokumentaatiota tehty
+  * Ajettava .jar tiedosto generoitu
   
 ###Ohjelman edistyminen
 Ohjelma alkaa olemaan toiminnaltaan valmis. Paljon on tullut tehtyä kahden viikon aikana ja olen tyytyväinen sovellukseni ulkonäköön ja toimintaan. Luokkia voi vielä siistiä ja ehkä jopa jakaa jokainen generointi- ja ratkaisualgoritmi omaksi luokakseen, jos koen sen tarpeelliseksi ohjelman selvyyden kannalta. Käyttöliittymän luokkia voin kanssa tarpeen vaatiessa pätkiä pienempiin paloihin. Tein kanssa huvikseen dokumentaatiota varten gif animaatioita algoritmien toiminnasta.
