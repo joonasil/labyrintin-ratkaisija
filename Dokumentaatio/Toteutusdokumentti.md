@@ -18,14 +18,15 @@ Toteutin Breadth-First Search ja A-Star hakualgoritmit, jotka etsivät lyhyimmä
   
 Huomasin generointialgoritmien olevan huomattavasti ratkaisualgoritmeja hitaampia, vaikka generoinnin ei pitäisi viedä kuin vain lineaarisen verran aikaa, koska generointialgoritmin pitää käydä jokaisessa ruudussa vain kerran. Syynä tähän oli käyttämäni aputietorakenteet Path ja Wall, jotka rajoittivat käytettävän tietorakenteen hakupuihin, koska tarvitsin generointiin tietorakenteen jossa on mahdollisimman nopeat lisäys ja satunnaisen alkion poisto toiminnot (hakupuiden kohdalla molemmat O(log n)). Koska generoinnin lopuksi labyrintti kumminkin muutettaisiin kaksiuloitteiseksi taulukoksi, mietin voisinko mitenkään generoida labyrinttia suoraan kyseiseen taulukkoon. Ongelman oli se, että tarvitsin keinon viitata kaksiuloitteisen taulukon niihin koordinaatteihin, jotka ovat labyrintin ruutuja. Joten miten tunnistaa, onko tietty kaksiuloitteisen taulukon koordinaatti ruutu vai seinä? Ongelma on siis seuraavanlainen:  
   
-**Labyrintin esitysmuoto**  
+ 
+######Labyrintin esitysmuoto:  
 000000000  
 010111010  
 010101010  
 011101110  
 000100000  
 011111110  
-000000000  
+000000000
   
 Yllä olevassa labyrintissa on siis ruutuja 4x3 = 12, vaikka taulukon koko on 9x7 = 63. Nyt siis esim. labyrintin kaikkein ylävasemmalla olevin ruutu on labyrintin taulukossa koordinaatissa (1,1) (tai indeksissä 10, kehitin jo ohjelmoinnin harjoitustyössä kaavan, jolla muuttaa kaksiuloitteisen taulukon koordinaatti yksiuloitteisen taulukon indeksiksi.) ja sitä vastaa indeksi 0 pelkkien ruutujen listassa. Vastaavasti labyrintin indeksissä 12 olevaa ruutua vastaa indeksi 1. Nyt siis esimerkiksi kun luodaan uusi labyrintti ja halutaan asettaa sattumanvarainen ensimmäinen ruutu osaksi labyrinttia generointialgoritmin alussa, pitää valita ensin jokin ruuduista 0-11 ja sen jälkeen muuttaa valittu luku vastaavaksi labyrintin taulukon indeksiksi.
 
