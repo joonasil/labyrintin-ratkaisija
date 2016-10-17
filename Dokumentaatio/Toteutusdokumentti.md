@@ -34,7 +34,7 @@ Lähdin ratkaisemaan ongelmaa piirtämällä vihkoon erikokoisia "yksiuloittesia
 012  
 345  
 678  
-ja etsimällä yhteyttä taulukon leveyden, korkeuden, indeksin ja halutun indeksin välillä. Esimerkiksi koska kokonaisluvuilla jaettaessa mahdollinen desimaaliosa vain jätetään pois (4/3)-1 = 0 pitää paikkansa. Lopulta päädyin kaavaan  
+ja etsimällä yhteyttä taulukon leveyden, korkeuden, indeksin ja halutun indeksin välillä. Esimerkiksi koska kokonaisluvuilla jaettaessa mahdollinen desimaaliosa vain jätetään pois joten (4/3)-1 = 0 pitää paikkansa. Lopulta päädyin kaavaan    
 
 ######Luokkakaavio (tulee myöhemmin)
 
