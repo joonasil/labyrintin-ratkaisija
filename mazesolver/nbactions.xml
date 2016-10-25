@@ -17,7 +17,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-Xss515m -Xms3096m -classpath %classpath fi.joonasil.mazesolver.Main</exec.args>
+                <exec.args>-Xss515m -Xms10096m -XX:-UseGCOverheadLimit -classpath %classpath fi.joonasil.mazesolver.Main</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
@@ -31,7 +31,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -Xss515m -Xms3096m -classpath %classpath fi.joonasil.mazesolver.Main</exec.args>
+                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -Xss515m -Xms10096m -XX:-UseGCOverheadLimit -classpath %classpath fi.joonasil.mazesolver.Main</exec.args>
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
             </properties>
@@ -46,7 +46,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-Xss515m -Xms3096m -classpath %classpath fi.joonasil.mazesolver.Main</exec.args>
+                <exec.args>-Xss515m -Xms10096m -XX:-UseGCOverheadLimit -classpath %classpath fi.joonasil.mazesolver.Main</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>

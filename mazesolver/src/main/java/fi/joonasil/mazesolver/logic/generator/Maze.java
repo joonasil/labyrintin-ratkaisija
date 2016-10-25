@@ -135,7 +135,7 @@ public class Maze {
     
     public void solveBreadthFrist() {
         long start = System.nanoTime();
-        Solver.breadthFirst(maze);
+        Solver.breadthFirst(this);
         long end = System.nanoTime()-start;
         this.image = ImageConverter.getImage(maze);
         timeToSolve[0] = end;
@@ -144,7 +144,7 @@ public class Maze {
     
     public void solveAStar() {
         long start = System.nanoTime();
-        Solver.aStar(maze);
+        Solver.aStar(this);
         long end = System.nanoTime()-start;
         this.image = ImageConverter.getImage(maze);
         timeToSolve[1] = end;
@@ -153,7 +153,7 @@ public class Maze {
     
     public void solveIDA() {
         long start = System.nanoTime();
-        Solver.IDA(maze);
+        Solver.IDA(this);
         long end = System.nanoTime()-start;
         this.image = ImageConverter.getImage(maze);
         timeToSolve[2] = end;

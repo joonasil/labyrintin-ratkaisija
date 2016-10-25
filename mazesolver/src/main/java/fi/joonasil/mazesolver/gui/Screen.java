@@ -156,7 +156,7 @@ public class Screen {
         Button save = new Button("Save");
         save.setOnAction(e -> ImageConverter.saveImage(Mazesolver.getMaze().getImage().getImage()));
         
-        info.getChildren().addAll(save);
+        info.getChildren().add(save);
         info.setMinWidth(250);
         info.setSpacing(10);
         info.setPadding(new Insets(0, 10, 0, 10));

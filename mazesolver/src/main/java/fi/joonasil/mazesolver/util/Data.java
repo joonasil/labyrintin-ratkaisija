@@ -8,6 +8,7 @@ package fi.joonasil.mazesolver.util;
 import fi.joonasil.mazesolver.gui.ImageWindow;
 import fi.joonasil.mazesolver.logic.generator.Maze;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.ImageView;
 
 /**
@@ -23,24 +24,26 @@ public class Data {
     private String size;
     private Button button;
     private final ImageView image;
+    private int pathLength;
     
-    public Data(int x, int y, int gen){
+    public Data(int x, int y, ChoiceBox<String> gen){
         Maze maze = new Maze(x,y, gen);
         maze.solveBreadthFrist();
         maze.solveAStar();
         maze.solveIDA();
-        generate = maze.getTimeToGenerate()/1000000;
-        bfs = maze.getTimeBFS()/1000000;
-        astar = maze.getTimeAStar()/1000000;
-        ida = maze.getTimeIDA()/1000000;
+        generate = maze.getTimeToGenerate();
+        bfs = maze.getTimeBFS();
+        astar = maze.getTimeAStar();
+        ida = maze.getTimeIDA();
         genAlg = maze.getGenAlg();
         size = x + " x " + y;
         button = new Button("image");
         button.setOnAction(e -> buttonPressed(x,y));
         image = maze.getImage();
+        pathLength = maze.getPathLength();
     }
     
-    public Data(long generate, long bfs, long aStar, long ida, String s, String a){
+    public Data(long generate, long bfs, long aStar, long ida, String s, String a, int pl){
         this.generate = generate;
         this.bfs = bfs;
         this.astar = aStar;
@@ -49,6 +52,7 @@ public class Data {
         size = a;
         button = new Button();
         image = null;
+        pathLength = pl;
     }
     
     private void buttonPressed(int x, int y){
@@ -109,6 +113,14 @@ public class Data {
 
     public void setButton(Button button) {
         this.button = button;
+    }
+
+    public int getPathLength() {
+        return pathLength;
+    }
+
+    public void setPathLength(int pathLength) {
+        this.pathLength = pathLength;
     }
     
 }

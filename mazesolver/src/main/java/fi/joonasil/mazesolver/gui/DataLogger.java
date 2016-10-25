@@ -181,12 +181,18 @@ public class DataLogger {
             grid.getChildren().add(quantityError);
             return;
         }
+        generateData(x, y, q, genAlg);
+    }
+    
+    private static void generateData(int x, int y, int q, ChoiceBox<String> genAlg){
+        window.close();
         ObservableList<Data> data = FXCollections.observableArrayList();
         long genAvg, bfsAvg, aStarAvg, gMax, bMax, aMax, gMin, bMin, aMin, idaAvg, idaMin, idaMax;
-        genAvg = bfsAvg = aStarAvg = idaAvg = gMax = bMax = aMax = idaMax = 0;
-        gMin = bMin = aMin = idaMin = Integer.MAX_VALUE;
+        int pathAvg, pathMin, pathMax;
+        genAvg = bfsAvg = aStarAvg = idaAvg = gMax = bMax = aMax = idaMax = pathAvg = pathMax = 0;
+        gMin = bMin = aMin = idaMin = pathMin = Integer.MAX_VALUE;
         for(int i = 0; i < q; i++){
-            Data d = new Data(x,y,genAlg.getSelectionModel().getSelectedIndex());
+            Data d = new Data(x,y,genAlg);
             if(d.getGenerate() > gMax)
                 gMax = d.getGenerate();
             if(d.getGenerate() < gMin)
@@ -203,15 +209,20 @@ public class DataLogger {
                 idaMax = d.getIda();
             if(d.getIda() < idaMin)
                 idaMin = d.getIda();
+            if(d.getPathLength() > pathMax)
+                pathMax = d.getPathLength();
+            if(d.getPathLength() < pathMin)
+                pathMin = d.getPathLength();
             genAvg += d.getGenerate();
             bfsAvg += d.getBfs();
             aStarAvg += d.getAstar();
             idaAvg += d.getIda();
+            pathAvg += d.getPathLength();
             data.add(d);
         }
-        data.add(new Data(genAvg/q,bfsAvg/q,aStarAvg/q,idaAvg/q,"Average","times"));
-        data.add(new Data(gMax-gMin,bMax-bMin,aMax-aMin,idaMax-idaMin,"Range",""));
-        window.close();
+        data.add(new Data(genAvg/q,bfsAvg/q,aStarAvg/q,idaAvg/q,"Average","times",pathAvg/q));
+        data.add(new Data(gMax-gMin,bMax-bMin,aMax-aMin,idaMax-idaMin,"Range","",pathMax-pathMin));
+        
         MazeTable.display(data);
     }
 }
