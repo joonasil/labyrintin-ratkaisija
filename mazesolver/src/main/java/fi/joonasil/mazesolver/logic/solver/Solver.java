@@ -59,6 +59,21 @@ public class Solver {
         shortestPath(maze, tree, x, y);  
     }
     
+    public static void aStarNew(Maze maze) {
+        int x = maze.getMaze().length;
+        int y = maze.getMaze()[0].length;
+        boolean visited[][] = new boolean[x][y];
+        int tree[][] = new int[x][y];
+        PriorityQueue<Estimate> queue = new PriorityQueue();
+        visited[1][1] = true;
+        queue.add(new Estimate(1,1,x-2,y-2,x));
+        while(!visited[x-2][y-2]) {
+            int current = queue.poll().getIndex();
+            neighbours(x,y,current,queue,maze,tree,visited);
+        }
+        shortestPath(maze, tree, x, y);  
+    }
+    
     /**
      * Metodi etsii labyrintista lyhyimmän reitin käyttäen iterative deepening A* algoritmia.
      * @param maze labyrintti, josta halutaan löytää lyhin reitti.
