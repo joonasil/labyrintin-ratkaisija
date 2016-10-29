@@ -12,10 +12,18 @@ package fi.joonasil.mazesolver.util;
 public class Estimate implements Comparable<Estimate>{
     private final int index;
     private final int estimate;
+    private final int length;
     
     public Estimate(int x, int y, int targetX, int targetY, int maxX) {
         estimate = (targetX-x) + (targetY-y);
         index = coordinateToIndex(x,y,maxX);
+        length = 0;
+    }
+    
+    public Estimate(int x, int y, int targetX, int targetY, int maxX, int length) {
+        estimate = (targetX-x) + (targetY-y) + length;
+        index = coordinateToIndex(x,y,maxX);
+        this.length = length;
     }
     
     private static int coordinateToIndex(int x, int y, int MaxX) {
@@ -30,6 +38,9 @@ public class Estimate implements Comparable<Estimate>{
         return estimate;
     }
     
+    public int getLength() {
+        return length;
+    }
     
     @Override
     public int compareTo(Estimate other) {

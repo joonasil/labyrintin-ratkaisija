@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -107,15 +108,19 @@ public class DataLogger {
         genAlg.getSelectionModel().selectFirst();
         GridPane.setConstraints(genAlg, 1, 4);
         
+        CheckBox seeded = new CheckBox("Seeded");
+        seeded.setStyle("-fx-font-weight: bold");
+        GridPane.setConstraints(seeded, 1, 5);
+        
         Button close = new Button("Close");
-        GridPane.setConstraints(close, 0, 5);
+        GridPane.setConstraints(close, 0, 6);
         close.setOnAction(e -> window.close());
         
         Button create = new Button("Log Data");
-        GridPane.setConstraints(create, 1, 5);
-        create.setOnAction(e -> validateInput(layout, widthInput, heightInput, quantityInput, genAlg));
+        GridPane.setConstraints(create, 1, 6);
+        create.setOnAction(e -> validateInput(layout, widthInput, heightInput, quantityInput, genAlg, seeded));
         
-        layout.getChildren().addAll(width,widthInput,height,heightInput,quantity,quantityInput,gen,genAlg,close,create);
+        layout.getChildren().addAll(width,widthInput,height,heightInput,quantity,quantityInput,gen,genAlg,seeded,close,create);
         layout.setVgap(8);
         layout.setHgap(10);
         layout.setPadding(new Insets(10,10,10,10));
@@ -129,7 +134,7 @@ public class DataLogger {
      * @param height Annettu syöte labyrintin korkeudeksi.
      * @param seed Annettu syöte labyrintin generoinnin seediksi.
      */
-    private static void validateInput(GridPane grid, TextField width, TextField height, TextField quantity, ChoiceBox<String> genAlg) {
+    private static void validateInput(GridPane grid, TextField width, TextField height, TextField quantity, ChoiceBox<String> genAlg, CheckBox seeded) {
         
         width.setStyle("-fx-background-color: #FFFFFF;");
         height.setStyle("-fx-background-color: #FFFFFF;");
@@ -181,18 +186,22 @@ public class DataLogger {
             grid.getChildren().add(quantityError);
             return;
         }
-        generateData(x, y, q, genAlg);
+        generateData(x, y, q, genAlg, seeded);
     }
     
-    private static void generateData(int x, int y, int q, ChoiceBox<String> genAlg){
+    private static void generateData(int x, int y, int q, ChoiceBox<String> genAlg, CheckBox seeded){
         window.close();
         ObservableList<Data> data = FXCollections.observableArrayList();
         long genAvg, bfsAvg, aStarAvg, gMax, bMax, aMax, gMin, bMin, aMin, idaAvg, idaMin, idaMax;
         int pathAvg, pathMin, pathMax;
+        Data d = null;
         genAvg = bfsAvg = aStarAvg = idaAvg = gMax = bMax = aMax = idaMax = pathAvg = pathMax = 0;
         gMin = bMin = aMin = idaMin = pathMin = Integer.MAX_VALUE;
         for(int i = 0; i < q; i++){
-            Data d = new Data(x,y,genAlg);
+            if(seeded.isSelected())
+                d = new Data(x,y,genAlg,i);
+            else
+                d = new Data(x,y,genAlg);
             if(d.getGenerate() > gMax)
                 gMax = d.getGenerate();
             if(d.getGenerate() < gMin)

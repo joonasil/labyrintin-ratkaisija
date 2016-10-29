@@ -59,21 +59,6 @@ public class Solver {
         shortestPath(maze, tree, x, y);  
     }
     
-    public static void aStarNew(Maze maze) {
-        int x = maze.getMaze().length;
-        int y = maze.getMaze()[0].length;
-        boolean visited[][] = new boolean[x][y];
-        int tree[][] = new int[x][y];
-        PriorityQueue<Estimate> queue = new PriorityQueue();
-        visited[1][1] = true;
-        queue.add(new Estimate(1,1,x-2,y-2,x));
-        while(!visited[x-2][y-2]) {
-            int current = queue.poll().getIndex();
-            neighbours(x,y,current,queue,maze,tree,visited);
-        }
-        shortestPath(maze, tree, x, y);  
-    }
-    
     /**
      * Metodi etsii labyrintista lyhyimmän reitin käyttäen iterative deepening A* algoritmia.
      * @param maze labyrintti, josta halutaan löytää lyhin reitti.
@@ -301,5 +286,46 @@ public class Solver {
      */
     private static int coordinateToIndex(int x, int y, int MaxX) {
         return y*MaxX+x;
+    }
+    
+    /**
+     * Yritän tehdä uuden heuristiikkafunktion A* algoritmiin ihan vaan mielenkiinnosta. 
+     * En tiedä tuleeko valmiiksi ennen kuin projekti pitää palauttaa.
+     * Tämän saa siis jättää huomioimatta.
+     * @param maze 
+     */
+    public static void aStarNew(Maze maze) {
+        int x = maze.getMaze().length;
+        int y = maze.getMaze()[0].length;
+        Estimate current;
+        boolean visited[][] = new boolean[x][y];
+        int tree[][] = new int[x][y];
+        PriorityQueue<Estimate> queue = new PriorityQueue();
+        visited[1][1] = true;
+        queue.add(new Estimate(1,1,x-2,y-2,x,0));
+        while(!visited[x-2][y-2]) {
+            current = queue.poll();
+            neighbours(x,y,current.getIndex(),queue,maze,tree,visited,current.getLength()+1);
+        }
+        shortestPath(maze, tree, x, y);  
+    }
+    
+    private static void neighbours(int x, int y, int current, PriorityQueue queue, Maze maze, int[][] tree, boolean[][] visited, int length){
+        int currentX;
+        int currentY;
+        for(int i = -1; i < 2; i++) {
+            for(int j = -1; j < 2; j++) {
+                currentX = indexToX(current,x)+i;
+                currentY = indexToY(current,x)+j;
+                if(maze.getMaze()[currentX][currentY] == 0 || !(j == 0 && i != 0 || j != 0 && i == 0))
+                    continue;    
+                if(!visited[currentX][currentY]){
+                    visited[currentX][currentY] = true;
+                    tree[currentX][currentY] =  current;
+                    maze.getMaze()[currentX][currentY] += 3;
+                    queue.add(new Estimate(currentX,currentY,x-2,y-2,x,length));
+                }
+            }
+        }
     }
 }

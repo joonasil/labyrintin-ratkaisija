@@ -43,6 +43,23 @@ public class Data {
         pathLength = maze.getPathLength();
     }
     
+    public Data(int x, int y, ChoiceBox<String> gen, long seed){
+        Maze maze = new Maze(x,y,seed,gen);
+        maze.solveBreadthFrist();
+        maze.solveAStar();
+        maze.solveIDA();
+        generate = maze.getTimeToGenerate();
+        bfs = maze.getTimeBFS();
+        astar = maze.getTimeAStar();
+        ida = maze.getTimeIDA();
+        genAlg = maze.getGenAlg();
+        size = x + " x " + y;
+        button = new Button("image");
+        button.setOnAction(e -> buttonPressed(x,y));
+        image = maze.getImage();
+        pathLength = maze.getPathLength();
+    }
+    
     public Data(long generate, long bfs, long aStar, long ida, String s, String a, int pl){
         this.generate = generate;
         this.bfs = bfs;
