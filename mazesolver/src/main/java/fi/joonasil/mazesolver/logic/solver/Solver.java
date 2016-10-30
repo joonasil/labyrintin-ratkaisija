@@ -289,10 +289,11 @@ public class Solver {
     }
     
     /**
-     * Yritän tehdä uuden heuristiikkafunktion A* algoritmiin ihan vaan mielenkiinnosta. 
-     * En tiedä tuleeko valmiiksi ennen kuin projekti pitää palauttaa.
-     * Tämän saa siis jättää huomioimatta.
-     * @param maze 
+     * Uusi heuristiikkafunktio A* algoritmille. Heuristiikkafunktio on noin 2 kertaa hitaampi
+     * edelliseen verratuna, mutta varmistaa lyhyimmän reitin löytymisen, jos mahdollisia reittejä
+     * alkupisteestä maaliin on useita. Ohjelmani generoimissa labyrinteissa on vain yksi mahdollinen
+     * reitti alkupisteestä maaliin, joten A* toimii kummallakin heuristiikkafunktiolla.
+     * @param maze Ratkaistava labyrintti.
      */
     public static void aStarNew(Maze maze) {
         int x = maze.getMaze().length;
@@ -310,6 +311,19 @@ public class Solver {
         shortestPath(maze, tree, x, y);  
     }
     
+    /**
+     * Uuden A* algoritmin käyttämä metodi.
+     * Lisää prioriteettijonoon A* algoritmin tämänhetkisen indeksin viereiset indeksin, joita ei ole vielä
+     * käyty läpi algoritmin toimesta.
+     * @param x Labyrintin leveys.
+     * @param y Labyrintin korkeus.
+     * @param current Algoritmin tämänhetkinen indeksi.
+     * @param queue Prioriteettijono, josta algoritmi ottaa seuraavan indeksin tarkasteltavaksi.
+     * @param path Labyrintti kaksiuloitteisena kokonaislukutaulukona esitettynä.
+     * @param tree Kaksiuloitteinen lista, mikä tallentaa lyhyimmän reitin labyrintin läpi.
+     * @param visited Kaksiuloitteinen lista, mikä pitää kirjaa vierailluista indekseistä.
+     * @param length Reitin pituus alkupisteestä lisättäviin naapuri-indekseihin.
+     */
     private static void neighbours(int x, int y, int current, PriorityQueue queue, Maze maze, int[][] tree, boolean[][] visited, int length){
         int currentX;
         int currentY;

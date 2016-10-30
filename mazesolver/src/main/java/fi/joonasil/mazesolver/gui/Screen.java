@@ -8,7 +8,6 @@ package fi.joonasil.mazesolver.gui;
 import fi.joonasil.mazesolver.Main;
 import fi.joonasil.mazesolver.Mazesolver;
 import fi.joonasil.mazesolver.logic.generator.Maze;
-import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -55,14 +54,17 @@ public class Screen {
         return this.scene;
     }
        
-
+    /**
+     * Asettaa tämänhetkisen labyrintin kuvan Liikutettavaan ScrollPane olioon.
+     * @return ScrollPane olio, joka halutaan piirtää näytölle.
+     */
     public static ScrollPane setImage() {
         
         Maze maze = Mazesolver.getMaze();
         final int newX = 2*maze.getX()+1;
         final int newY = 2*maze.getY()+1;
         
-        ImageView image = maze.getImage();
+        ImageView image = ImageConverter.getImage(maze.getMaze());
         image.setFitHeight(newY*4);
         image.setFitWidth(newX*4);
         
@@ -70,12 +72,9 @@ public class Screen {
         
         DoubleProperty zoomProperty = new SimpleDoubleProperty(newX+newY);
 
-        zoomProperty.addListener(new InvalidationListener() {
-            @Override
-            public void invalidated(Observable arg0) {
-                image.setFitWidth(zoomProperty.get() * 2);
-                image.setFitHeight(zoomProperty.get() * 2);
-            }
+        zoomProperty.addListener((Observable arg0) -> {
+            image.setFitWidth(zoomProperty.get() * 2);
+            image.setFitHeight(zoomProperty.get() * 2);
         });
 
         scroll.addEventFilter(ScrollEvent.ANY, (e ->  {
@@ -85,10 +84,13 @@ public class Screen {
                 zoomProperty.set(zoomProperty.get() / 1.1);
             }
         }));
-        
         return scroll;
     }
     
+    /**
+     * Asettaa labyrintin tiedot ScrollPane olion viereen.
+     * @return VBox tyyppinen olio, jossa on labyrintin tiedot.
+     */
     public static VBox setInfo() {
         VBox info = new VBox();
         Maze maze = Mazesolver.getMaze();
@@ -154,7 +156,7 @@ public class Screen {
         }
         
         Button save = new Button("Save");
-        save.setOnAction(e -> ImageConverter.saveImage(Mazesolver.getMaze().getImage().getImage()));
+        save.setOnAction(e -> ImageConverter.saveImage(ImageConverter.getImage(Mazesolver.getMaze().getMaze()).getImage()));
         
         info.getChildren().add(save);
         info.setMinWidth(250);

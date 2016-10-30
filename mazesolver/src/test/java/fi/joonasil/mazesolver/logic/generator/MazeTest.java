@@ -5,8 +5,6 @@
  */
 package fi.joonasil.mazesolver.logic.generator;
 
-import fi.joonasil.mazesolver.Mazesolver;
-import java.util.Random;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -19,7 +17,9 @@ import static org.junit.Assert.*;
  * @author Joonas
  */
 public class MazeTest {
-
+    
+    private Maze maze;
+    
     public MazeTest() {
     }
     
@@ -33,71 +33,126 @@ public class MazeTest {
     
     @Before
     public void setUp() {
-        Mazesolver.setMaze(new Maze(5,5,1337));
+        maze = new Maze(5,5,(long)1337);
     }
     
     @After
     public void tearDown() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
     @Test
     public void testConstructor() {
-        assertEquals(5,Mazesolver.getMaze().getX());
+        assertEquals(25,maze.getX()*maze.getY());
+        assertEquals("Prim's",maze.getGenAlg());
+        assertEquals(0,maze.getPathLength());
+        assertEquals(false,maze.getSolved()[0]);
+        assertEquals(0,maze.getTimeAStar());
+        assertEquals(0,maze.getTimeBFS());
+        assertEquals(0,maze.getTimeIDA());
+        int[][] correct = new int[][]{
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+            {0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0}, 
+            {0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0}, 
+            {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}, 
+            {0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0}, 
+            {0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0}, 
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, 
+            {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+            {0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0}, 
+            {0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0}, 
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0} 
+        };
+        for(int i = 0; i < correct.length; i++){
+            for(int j = 0; j < correct[0].length; j++){
+                assertEquals(true, maze.getMaze()[j][i] == correct[i][j]);
+            }
+        }
     }
     
     @Test
     public void testConstructor2() {
-        assertEquals(5,Mazesolver.getMaze().getY());
+        maze = new Maze(5,5);
+        assertEquals(25,maze.getX()*maze.getY());
+        assertEquals("Prim's",maze.getGenAlg());
+        assertEquals(0,maze.getPathLength());
+        assertEquals(false,maze.getSolved()[0]);
+        assertEquals(0,maze.getTimeAStar());
+        assertEquals(0,maze.getTimeBFS());
+        assertEquals(0,maze.getTimeIDA());
     }
     
     @Test
     public void testConstructor3() {
-        assertEquals(1,Mazesolver.getMaze().getMaze()[1][1]);
+        maze = new Maze(5,5,(long)1337,0);
+        assertEquals(25,maze.getX()*maze.getY());
+        assertEquals("Prim's",maze.getGenAlg());
+        assertEquals(0,maze.getPathLength());
+        assertEquals(false,maze.getSolved()[0]);
+        assertEquals(0,maze.getTimeAStar());
+        assertEquals(0,maze.getTimeBFS());
+        assertEquals(0,maze.getTimeIDA());
+        int[][] correct = new int[][]{
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+            {0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0}, 
+            {0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0}, 
+            {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}, 
+            {0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0}, 
+            {0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0}, 
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, 
+            {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+            {0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0}, 
+            {0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0}, 
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0} 
+        };
+        for(int i = 0; i < correct.length; i++){
+            for(int j = 0; j < correct[0].length; j++){
+                assertEquals(true, maze.getMaze()[j][i] == correct[i][j]);
+            }
+        }
     }
     
     @Test
     public void testConstructor4() {
-        assertEquals(1,Mazesolver.getMaze().getMaze()[5][1]);
-    }
-    
-    @Test
-    public void testConstructor5() {
-        assertEquals(0,Mazesolver.getMaze().getMaze()[0][1]);
-    }
-    
-    @Test
-    public void testConstructor6() {
-        assertEquals(0,Mazesolver.getMaze().getMaze()[1][0]);
-    }
-    
-    @Test
-    public void testConstructor7() {
-        assertEquals(1,Mazesolver.getMaze().getMaze()[1][2]);
-    }
-    
-    @Test
-    public void testConstructor8() {
-        assertEquals(0,Mazesolver.getMaze().getMaze()[2][1]);
+        maze = new Maze(5,5,0);
+        assertEquals(25,maze.getX()*maze.getY());
+        assertEquals("Prim's",maze.getGenAlg());
+        assertEquals(0,maze.getPathLength());
+        assertEquals(false,maze.getSolved()[0]);
+        assertEquals(0,maze.getTimeAStar());
+        assertEquals(0,maze.getTimeBFS());
+        assertEquals(0,maze.getTimeIDA());
     }
     
     @Test
     public void testSolveBFS() {
-        Mazesolver.getMaze().solveBreadthFrist();
-        assertEquals(16,Mazesolver.getMaze().getPathLength());
+        maze.solveBreadthFrist();
+        assertEquals(16,maze.getPathLength());
     }
     
     @Test
     public void testSolveAStar() {
-        Mazesolver.getMaze().solveAStar();
-        assertEquals(16,Mazesolver.getMaze().getPathLength());
+        maze.solveAStar();
+        assertEquals(16,maze.getPathLength());
     }
     
     @Test
     public void testSolveIDA() {
-        Mazesolver.getMaze().solveIDA();
-        assertEquals(16,Mazesolver.getMaze().getPathLength());
+        maze.solveIDA();
+        assertEquals(16,maze.getPathLength());
+    }
+    
+    @Test
+    public void testToString() {
+        maze = new Maze(2,2,(long)2);
+        String s = "0 0 0 0 0 \n0 1 1 1 0 \n0 1 0 0 0 \n0 1 1 1 0 \n0 0 0 0 0 \n";
+        assertEquals(true,s.equals(maze.toString())); 
+    }
+    
+    @Test
+    public void testToString2() {
+        maze = new Maze(2,2,(long)2);
+        maze.solveBreadthFrist();
+        String s = "0 0 0 0 0 \n0 113 3 0 \n0 110 0 0 \n0 1111110 \n0 0 0 0 0 \n";
+        assertEquals(true,s.equals(maze.toString())); 
     }
 }

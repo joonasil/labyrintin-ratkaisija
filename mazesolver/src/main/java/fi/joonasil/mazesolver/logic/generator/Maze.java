@@ -8,7 +8,6 @@ package fi.joonasil.mazesolver.logic.generator;
 import fi.joonasil.mazesolver.gui.ImageConverter;
 import fi.joonasil.mazesolver.logic.solver.Solver;
 import java.util.Random;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.ImageView;
 /**
  * Luokka labyrintille.
@@ -19,7 +18,6 @@ public class Maze {
     private final long timeToGenerate;
     private final boolean[] solved;
     private final long[] timeToSolve;
-    private ImageView image;
     private int[][] maze;
     private final int x;
     private final int y;
@@ -40,18 +38,17 @@ public class Maze {
         maze = Generator.generatePrim(rand, x, y);
         genAlg = "Prim's";
         timeToGenerate = System.nanoTime()-start;
-        image = ImageConverter.getImage(maze);
         solved = new boolean[3];
         timeToSolve = new long[3];
         pathLength = 0;
     }
     
-    public Maze(int x, int y, ChoiceBox<String> genAlg) {
+    public Maze(int x, int y, int genAlg) {
         Random rand = new Random();
         this.x = x;
         this.y = y;
         long start = System.nanoTime();
-        switch (genAlg.getSelectionModel().getSelectedIndex()) {
+        switch (genAlg) {
             case 0:
                 maze = Generator.generatePrim(rand, x, y);
                 this.genAlg = "Prim's";
@@ -69,7 +66,6 @@ public class Maze {
                 System.out.println("Error!");
         }
         timeToGenerate = System.nanoTime()-start;
-        image = ImageConverter.getImage(maze);
         solved = new boolean[3];
         timeToSolve = new long[3];
         pathLength = 0;
@@ -90,7 +86,6 @@ public class Maze {
         long start = System.nanoTime();
         maze = Generator.generatePrim(rand,x,y);
         timeToGenerate = System.nanoTime()-start;
-        image = ImageConverter.getImage(maze);
         solved = new boolean[3];
         timeToSolve = new long[3];
         pathLength = 0;
@@ -104,12 +99,12 @@ public class Maze {
      * @param seed Seedi labyrintin luomista varten.
      * @param genAlg Mitä generointialgoritmia käytetään.
      */
-    public Maze(int x, int y, long seed, ChoiceBox<String> genAlg) {
+    public Maze(int x, int y, long seed, int genAlg) {
         Random rand = new Random(seed);
         this.x = x;
         this.y = y;
         long start = System.nanoTime();
-        switch (genAlg.getSelectionModel().getSelectedIndex()) {
+        switch (genAlg) {
             case 0:
                 maze = Generator.generatePrim(rand, x, y);
                 this.genAlg = "Prim's";
@@ -127,35 +122,40 @@ public class Maze {
                 System.out.println("Error!");
         }
         timeToGenerate = System.nanoTime()-start;
-        image = ImageConverter.getImage(maze);
         solved = new boolean[3];
         timeToSolve = new long[3];
         pathLength = 0;
     }
     
+    /**
+     * Ratkaisee labyrintin käyttäen breadth-first search algoritmia.
+     */
     public void solveBreadthFrist() {
         long start = System.nanoTime();
         Solver.breadthFirst(this);
         long end = System.nanoTime()-start;
-        this.image = ImageConverter.getImage(maze);
         timeToSolve[0] = end;
         solved[0] = true;
     }
     
+    /**
+     * Ratkaisee labyrintin käyttäen A* algoritmia.
+     */
     public void solveAStar() {
         long start = System.nanoTime();
         Solver.aStar(this);
         long end = System.nanoTime()-start;
-        this.image = ImageConverter.getImage(maze);
         timeToSolve[1] = end;
         solved[1] = true;
     }
     
+    /**
+     * Ratkaisee labyrintin käyttäen iterative deepening A* algoritmia.
+     */
     public void solveIDA() {
         long start = System.nanoTime();
         Solver.IDA(this);
         long end = System.nanoTime()-start;
-        this.image = ImageConverter.getImage(maze);
         timeToSolve[2] = end;
         solved[2] = true;
     }
@@ -183,11 +183,7 @@ public class Maze {
     public int getY() {
         return this.y;
     }
-    
-    public ImageView getImage() {
-        return this.image;
-    }
-    
+   
     public String getGenAlg(){
         return this.genAlg;
     }
@@ -214,7 +210,7 @@ public class Maze {
         for(int i = 0; i < 2*y+1; i++){
             for(int j = 0; j < 2*x+1; j++){
                 s += maze[j][i];
-                if(maze[j][i] != 11)
+                if(!(maze[j][i] == 11 || maze[j][i] == 10))
                     s += " ";
             }
             s += "\n";

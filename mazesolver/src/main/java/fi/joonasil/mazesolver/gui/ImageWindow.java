@@ -5,12 +5,9 @@
  */
 package fi.joonasil.mazesolver.gui;
 
-import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
@@ -23,6 +20,12 @@ import javafx.stage.Stage;
  */
 public class ImageWindow {
     
+    /**
+     * Luo uuden ikkunan ja piirtää siihen parametrina annetun labyrintin kuvan.
+     * @param image Piirrettävän labyrintin kuva.
+     * @param x Labyrintin leveys.
+     * @param y Labyrintin korkeus.
+     */
     public static void display(ImageView image, int x, int y) {
         image.setFitHeight(y*2);
         image.setFitWidth(x*2);
@@ -30,12 +33,9 @@ public class ImageWindow {
         
         DoubleProperty zoomProperty = new SimpleDoubleProperty(x+y);
 
-        zoomProperty.addListener(new InvalidationListener() {
-            @Override
-            public void invalidated(Observable arg0) {
-                image.setFitWidth(zoomProperty.get() * 1);
-                image.setFitHeight(zoomProperty.get() * 1);
-            }
+        zoomProperty.addListener((Observable arg0) -> {
+            image.setFitWidth(zoomProperty.get() * 1);
+            image.setFitHeight(zoomProperty.get() * 1);
         });
 
         pane.addEventFilter(ScrollEvent.ANY, (e ->  {

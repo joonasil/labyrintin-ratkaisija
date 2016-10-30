@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="0" name="fi.joonasil.mazesolver.logic.generator.GeneratorTest" time="0.031" errors="0" skipped="0">
+<testsuite tests="3" failures="0" name="fi.joonasil.mazesolver.logic.generator.GeneratorTest" time="0.053" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="D:\Program Files\Java\jdk1.8.0_74\jre\bin"/>
@@ -45,7 +45,7 @@
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="D:\Program Files\Java\jdk1.8.0_74\jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dmaven.ext.class.path=D:\Program Files\NetBeans 8.1\java\maven-nblib\netbeans-eventspy.jar -Dfile.encoding=UTF-8 clean install"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dmaven.ext.class.path=D:\Program Files\NetBeans 8.1\java\maven-nblib\netbeans-eventspy.jar -Dfile.encoding=UTF-8 test"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="en"/>
     <property name="user.language.format" value="fi"/>
@@ -63,5 +63,7 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="fi.joonasil.mazesolver.logic.generator.GeneratorTest" name="asd" time="0"/>
+  <testcase classname="fi.joonasil.mazesolver.logic.generator.GeneratorTest" name="testGeneratePrim" time="0.002"/>
+  <testcase classname="fi.joonasil.mazesolver.logic.generator.GeneratorTest" name="testGenerateDFS" time="0"/>
+  <testcase classname="fi.joonasil.mazesolver.logic.generator.GeneratorTest" name="testGenerateKruskal" time="0"/>
 </testsuite>

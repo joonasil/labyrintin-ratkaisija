@@ -5,6 +5,7 @@
  */
 package fi.joonasil.mazesolver.util;
 
+import fi.joonasil.mazesolver.gui.ImageConverter;
 import fi.joonasil.mazesolver.gui.ImageWindow;
 import fi.joonasil.mazesolver.logic.generator.Maze;
 import javafx.scene.control.Button;
@@ -26,8 +27,8 @@ public class Data {
     private final ImageView image;
     private int pathLength;
     
-    public Data(int x, int y, ChoiceBox<String> gen){
-        Maze maze = new Maze(x,y, gen);
+    public Data(int x, int y, int gen){
+        Maze maze = new Maze(x,y,gen);
         maze.solveBreadthFrist();
         maze.solveAStar();
         maze.solveIDA();
@@ -39,11 +40,11 @@ public class Data {
         size = x + " x " + y;
         button = new Button("image");
         button.setOnAction(e -> buttonPressed(x,y));
-        image = maze.getImage();
+        image = ImageConverter.getImage(maze.getMaze());
         pathLength = maze.getPathLength();
     }
     
-    public Data(int x, int y, ChoiceBox<String> gen, long seed){
+    public Data(int x, int y, int gen, long seed){
         Maze maze = new Maze(x,y,seed,gen);
         maze.solveBreadthFrist();
         maze.solveAStar();
@@ -56,7 +57,7 @@ public class Data {
         size = x + " x " + y;
         button = new Button("image");
         button.setOnAction(e -> buttonPressed(x,y));
-        image = maze.getImage();
+        image = ImageConverter.getImage(maze.getMaze());
         pathLength = maze.getPathLength();
     }
     

@@ -199,9 +199,9 @@ public class DataLogger {
         gMin = bMin = aMin = idaMin = pathMin = Integer.MAX_VALUE;
         for(int i = 0; i < q; i++){
             if(seeded.isSelected())
-                d = new Data(x,y,genAlg,i);
+                d = new Data(x,y,genAlg.getSelectionModel().getSelectedIndex(),i);
             else
-                d = new Data(x,y,genAlg);
+                d = new Data(x,y,genAlg.getSelectionModel().getSelectedIndex());
             if(d.getGenerate() > gMax)
                 gMax = d.getGenerate();
             if(d.getGenerate() < gMin)

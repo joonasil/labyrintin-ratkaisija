@@ -178,12 +178,12 @@ public class CreateMaze {
             return;
         if(isInt(width) && isInt(height) && seed.getText().isEmpty()) {
             window.close();
-            Mazesolver.setMaze(new Maze(x,y,genAlg));
+            Mazesolver.setMaze(new Maze(x,y,genAlg.getSelectionModel().getSelectedIndex()));
             Mazesolver.getScreen().setScene();
         }
         if(isInt(width) && isInt(height) && !seed.getText().isEmpty()) {
             window.close();
-            Mazesolver.setMaze(new Maze(x,y,Integer.parseInt(seed.getText()),genAlg));
+            Mazesolver.setMaze(new Maze(x,y,(long)Integer.parseInt(seed.getText()),genAlg.getSelectionModel().getSelectedIndex()));
             Mazesolver.getScreen().setScene();
         }
     }

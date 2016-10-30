@@ -70,6 +70,10 @@ public class ImageConverter {
         return new ImageView(output);
     }
     
+    /**
+     * Tallentaa parametrina annetun kuvan .png tiedostona images kansioon.
+     * @param image Tallennettava kuva.
+     */
     public static void saveImage(Image image){
         new File(System.getProperty("user.dir")+"/images").mkdir();
         Path path = Paths.get(System.getProperty("user.dir") + "/images/" + System.nanoTime() + ".png");
