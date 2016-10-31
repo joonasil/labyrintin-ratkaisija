@@ -121,10 +121,53 @@ Tilavaativuus on O(2n+m), missä n on ruutujen määrä ja m on seinien määrä
 
 ## Ratkaisualgoritmien aika- ja tilavaativuudet
 
-![BFS's](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/bfs.gif)
+###Labyrintin ratkaiseminen breadth-first search algoritmilla
+
+![BFS's](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/bfs.gif)  
+  
+Algoritmin toimintaperiaate:  
+* lisää alkusolmu jonoon **O(1)**
+* niin kauan, kun maalisolmussa ei ole käyty **O(n)**
+  * ota jonon ensimmäinen solmu **O(1)**
+  * kaikille solmun naapurisolmuille **O(1)**
+    * aseta lyhyin reitti kulkemaan kyseisen solmun kautta **O(1)**
+    * lisää solmu jonoon **O(1)**
+
+BFS aloittaa lähtösolmusta ja käy aina seuraavaksi lyhyimmät reitit läpi, joihin pääsee jo algoritmin läpikäymistä solmuista. 
+Pitää kirjaa vierailluista solmuista ja lyhyimmästä reitistä jokaisesta vieraillusta solmusta alkusolmuun.
+Pahimmassa tapauksessa kaikki labyrintin ruudut tulee käytyä läpi ennen kuin lyhin reitti maalisolmuun löytyy ja yhden ruudun läpikäynti vie aikaa 0(1), joten algoritmin läpikäynti vie aikaa O(n), missä n on labyrintin ruutujen määrä. Suurilla labyrinteilla aikavaativuutta on parempi arvioida kaavalla O(b^(d+1)), missä d on lyhyimmän reitin pituus ja b on haarautumiskerroin (labyrintissa välillä 1-3, koska ikinä ei tarvitse peruuttaa).
+  
+Koska algoritmin pitää pitää kirjaa vierailluista ruuduista ja lyhyimmästä reitistä kaikkiin solmuihin, johon kumpaankin tarvitaan labyrinttiä vastaavan kokoinen taulukko, on algoritmin tilavaativuus O(2n) = O(n). Taulukot eivät ole dynaamisia, joten tilavaativuus ei riipu lyhyimmän reitin pituudesta maalisolmuun.  
+
+###Labyrintin ratkaiseminen A* algoritmilla
 
 ![AStar's](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/astar.gif)
 
+Algoritmin toimintaperiaate:  
+* lisää alkusolmu prioriteettijonoon **O(1)**
+* niin kauan, kun maalisolmussa ei ole käyty **O(n)**
+  * ota jonon ensimmäinen solmu **O(1)**
+  * kaikille solmun naapurisolmuille **O(1)**
+    * aseta lyhyin reitti kulkemaan kyseisen solmun kautta **O(1)**
+    * lisää solmu prioriteettijonoon **O(log n)**
+  
+Muuten kuten BFS algoritmi, mutta ei tutki kaikkia tietyn pituisia reittejä alkusolmusta, vaan käyttää heuristiikkafunktiota arviodakseen tietyn solmun mahdollisuutta johtaa lyhyimpää reittiä haluttuun solmuun. Pahimmassa tapauksessa aikavaativuudeltaan O(n log n) eli BFS algoritmia hitaampi, mutta haarautumiskertoimen ollessa labyrintissa suuri ja täten lyhyimmän reitin pituus pienempi, on A* huomattavasti BFS-algoritmia nopeampi. Toteutin A* toisen heuristiikkafunktion, koska ensimmäinen ei löytäisi välttämättä parasta mahdollista reittiä, jos alkusolmusta maalisolmuun olisi useita mahdollisia reittejä. Kummatkin heuristiikkafunktiot toimivat, koska jokainen labyrintin generointialgoritmi generoi labyrintteja, joissa on vain yksi mahdollinen reitti kahden labyrintin pisteen välillä. A* aikavaativuus lyhyimpään reittiin suhteutettuna on myös O(b^(d+1)) kuten BFS algoritmilla, mutta heuristiikkafunktion ansiosta sillä on pienempi haarautumiskerroin. Tästä myös nähdään, että jos labyrintin haarautumiskerroin on lähellä arvoa 1 eli labyrintissa on pitkiä käytäviä ilman haarautumisia, A* ei pysty heuristiikkafunktiollaan karsimaan haarautumiskerrointa yhtään pienemmäksi ja näin ollen joutuu käymään todennäköisesti lähes yhtä monessa ruudussa kuin BFS ja on hitaampi hitaamman yhden ruudun aikavaativuuden takia.  
+  
+Tilavaativuus on identtinen BFS algoritmin kanssa.  
+###Labyrintin ratkaiseminen iterative deepening A* algoritmilla
+
 ![IDAStar's](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/idastar.gif)
 
+Algoritmin toimintaperiaate:  
+* arvioidaan lyhyimmän reitin pituus alkusolmusta maaliin **O(1)**
+* niin kauan, kuin on olemassa solmuja, joiden pituusarvio maaliin + reitin pituus alkusolmusta kyseiseen solmuun on pienempi tai yhtäsuuri kuin alkuperäinen lyhyimmän reitin pituusarvio **O(n)**
+  * valitaan nykyisen solmun naapurisolmuista arviolta paras solmu ja tehdään siitä nykyinen solmu **O(1)**
+  * jos saavutaan haluttuun ruutuun, lopetetaan algoritmin suoritus **O(1)**
+* jos ei ole enää ehdon täyttäviä solmuja ja haluttua solmua ei ole saavutettu, kasvatetaan lyhyimmän reitin pituusarviota ja aloitetaan algoritmin suoritus alusta.  **O(n)**
+  
+IDA* algoritmin aikavaativuus riippuu hyvin paljon siitä, kuinka monta kertaa pituusarviota joudutaan kasvattamaan. Jos labyrintin haarautumiskerroin on suuri ja täten haluttu reitti on lyhyempi ja suorempi, algoritmi saattaa löytää ratkaisun kasvattamatta arviota kertaakaan ja aikavaativuus on silloin O(n), missä lyhyin reitti <= n < labyrintin ruutujen määrä. Jokainen pituusarvion kasvattaminen kasvattaa aikavaativuutta potenssilla, joten jos algoritmi joutuu kerran kasvattamaan pituusarviota, on aikavaativuus suuruusluokkaa O(n^2).  
+  
+Algoritmin suurin hyöty on sen vähäinen muistin tarve. Algoritmilla on kerrallaan muistissa vain reitti lähtösolmusta nykyiseen solmuun ja nykyisen solmun naapurisolmut eli tilavaativuus on O(bd).
+  
 ![IDAStar's 2](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/ida.gif)
+#####IDA* algoritmi on erittäin tehoton, jos lyhyin reitti tekee paljon mutkia, koska algoritmi joutuu monesti aloittamaan haun alusta suuremmalla sallitulla reitin maksimipituuden arviolla.
