@@ -21,4 +21,4 @@ A-Star algoritmi käyttää heuristiikkaa karsiakseen algoritmin käymiä solmuj
 ###Iterative deepening A-Star
 ![IDA](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/IDAKoko.png)
 ![IDA](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/IDAReitti.png)  
-
+Iterative deepening A-Star algoritmi on nopeampi käymään yksittäisiä ruutuja läpi kuin perinteinen A-Star, koska se ei tarvitse prioriteettijonoa vaan toteutetaan rekursiivisesti. Tästä johtuen jos labyrintin haarautumisaste on tarpeeksi suuri ja lyhyin reitti suhteellisen suora, käy algoritmi läpi suunnilleen saman verran ruutuja kuin A-Star, mutta tekee sen ajassa O(n) A-Starin O(n log n) sijaan. Näin ollen iterative deepening A-Star on yleensä nopein algoritmi ratkaisemaan Primin algoritmilla generoituja labyrintteja. 
