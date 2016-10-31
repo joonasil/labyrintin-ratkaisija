@@ -31,9 +31,13 @@ Huomasin generointialgoritmien olevan huomattavasti ratkaisualgoritmeja hitaampi
 Yllä olevassa labyrintissa on siis ruutuja 4x3 = 12, vaikka taulukon koko on 9x7 = 63. Nyt siis esim. labyrintin kaikkein ylävasemmalla olevin ruutu on labyrintin taulukossa indeksissä 10 ja sitä vastaa indeksi 0 pelkkien ruutujen listassa. Vastaavasti labyrintin indeksissä 12 olevaa ruutua vastaa indeksi 1. Nyt siis esimerkiksi kun luodaan uusi labyrintti ja halutaan asettaa sattumanvarainen ensimmäinen ruutu osaksi labyrinttia generointialgoritmin alussa, pitää valita ensin jokin ruuduista 0-11 ja sen jälkeen muuttaa valittu luku vastaavaksi labyrintin taulukon indeksiksi. Kaksiuloitteisen taulukon (x,y)- koordinaatin voi muuttaa yksiuloitteisen taulukon indeksiksi kaavalla `indeksi = y-koordinaatti * kaksiuloitteisen taulukon leveys + x-koordinaatti` ja yksiuloitteisen taulukon indeksin voi muuttaa takaisin kaksiuloitteisen taulukon koordinaatiksi kaavoilla `x-koordinaatti = indeksi mod kaksiuloitteisen taulukon leveys` ja `y-koordinaatti = indeksi / kaksiuloitteisen taulukon leveys`. 
 
 Lähdin ratkaisemaan ongelmaa piirtämällä vihkoon erikokoisia "yksiuloittesia taulukkoja" muodossa  
-012                                     (0,0)(1,0)(2,0)  
-345  vastaa kaksiuloitteista taulukkoa: (0,1)(1,1)(2,1)  
-678                                     (0,2)(1,2)(2,2)  
+012                                 
+345   
+678  
+vastaava kaksiuloitteinen taulukko:  
+(0,0)(1,0)(2,0)  
+(0,1)(1,1)(2,1)  
+(0,2)(1,2)(2,2)  
 ja etsimällä yhteyttä kaksiuloitteisen taulukon leveyden ja korkeuden; yksiuloitteisen taulukon indeksin ja halutun indeksin välillä. Esimerkiksi, koska kokonaisluvuilla jaettaessa mahdollinen desimaaliosa vain jätetään pois, (4/3)-1 = 0 pitää paikkansa. Lopulta päädyin kaavaan `1 + labyrintin leveys * (1 + 2 * y-koordinaatti) + 2 * x-koordinaatti`. Nyt siis esimerkiksi, jos halutaan viitata kaikkein ylävasempaan ruutuun (indeksi 0) yllä olevassa labyrintissa, saadaan ruudun indeksiksi 1 + 9 * (1 + 2 * (0 / 4)) + 2 * (0 mod 4) = 10 kuten yllä jo mainittiin.
 
 
