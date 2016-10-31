@@ -6,4 +6,19 @@ Suorituskykytestauksessa on käytetty ohjelman omaa datankeräysohjelmaa, joka g
   
 Ohjelman kolme labyrintin generointialgoritmia luovat jokainen eri typpisiä labyrintteja. Primin algoritmilla generoiduissa labyrinteissä on suurin haarautumiskerroin ja lyhyimmät ratkaisut, depth-first search algoritmin luomissa labyrinteissa taas on hyvin pieni haarautumiskerroin ja pisimmät ratkaisut. Kruskalin algoritmilla generoidut labyrintit ovat kahden muun algoritmin väliltä, niissä on keskinkertainen haarautumiskerroin ja lyhyin ratkaisu. Jokaisen algoritmin generoimissa labyrinteissa on vain yksi ratkaisu minkä tahansa kahden pisteen välillä. Koska ratkaisualgoritmien aikavaativuudet riippuvat lyhyimmän reitin pituudesta ja haarautumiskertoimesta, on eri labyrinteista saadut tulokset mielenkiintoisia.
 
-![Prim's](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/primKoko.gif)
+###Breadth-first search
+
+![BFS](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/BFSKoko.png)
+![BFS](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/BFSReitti.png)  
+Breadth-first search algoritmilla ei ole mitään heuristiikkaa, vaan se tutkii kasvavassa järjestyksessä kaikki tietyn mittaiset reitit. Tästä johtuen kun katsoo kuvaajaa, jossa algoritmin kestoa on verrattu labyrintin kokoon nähdään että riippumatta siitä miten labyrintti on generoitu, käy algoritmi suunnilleen yhtä monessa labyrintin ruudussa. Kun taas katsoo kuvaajaa, jossa on algoritmin kestoa verrataan lyhyimmän reitin pituuteen, nähdään että pienempi haarautumiskerroin labyrintissa, jossa on saman kokoinen lyhyin reitti pienentää algoritmin vaatimaa aikaa. Olisi ollut mielenkiintoista lisätä mahdollisuus laskea labyrintin haarautumiskerroin, jolloin olisi paremmin päässyt testaamaan aikavaativuutta O(b^d-1), missä b on haarautumiskerroin ja d lyhyimmän reitin pituus.  
+
+###A-Star
+
+![A-Star](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/AStarKoko.png)
+![A-Star](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/AStarReitti.png)  
+A-Star algoritmi käyttää heuristiikkaa karsiakseen algoritmin käymiä solmuja ja labyrintin kokoon verrattaessa nähdään, että A-Star hyötyy eniten mahdollisimman suuresta haarautumiskertoimesta jolloin myös on mahdollista karsia enemmän solmuja pois. Kun taas vertaamme algoritmin viemää aikaa reitin pituuteen, nähdään taas ettei suuri haarautumiskerroin ole pelkästään hyvä asia sillä taas jos vain lyhin reitti on saman mittainen, on pienimmän haarautumiskertoimen omaava labyrintti nopein ratkaistava.
+
+###Iterative deepening A-Star
+![IDA](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/IDAKoko.png)
+![IDA](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/IDAReitti.png)  
+
