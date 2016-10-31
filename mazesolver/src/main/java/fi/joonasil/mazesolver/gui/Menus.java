@@ -24,7 +24,7 @@ public class Menus {
     
     public static MenuBar setMenuBar() {
         MenuBar menuBar = new MenuBar();
-        Menu mazeMenu = new Menu("Maze");
+        Menu mazeMenu = new Menu("Menu");
         
         MenuItem selectMaze = new MenuItem("Generate Maze");
         MenuItem quitMaze = new MenuItem("Quit Program");
