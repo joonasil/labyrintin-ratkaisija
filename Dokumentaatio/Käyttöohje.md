@@ -1,6 +1,6 @@
 # Käyttöohje
 Ohjelmasta löytyy ajettava .jar tiedosto projektin juuresta nimeltä Labyrintin Ratkaisja.jar
-Ohjelman käyttöliittymä on mielestäni aika käyttäjäystävällinen. Kun ohjelman käynnistää luo se valmiiksi satunnaisen labyrintin. Labyrinttia pystyy zoomaamaan käyttämällä hiiren scrollia kursorin ollessa labyrintille varatun alueen päällä. Labyrintin pystyy ratkaisemaan eri algoritmeilla painamalla niitä vastaavia painikkeita ikkunan vasemmassa laidassa. Save painikkeesta voi tallentaa nykyisen labyrintin kuvan tietokoneelleen. 
+Ohjelman käyttöliittymä on mielestäni aika käyttäjäystävällinen. Kun ohjelman käynnistää luo se valmiiksi satunnaisen labyrintin. Labyrinttia pystyy zoomaamaan käyttämällä hiiren scrollia kursorin ollessa labyrintille varatun alueen päällä. Labyrintin pystyy ratkaisemaan eri algoritmeilla painamalla niitä vastaavia painikkeita ikkunan vasemmassa laidassa. Save painikkeesta voi tallentaa nykyisen labyrintin kuvan tietokoneelleen. Kuva tallentuu images kansioon, joka luodaan samaan kansioon josta .jar tiedosto ajettiin ellei sitä ole olemassa. 
 
 Menu painike tuo esiin ohjelman valikon.
 * Generate Maze: Avaa ikkunan uuden labyrintin luomista varten.
@@ -26,4 +26,4 @@ Menu painike tuo esiin ohjelman valikon.
 * Log Data: Sulkee Log data- ikkunan ja luo listan labyrinteista. Huom! Listan luomisessa saattaa kestää, jos luo monta isoa labyrinttia. Varsinkin jos ei käytä niiden generoimiseen Primin algoritmia.
 
 ### Taulukko labyrintteja
-Taulukon sarakkeiden paikkoja voi vaihdella ja taulukkoa voi järjestää eri tietojen mukaan painamalla sarakkeen otsikkoa vasemmalla hiiren painikkeella.
+Taulukon sarakkeiden paikkoja voi vaihdella ja taulukkoa voi järjestää eri tietojen mukaan painamalla sarakkeen otsikkoa vasemmalla hiiren painikkeella. Taulukon tiedot voi tallentaa suoraan tiedostoon, jota exel voi lukea painamalla taulukon alareunassa olevaa Export to exel painiketta. Ohjelman suorituskansioon luodaan tiedostoille exel niminen kansio, jos sitä ei ole vielä olemassa.
