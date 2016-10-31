@@ -39,7 +39,7 @@ vastaava kaksiuloitteinen taulukko
 (0,2)(1,2)(2,2)  
 ja etsimällä yhteyttä kaksiuloitteisen taulukon leveyden ja korkeuden; yksiuloitteisen taulukon indeksin ja halutun indeksin välillä. Esimerkiksi, koska kokonaisluvuilla jaettaessa mahdollinen desimaaliosa vain jätetään pois, (4/3)-1 = 0 pitää paikkansa. Lopulta päädyin kaavaan `1 + labyrintin leveys * (1 + 2 * y-koordinaatti) + 2 * x-koordinaatti`. Nyt siis esimerkiksi, jos halutaan viitata kaikkein ylävasempaan ruutuun (indeksi 0) yllä olevassa labyrintissa, saadaan ruudun indeksiksi 1 + 9 * (1 + 2 * (0 / 4)) + 2 * (0 mod 4) = 10 kuten yllä jo mainittiin.
 
-Näin ollen labyrinttien generoinnissa tarvitsi enää viitata indekseihin eli kokonaislukuihin, joten pystyin tekemään hakupuun sijasta yksinkertaisen dynaamisen listan indeksien tallentamiseen. Koska listan järjestyksellä ei ole merkitystä, sain listan lisäys- ja poisto-operaatiot vakioaikaisiksi ja pystyin myös sisällyttämään satunnaisen arvon valitsemisen suoraan tietorakenteeseen. 
+Näin ollen labyrinttien generoinnissa tarvitsi enää viitata indekseihin eli kokonaislukuihin, joten pystyin tekemään hakupuun sijasta yksinkertaisen dynaamisen listan indeksien tallentamiseen. Koska listan järjestyksellä ei ole merkitystä, sain listan lisäys- ja poisto-operaatiot vakioaikaisiksi ja pystyin myös sisällyttämään satunnaisen arvon valitsemisen suoraan tietorakenteeseen. Nyt ohjelman algoritmin olivat tarpeeksi tehokkaita, joten päätin toteuttaa kolmannet generointi- ja ratkaisualgoritmit ja lisätä toiminnallisuuksia käyttöliittymään.
 
 ## Generointialgoritmien aika- ja tilavaativuudet
 ### Labyrintin generointi Primin algoritmilla O(n)
