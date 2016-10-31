@@ -1,10 +1,7 @@
 # Testausdokumentaatio
 
-Ohjelman testauksessa on käytetty JUnit testejä tietorakenteiden ja algoritmien toiminnan testaamiseen ja Käyttöliittymään sisäänrakennettua
-datankeräys toimintoa aikavaativuustestaukseen ja -vertailuun. Testausta on tällä hetkellä toteutettu hyvin vähän, koska mieluummin toteutan
-ensin kaikki tietorakenteet ja algoritmit valmiiksi ja kun ohjelma on "valmis", keskityn enemmän ohjelman testaukseen.
-
-Testit pystyy halutessaan toistaa antamalla generointialgoritmille saman seedin, jolloin jos labyrintin leveys ja korkeus ei muutu, tulee luodusta
-labyrintista aina samanlainen. Tein omia tietorakenteita tehdessä alustavaa suorituskykyvertailua omien ja javan valmiiden tietoraketeiden välillä.
-Tallentamani tulokset löytyvät github projektin juuresta Lukuja.txt tiedostosta. Kyseinen tekstitiedosto on vain sekalainen muistilista, eikä
-sen ole tarkoitus olla osa lopullista työtä/dokumentaatiota.
+Ohjelman testauksessa on käytetty JUnit testejä tietorakenteiden ja algoritmien toiminnan testaamiseen ja Käyttöliittymään sisäänrakennettua datankeräys toimintoa aikavaativuustestaukseen ja -vertailuun. JUnit testeistä on tehty mutaatiotestejä käyttäen pit:tiä. Dokumentaatiossa on vanha pit raportti, koska jostain syystä pit hajosi eikä suostu generoimaan enää uutta raporttia. Kaikki JUnit testit menevät läpi yksittäin ja yhdessä, mutta kun yritän generoida pit raporttia saan virheen, joka väittää ettei PriorityQueue luokan testit mene läpi edes ilman mutaatiota.  
+  
+Suorituskykytestauksessa on käytetty ohjelman omaa datankeräysohjelmaa, joka generoi määrätyn määrän labyrintteja ja tallentaa generointi- ja ratkaisualgoritmien käyttämän ajan taulukkoon, jonka voi tallentaa suoraan .csv tiedostoksi yhdellä napinpainauksella. Tätä toimintoa käyttäen generoin tietyn kokoisia labyrintteja niin paljon, kuin jaksoin kussakin koossa odottaa ja otin saaduista arvoista mediaanin, jotta suuret yksittäiset vaihtelut eivät vaikuttaisi niin paljoa tuloksiin. Esimerkiksi ohjelmalla kestää aina keskivertoa huomattavasti kauemmin luoda ensimmäinen labyrintti. Kyseessä on varmaan jotain muistinhallintaan liittyvää, koska uusi samankokoinen labyrintti käyttää yhtä paljon muistia kuin edellinen, niin ohjelman pitäisi pystyä käyttämään samaa muistialuetta uudelle labyrintille.  
+  
+Ohjelman kolme labyrintin generointialgoritmia luovat jokainen eri typpisiä labyrintteja. Primin algoritmilla generoiduissa labyrinteissä on suurin 
