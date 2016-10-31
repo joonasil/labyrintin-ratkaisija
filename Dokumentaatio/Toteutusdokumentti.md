@@ -16,9 +16,8 @@ Ennen kuin aloitin ratkaisemaan ilmenneitä ongelmia, mietin miten saisin toteut
 
 Toteutin Breadth-First Search ja A-Star hakualgoritmit, jotka etsivät lyhyimmän reitin labyrintin vasemmasta ylänurkasta oikeaan alanurkkaan. Valitsemani toteutus johtaa väistämättä siihen, että Breadth-First Search on nopeudessa paljon lähempänä A-Staria, kuin vaikka tilanteessa jossa olisin valinnut alkupisteeksi labyrintin keskipisteen ja maaliksi jonkin kulmista, koska Breadth-First Search ei pääse periaatteessa mitenkään poispäin maalista. Tämän jälkeen aloitin toteuttamaan omia tietorakenteita ja lisäsin toisen labyrintin generointialgoritmin (Depth-First Search).    
   
-Huomasin generointialgoritmien olevan huomattavasti ratkaisualgoritmeja hitaampia, vaikka generoinnin ei pitäisi viedä kuin vain lineaarisen verran aikaa, koska generointialgoritmin pitää käydä jokaisessa ruudussa vain kerran. Syynä tähän oli käyttämäni aputietorakenteet Path ja Wall, jotka rajoittivat käytettävän tietorakenteen hakupuihin, koska tarvitsin generointiin tietorakenteen jossa on mahdollisimman nopeat lisäys ja satunnaisen alkion poisto toiminnot (hakupuiden kohdalla molemmat O(log n)). Koska generoinnin lopuksi labyrintti kumminkin muutettaisiin kaksiuloitteiseksi taulukoksi, mietin voisinko mitenkään generoida labyrinttia suoraan kyseiseen taulukkoon. Ongelman oli se, että tarvitsin keinon viitata kaksiuloitteisen taulukon niihin koordinaatteihin, jotka ovat labyrintin ruutuja. Joten miten tunnistaa, onko tietty kaksiuloitteisen taulukon koordinaatti ruutu vai seinä? Ongelma on siis seuraavanlainen:  
+Huomasin generointialgoritmien olevan huomattavasti ratkaisualgoritmeja hitaampia, vaikka generoinnin ei pitäisi viedä kuin vain lineaarisen verran aikaa, koska generointialgoritmin pitää käydä jokaisessa ruudussa vain kerran. Syynä tähän oli käyttämäni aputietorakenteet Path ja Wall, jotka rajoittivat käytettävän tietorakenteen hakupuihin, koska tarvitsin generointiin tietorakenteen jossa on mahdollisimman nopeat lisäys ja satunnaisen alkion poisto toiminnot (hakupuiden kohdalla molemmat O(log n)). Koska generoinnin lopuksi labyrintti kumminkin muutettaisiin kaksiuloitteiseksi taulukoksi, mietin voisinko mitenkään generoida labyrinttia suoraan kyseiseen taulukkoon. Ongelmana oli se, että tarvitsin keinon viitata kaksiuloitteisen taulukon niihin koordinaatteihin, jotka ovat labyrintin ruutuja. Joten miten tunnistaa, onko tietty kaksiuloitteisen taulukon koordinaatti ruutu vai seinä?
   
- 
 ######Labyrintin esitysmuoto:  
 000000000  
 010111010  
@@ -28,18 +27,19 @@ Huomasin generointialgoritmien olevan huomattavasti ratkaisualgoritmeja hitaampi
 011111110  
 000000000
   
-Yllä olevassa labyrintissa on siis ruutuja 4x3 = 12, vaikka taulukon koko on 9x7 = 63. Nyt siis esim. labyrintin kaikkein ylävasemmalla olevin ruutu on labyrintin taulukossa indeksissä 10 ja sitä vastaa indeksi 0 pelkkien ruutujen listassa. Vastaavasti labyrintin indeksissä 12 olevaa ruutua vastaa indeksi 1. Nyt siis esimerkiksi kun luodaan uusi labyrintti ja halutaan asettaa sattumanvarainen ensimmäinen ruutu osaksi labyrinttia generointialgoritmin alussa, pitää valita ensin jokin ruuduista 0-11 ja sen jälkeen muuttaa valittu luku vastaavaksi labyrintin taulukon indeksiksi. Kaksiuloitteisen taulukon (x,y)- koordinaatin voi muuttaa yksiuloitteisen taulukon indeksiksi kaavalla `indeksi = y-koordinaatti * kaksiuloitteisen taulukon leveys + x-koordinaatti` ja yksiuloitteisen taulukon indeksin voi muuttaa takaisin kaksiuloitteisen taulukon koordinaatiksi kaavoilla `x-koordinaatti = indeksi mod kaksiuloitteisen taulukon leveys` ja `y-koordinaatti = indeksi / kaksiuloitteisen taulukon leveys`. 
+Yllä olevassa labyrintissa on ruutuja 4x3 = 12, vaikka taulukon koko on 9x7 = 63. Nyt siis esim. labyrintin kaikkein ylävasemmalla olevin ruutu on labyrintin taulukossa indeksissä 10 ja sitä vastaa indeksi 0 pelkkien ruutujen listassa. Vastaavasti labyrintin indeksissä 12 olevaa ruutua vastaa indeksi 1. Nyt siis esimerkiksi kun luodaan uusi labyrintti ja halutaan asettaa sattumanvarainen ensimmäinen ruutu osaksi labyrinttia generointialgoritmin alussa, pitää valita ensin jokin ruuduista 0-11 ja sen jälkeen muuttaa valittu luku vastaavaksi labyrintin taulukon indeksiksi. Kaksiuloitteisen taulukon (x,y)- koordinaatin voi muuttaa yksiuloitteisen taulukon indeksiksi kaavalla `indeksi = y-koordinaatti * kaksiuloitteisen taulukon leveys + x-koordinaatti` ja yksiuloitteisen taulukon indeksin voi muuttaa takaisin kaksiuloitteisen taulukon koordinaatiksi kaavoilla `x-koordinaatti = indeksi mod kaksiuloitteisen taulukon leveys` ja `y-koordinaatti = indeksi / kaksiuloitteisen taulukon leveys`. 
 
 Lähdin ratkaisemaan ongelmaa piirtämällä vihkoon erikokoisia "yksiuloittesia taulukkoja" muodossa  
 012                                 
 345   
 678  
-`(vastaava kaksiuloitteinen taulukko)  
+vastaava kaksiuloitteinen taulukko  
 (0,0)(1,0)(2,0)  
 (0,1)(1,1)(2,1)  
-(0,2)(1,2)(2,2)`  
+(0,2)(1,2)(2,2)  
 ja etsimällä yhteyttä kaksiuloitteisen taulukon leveyden ja korkeuden; yksiuloitteisen taulukon indeksin ja halutun indeksin välillä. Esimerkiksi, koska kokonaisluvuilla jaettaessa mahdollinen desimaaliosa vain jätetään pois, (4/3)-1 = 0 pitää paikkansa. Lopulta päädyin kaavaan `1 + labyrintin leveys * (1 + 2 * y-koordinaatti) + 2 * x-koordinaatti`. Nyt siis esimerkiksi, jos halutaan viitata kaikkein ylävasempaan ruutuun (indeksi 0) yllä olevassa labyrintissa, saadaan ruudun indeksiksi 1 + 9 * (1 + 2 * (0 / 4)) + 2 * (0 mod 4) = 10 kuten yllä jo mainittiin.
 
+Näin ollen labyrinttien generoinnissa tarvitsi enää viitata indekseihin eli kokonaislukuihin, joten pystyin tekemään hakupuun sijasta yksinkertaisen dynaamisen listan indeksien tallentamiseen. Koska listan järjestyksellä ei ole merkitystä, sain listan lisäys- ja poisto-operaatiot vakioaikaisiksi ja pystyin myös sisällyttämään satunnaisen arvon valitsemisen suoraan tietorakenteeseen. 
 
 ## Generointialgoritmien aika- ja tilavaativuudet
 ### Labyrintin generointi Primin algoritmilla O(n)
