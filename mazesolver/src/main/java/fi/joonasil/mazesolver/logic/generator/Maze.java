@@ -8,7 +8,6 @@ package fi.joonasil.mazesolver.logic.generator;
 import fi.joonasil.mazesolver.gui.ImageConverter;
 import fi.joonasil.mazesolver.logic.solver.Solver;
 import java.util.Random;
-import javafx.scene.image.ImageView;
 /**
  * Luokka labyrintille.
  * @author Joonas
