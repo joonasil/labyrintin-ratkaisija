@@ -34,10 +34,10 @@ Lähdin ratkaisemaan ongelmaa piirtämällä vihkoon erikokoisia "yksiuloittesia
 012                                 
 345   
 678  
-vastaava kaksiuloitteinen taulukko:  
+`(vastaava kaksiuloitteinen taulukko)  
 (0,0)(1,0)(2,0)  
 (0,1)(1,1)(2,1)  
-(0,2)(1,2)(2,2)  
+(0,2)(1,2)(2,2)`  
 ja etsimällä yhteyttä kaksiuloitteisen taulukon leveyden ja korkeuden; yksiuloitteisen taulukon indeksin ja halutun indeksin välillä. Esimerkiksi, koska kokonaisluvuilla jaettaessa mahdollinen desimaaliosa vain jätetään pois, (4/3)-1 = 0 pitää paikkansa. Lopulta päädyin kaavaan `1 + labyrintin leveys * (1 + 2 * y-koordinaatti) + 2 * x-koordinaatti`. Nyt siis esimerkiksi, jos halutaan viitata kaikkein ylävasempaan ruutuun (indeksi 0) yllä olevassa labyrintissa, saadaan ruudun indeksiksi 1 + 9 * (1 + 2 * (0 / 4)) + 2 * (0 mod 4) = 10 kuten yllä jo mainittiin.
 
 
