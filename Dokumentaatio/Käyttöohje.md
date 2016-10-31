@@ -23,7 +23,7 @@ Menu painike tuo esiin ohjelman valikon:
 * Genreration algorithm: Labyrinttien generointialgoritmi.
 * Seeded: Halutaanko labyrinteista satunnaisia vai seedattuja. Seedina toimii labyrintin järjestysluku-1 eli 0,1,2,...,Mazes-1
 * Close: Sulkee Log data- ikkunan luomatta labyrintteja.
-* Log Data: Sulkee Log data- ikkunan ja luo listan labyrinteista. Huom! Listan luomisessa saattaa kestää, jos luo monta isoa labyrinttia. Varsinkin jos ei käytä niiden generoimiseen Primin algoritmia.
+* Log Data: Sulkee Log data- ikkunan ja luo taulukon labyrinteista. Huom! Taulukon luomisessa saattaa kestää, jos luo monta isoa labyrinttia, varsinkin jos ei käytä niiden generoimiseen Primin algoritmia.
 
 ### Taulukko labyrintteja
 Taulukon sarakkeiden paikkoja voi vaihdella ja taulukkoa voi järjestää eri tietojen mukaan painamalla sarakkeen otsikkoa vasemmalla hiiren painikkeella. Taulukon tiedot voi tallentaa suoraan tiedostoon, jota exel voi lukea painamalla taulukon alareunassa olevaa Export to exel painiketta. Ohjelman suorituskansioon luodaan tiedostoille exel niminen kansio, jos sitä ei ole vielä olemassa.
