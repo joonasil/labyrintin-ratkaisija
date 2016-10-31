@@ -175,3 +175,7 @@ Algoritmin suurin hyöty on sen vähäinen muistin tarve. Algoritmilla on kerral
   
 ![IDAStar's 2](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/ida.gif)
 #####IDA* algoritmi on erittäin tehoton, jos lyhyin reitti tekee paljon mutkia, koska algoritmi joutuu monesti aloittamaan haun alusta suuremmalla sallitulla reitin maksimipituuden arviolla.
+
+
+## Mahdolliset puutteet ja parrannusehdotukset
+Netbeanssin ja mavenin/pitin oikkujen takia työstä puuttuu generoitu javaDoc ja uusin pit raportti. Muuten luokkia voisi vähän fiksummin jaksottaa ettei olisi niin hirvittävän kokoisia luokkia. Muutin jo viime hetkellä Maze luokan rakennetta siten, ettei luokassa ollut yhtään käyttöliittymään liittyvää oliota, jotta logiikka ja käyttöliittymä olisivat paremmin erillään. Varmasti vieläkin löytyy parannettavaa siltäkin osa-alueelta. Testausdokumentaatiossa mainitsinkin, että olisi mielenkiintoista lisätä labyrinteille laskettu haarautumisaste, koska aikavaativuuksia laskettaessa voidaan myös käyttää haarautumisastetta ja reitin pituutta verkon koon sijasta. Kaikenkaikkiaan olen kyllä ihan tyytyväinen lopputulokseen.
