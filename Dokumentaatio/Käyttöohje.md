@@ -2,7 +2,7 @@
 Ohjelmasta löytyy ajettava .jar tiedosto projektin juuresta nimeltä Labyrintin Ratkaisja.jar
 Ohjelman käyttöliittymä on mielestäni aika käyttäjäystävällinen. Kun ohjelman käynnistää luo se valmiiksi satunnaisen labyrintin. Labyrinttia pystyy zoomaamaan käyttämällä hiiren scrollia kursorin ollessa labyrintille varatun alueen päällä. Labyrintin pystyy ratkaisemaan eri algoritmeilla painamalla niitä vastaavia painikkeita ikkunan vasemmassa laidassa. Save painikkeesta voi tallentaa nykyisen labyrintin kuvan tietokoneelleen. Kuva tallentuu images kansioon, joka luodaan samaan kansioon josta .jar tiedosto ajettiin ellei sitä ole olemassa. 
 
-Menu painike tuo esiin ohjelman valikon.
+Menu painike tuo esiin ohjelman valikon:
 * Generate Maze: Avaa ikkunan uuden labyrintin luomista varten.
 * Data Logger: Avaa ikkunan usean labyrintin luomiseksi kerralla. Avaa listan, jossa on ajat jokaisen labyrintin generoinnista ja ratkaisusta sekä mahdollisuus tarkastella miltä labyrintti näyttää.
 * Help: Avaa ikkunan, jossa on lueteltuna mitä kaikki eri värit labyrintissa tarkoittavat.
