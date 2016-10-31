@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="11" failures="0" name="fi.joonasil.mazesolver.util.DisjointSetTest" time="0.017" errors="0" skipped="0">
+<testsuite tests="11" failures="0" name="fi.joonasil.mazesolver.util.DisjointSetTest" time="0.039" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="D:\Program Files\Java\jdk1.8.0_74\jre\bin"/>
@@ -64,14 +64,14 @@
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
   <testcase classname="fi.joonasil.mazesolver.util.DisjointSetTest" name="testFind" time="0"/>
-  <testcase classname="fi.joonasil.mazesolver.util.DisjointSetTest" name="testUnionLarge2" time="0.015"/>
+  <testcase classname="fi.joonasil.mazesolver.util.DisjointSetTest" name="testUnionLarge2" time="0.031"/>
   <testcase classname="fi.joonasil.mazesolver.util.DisjointSetTest" name="testUnionSmall2" time="0"/>
   <testcase classname="fi.joonasil.mazesolver.util.DisjointSetTest" name="testUnionSmall3" time="0"/>
   <testcase classname="fi.joonasil.mazesolver.util.DisjointSetTest" name="testUnionSmall4" time="0"/>
   <testcase classname="fi.joonasil.mazesolver.util.DisjointSetTest" name="testUnionSmall5" time="0"/>
   <testcase classname="fi.joonasil.mazesolver.util.DisjointSetTest" name="testUnionSmall6" time="0"/>
   <testcase classname="fi.joonasil.mazesolver.util.DisjointSetTest" name="testMaksSet" time="0"/>
-  <testcase classname="fi.joonasil.mazesolver.util.DisjointSetTest" name="testMaksSet2" time="0.001"/>
+  <testcase classname="fi.joonasil.mazesolver.util.DisjointSetTest" name="testMaksSet2" time="0"/>
   <testcase classname="fi.joonasil.mazesolver.util.DisjointSetTest" name="testUnionLarge" time="0"/>
   <testcase classname="fi.joonasil.mazesolver.util.DisjointSetTest" name="testUnionSmall" time="0"/>
 </testsuite>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="6" failures="0" name="fi.joonasil.mazesolver.util.QueueTest" time="0.003" errors="0" skipped="0">
+<testsuite tests="6" failures="0" name="fi.joonasil.mazesolver.util.QueueTest" time="0.001" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="D:\Program Files\Java\jdk1.8.0_74\jre\bin"/>
@@ -68,5 +68,5 @@
   <testcase classname="fi.joonasil.mazesolver.util.QueueTest" name="testAllocateSpace2" time="0"/>
   <testcase classname="fi.joonasil.mazesolver.util.QueueTest" name="testAllocateSpace" time="0"/>
   <testcase classname="fi.joonasil.mazesolver.util.QueueTest" name="testIsEmpty" time="0"/>
-  <testcase classname="fi.joonasil.mazesolver.util.QueueTest" name="testConstructor" time="0.002"/>
+  <testcase classname="fi.joonasil.mazesolver.util.QueueTest" name="testConstructor" time="0"/>
 </testsuite>

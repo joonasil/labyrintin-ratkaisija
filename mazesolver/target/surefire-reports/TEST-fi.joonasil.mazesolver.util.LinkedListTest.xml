@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="12" failures="0" name="fi.joonasil.mazesolver.util.LinkedListTest" time="0.021" errors="0" skipped="0">
+<testsuite tests="12" failures="0" name="fi.joonasil.mazesolver.util.LinkedListTest" time="0.066" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="D:\Program Files\Java\jdk1.8.0_74\jre\bin"/>
@@ -64,13 +64,13 @@
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
   <testcase classname="fi.joonasil.mazesolver.util.LinkedListTest" name="testGetLarge" time="0"/>
-  <testcase classname="fi.joonasil.mazesolver.util.LinkedListTest" name="testGetSmall" time="0.001"/>
+  <testcase classname="fi.joonasil.mazesolver.util.LinkedListTest" name="testGetSmall" time="0"/>
   <testcase classname="fi.joonasil.mazesolver.util.LinkedListTest" name="testRemoveFirst" time="0"/>
-  <testcase classname="fi.joonasil.mazesolver.util.LinkedListTest" name="testAddLarge" time="0.001"/>
+  <testcase classname="fi.joonasil.mazesolver.util.LinkedListTest" name="testAddLarge" time="0"/>
   <testcase classname="fi.joonasil.mazesolver.util.LinkedListTest" name="testAddSmall" time="0"/>
   <testcase classname="fi.joonasil.mazesolver.util.LinkedListTest" name="testRemoveLast" time="0"/>
-  <testcase classname="fi.joonasil.mazesolver.util.LinkedListTest" name="testAddLarge2" time="0.018"/>
-  <testcase classname="fi.joonasil.mazesolver.util.LinkedListTest" name="testRemove2" time="0"/>
+  <testcase classname="fi.joonasil.mazesolver.util.LinkedListTest" name="testAddLarge2" time="0.043"/>
+  <testcase classname="fi.joonasil.mazesolver.util.LinkedListTest" name="testRemove2" time="0.001"/>
   <testcase classname="fi.joonasil.mazesolver.util.LinkedListTest" name="testRemove3" time="0"/>
   <testcase classname="fi.joonasil.mazesolver.util.LinkedListTest" name="testGetSmall2" time="0"/>
   <testcase classname="fi.joonasil.mazesolver.util.LinkedListTest" name="testRemove" time="0.001"/>
