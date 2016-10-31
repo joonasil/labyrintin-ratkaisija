@@ -1,5 +1,5 @@
 # Käyttöohje
-Ohjelmasta löytyy ajettava .jar tiedosto projektin juuresta.
+Ohjelmasta löytyy ajettava .jar tiedosto projektin juuresta nimeltä Labyrintin Ratkaisja.jar
 Ohjelman käyttöliittymä on mielestäni aika käyttäjäystävällinen. Kun ohjelman käynnistää luo se valmiiksi satunnaisen labyrintin. Labyrinttia pystyy zoomaamaan käyttämällä hiiren scrollia kursorin ollessa labyrintille varatun alueen päällä. Labyrintin pystyy ratkaisemaan eri algoritmeilla painamalla niitä vastaavia painikkeita ikkunan vasemmassa laidassa. Save painikkeesta voi tallentaa nykyisen labyrintin kuvan tietokoneelleen. 
 
 Menu painike tuo esiin ohjelman valikon.
