@@ -6,7 +6,7 @@ käyttää Generator luokan algoritmeja labyrintin luomiselle.
 Labyrintin ratkaisemisesta huolehtii Solver luokka, joka käyttää A-star, breadth-first search ja iterative deepening A-star algoritmeja. Käyttöliittymäluokka Screen piirtää labyrintin näytölle käyttäen ImageConverter luokan
 luomaa kuvaa labyrintistä. Menus luokka vastaa ohjelman valikosta. Loput käyttöliittymän luokat vastaavat uuden labyrintin luonnista ja
 datankeräys toiminnosta, mikä listaa taulukkoon halutun määrän labyrinttejä ja ajat niiden generoimiselle ja ratkaisemiselle.  
-![Isoin labyrintti](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/iso.png)
+
 ### Toteutus
 Lähdin toteuttamaan sovellusta generointialgoritmeista, koska ratkaisualgoritmeja on vähän turha toteuttaa ilman labyrinttejä joita ratkaista. Niinpä menin wikipediaan lukemaan labyrintin generointialgoritmeista ja päätin toteuttaa generoinnin avuksi aputietorakenteet Path ja Wall. Path kuvasti labyrintin ruutua ja Wall seinää tai käytävää kahden ruudun välillä. Sen jälkeen toteutin ensimmäisen version primin generointialgoritmista ja toString-metodin Maze luokalle, jotta voisin nähdä toimiiko generointi oikein. ToString:in avuksi tarvitsin Path tietorakenteeseen 3x3 kaksiuloitteisen taulukon kuvastamaan jokaisen ruudun "tilaa", koska Path- olioon liittyvästä listasta Wall olioita ei helposti saanut selville millä sivuilla ruutua oli seiniä ja millä käytäviä. Tästä jo huomaa, että toteutukseni oli huono ja Wall olio sisälsi käytännössä saman datan kahteen kertaan eri muodossa.  
   
