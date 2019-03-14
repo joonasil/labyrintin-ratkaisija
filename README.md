@@ -1,2 +1,2 @@
-# labyrintin-ratkaisija
+# Labyrintin Ratkaisija
 Tiralabra työ
