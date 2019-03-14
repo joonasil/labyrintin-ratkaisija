@@ -158,7 +158,7 @@ Tilavaativuus on identtinen BFS algoritmin kanssa.
 ![AStar's](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/astar vanha.png)
 ###### Labyrintti ratkaistu uudella A-Star heuristiikalla
 ![AStar's](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/astar uusi.png)
-###Labyrintin ratkaiseminen iterative deepening A* algoritmilla
+### Labyrintin ratkaiseminen iterative deepening A* algoritmilla
 
 ![IDAStar's](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/idastar.gif)
 
