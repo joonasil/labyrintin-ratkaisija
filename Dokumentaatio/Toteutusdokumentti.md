@@ -18,7 +18,7 @@ Toteutin Breadth-First Search ja A-Star hakualgoritmit, jotka etsivät lyhyimmä
   
 Huomasin generointialgoritmien olevan huomattavasti ratkaisualgoritmeja hitaampia, vaikka generoinnin ei pitäisi viedä kuin vain lineaarisen verran aikaa, koska generointialgoritmin pitää käydä jokaisessa ruudussa vain kerran. Syynä tähän oli käyttämäni aputietorakenteet Path ja Wall, jotka rajoittivat käytettävän tietorakenteen hakupuihin, koska tarvitsin generointiin tietorakenteen jossa on mahdollisimman nopeat lisäys ja satunnaisen alkion poisto toiminnot (hakupuiden kohdalla molemmat O(log n)). Koska generoinnin lopuksi labyrintti kumminkin muutettaisiin kaksiuloitteiseksi taulukoksi, mietin voisinko mitenkään generoida labyrinttia suoraan kyseiseen taulukkoon. Ongelmana oli se, että tarvitsin keinon viitata kaksiuloitteisen taulukon niihin koordinaatteihin, jotka ovat labyrintin ruutuja. Joten miten tunnistaa, onko tietty kaksiuloitteisen taulukon koordinaatti ruutu vai seinä?
   
-######Labyrintin esitysmuoto:  
+###### Labyrintin esitysmuoto:  
 000000000  
 010111010  
 010101010  
@@ -121,9 +121,9 @@ Tilavaativuus on O(2n+m), missä n on ruutujen määrä ja m on seinien määrä
 
 ## Ratkaisualgoritmien aika- ja tilavaativuudet
 
-###Labyrintin ratkaiseminen breadth-first search algoritmilla
+### Labyrintin ratkaiseminen breadth-first search algoritmilla
 
-![BFS's](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/bfs.gif)  
+![BFS's] (https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/bfs.gif)  
   
 Algoritmin toimintaperiaate:  
 * lisää alkusolmu jonoon **O(1)**
@@ -139,7 +139,7 @@ Pahimmassa tapauksessa kaikki labyrintin ruudut tulee käytyä läpi ennen kuin 
   
 Koska algoritmin pitää pitää kirjaa vierailluista ruuduista ja lyhyimmästä reitistä kaikkiin solmuihin, johon kumpaankin tarvitaan labyrinttiä vastaavan kokoinen taulukko, on algoritmin tilavaativuus O(2n) = O(n). Taulukot eivät ole dynaamisia, joten tilavaativuus ei riipu lyhyimmän reitin pituudesta maalisolmuun.  
 
-###Labyrintin ratkaiseminen A* algoritmilla
+### Labyrintin ratkaiseminen A* algoritmilla
 
 ![AStar's](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/astar.gif)
 
@@ -174,8 +174,8 @@ IDA* algoritmin aikavaativuus riippuu hyvin paljon siitä, kuinka monta kertaa p
 Algoritmin suurin hyöty on sen vähäinen muistin tarve. Algoritmilla on kerrallaan muistissa vain reitti lähtösolmusta nykyiseen solmuun ja nykyisen solmun naapurisolmut eli tilavaativuus on O(bd).
   
 ![IDAStar's 2](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/ida.gif)
-#####IDA* algoritmi on erittäin tehoton, jos lyhyin reitti tekee paljon mutkia, koska algoritmi joutuu monesti aloittamaan haun alusta suuremmalla sallitulla reitin maksimipituuden arviolla.
+IDA* algoritmi on erittäin tehoton, jos lyhyin reitti tekee paljon mutkia, koska algoritmi joutuu monesti aloittamaan haun alusta suuremmalla sallitulla reitin maksimipituuden arviolla.
 
 
-## Mahdolliset puutteet ja parrannusehdotukset
+## Mahdolliset puutteet ja parannusehdotukset
 Netbeanssin ja mavenin/pitin oikkujen takia työstä puuttuu generoitu javaDoc ja uusin pit raportti. Muuten luokkia voisi vähän fiksummin jaksottaa ettei olisi niin hirvittävän kokoisia luokkia. Muutin jo viime hetkellä Maze luokan rakennetta siten, ettei luokassa ollut yhtään käyttöliittymään liittyvää oliota, jotta logiikka ja käyttöliittymä olisivat paremmin erillään. Varmasti vieläkin löytyy parannettavaa siltäkin osa-alueelta. Testausdokumentaatiossa mainitsinkin, että olisi mielenkiintoista lisätä labyrinteille laskettu haarautumisaste, koska aikavaativuuksia laskettaessa voidaan myös käyttää haarautumisastetta ja reitin pituutta verkon koon sijasta. Kaikenkaikkiaan olen kyllä ihan tyytyväinen lopputulokseen.
