@@ -155,9 +155,9 @@ Muuten kuten BFS algoritmi, mutta ei tutki kaikkia tietyn pituisia reittejä alk
   
 Tilavaativuus on identtinen BFS algoritmin kanssa.  
 ###### Labyrintti ratkaistu vanhalla A-Star heuristiikalla
-![AStar's]("https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/astar_vanha_2.png")
+![AStar's](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/astar_vanha_2.png)
 ###### Labyrintti ratkaistu uudella A-Star heuristiikalla
-![AStar's]("https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/astar_uusi_2.png")
+![AStar's](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/astar_uusi_2.png)
 ### Labyrintin ratkaiseminen iterative deepening A* algoritmilla
 
 ![IDAStar's](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/idastar.gif)
