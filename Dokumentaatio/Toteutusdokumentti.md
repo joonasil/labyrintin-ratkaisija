@@ -123,7 +123,7 @@ Tilavaativuus on O(2n+m), missä n on ruutujen määrä ja m on seinien määrä
 
 ### Labyrintin ratkaiseminen breadth-first search algoritmilla
 
-![BFS's] (https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/bfs.gif)  
+![BFS's](https://github.com/joonasil/labyrintin-ratkaisija/blob/master/Dokumentaatio/Kuvia/bfs.gif)  
   
 Algoritmin toimintaperiaate:  
 * lisää alkusolmu jonoon **O(1)**
