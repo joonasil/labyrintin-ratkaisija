@@ -49,11 +49,11 @@ public class Menus {
         Stage window = new Stage();
         window.setTitle("Help");
         VBox layout = new VBox();
-        Label info = new Label("Colorcodes: \n\nBlack: Wall.\nWhite: Path visited by no algorithm.\n"
-                + "Red: Path visited by breadth-first search only.\nYellow: Path visited by A-star only\n"
-                + "Blue: Path visited by iterative deepening A-star only.\nOrange: Path visited by breadth-first search and A-star.\n"
+        Label info = new Label("Scroll in the maze area to zoom.\nColour codes: \n\nBlack: Wall.\nWhite: Path.\n"
+                + "Red: Path visited only by breadth-first search.\nGreen: Path visited only by A-star.\n"
+                + "Blue: Path visited only by iterative deepening A-star.\nOrange: Path visited by breadth-first search and A-star.\n"
                 + "Magneta: Path visited by Breadth-First search and iterative deepening A-star.\n"
-                + "Green: Path visited by A-star and iterative deepening A-star.\n"
+                + "Yellow: Path visited by A-star and iterative deepening A-star.\n"
                 + "Brown: Path visited by all three algorithms.\nCyan: Shortest path.");
         info.setStyle("-fx-font-weight: bold");
         layout.getChildren().addAll(info);

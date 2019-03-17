@@ -12,6 +12,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -40,13 +41,14 @@ public class CreateMaze {
         window.setTitle("New maze");
 
         VBox layout = new VBox();
-        Label info = new Label("Note: \nLength and height of the generated maze will be \n"
-                + "2 times the size specified. I.e. if the specified size is 100x100 \n"
-                + "the maze generated will be 200x200 and so will be 4 times larger than specified.");
+        Label info = new Label("Note: \nDue to how the generation algorithms work "
+                + "the resulting maze\nwill have twice the specified amount of nodes "
+                + "in both directions.\nThat is why the size of the maze displayed "
+                + "differs from the values given here.");
         info.setStyle("-fx-font-weight: bold");
         layout.getChildren().addAll(info,setLayout());
         layout.setPadding(new Insets(10,10,10,10));
-        Scene scene = new Scene(layout,600,300);
+        Scene scene = new Scene(layout,600,350);
         window.setResizable(false);
         window.setScene(scene);
         window.show();
@@ -100,16 +102,18 @@ public class CreateMaze {
         gen.setStyle("-fx-font-weight: bold");
         GridPane.setConstraints(gen, 0, 4);
         
-        ChoiceBox<String> genAlg = new ChoiceBox<>(FXCollections.observableArrayList("Prim's","Depth-first search","Kruskal's"));
+        ChoiceBox<String> genAlg = new ChoiceBox<>(FXCollections.observableArrayList("Prim's","Kruskal's","Depth-first search"));
         genAlg.getSelectionModel().selectFirst();
         GridPane.setConstraints(genAlg, 1, 4);
         
         Button close = new Button("Close");
         GridPane.setConstraints(close, 0, 5);
+        GridPane.setMargin(close, new Insets(40,0,0,0));
         close.setOnAction(e -> window.close());
         
         Button create = new Button("Generate");
         GridPane.setConstraints(create, 1, 5);
+        GridPane.setMargin(create, new Insets(40,0,0,0));
         create.setOnAction(e -> validateInput(layout, widthInput, heightInput, seedInput, genAlg));
         
         layout.getChildren().addAll(width,widthInput,height,heightInput,seed,seedInput,gen,genAlg,close,create);

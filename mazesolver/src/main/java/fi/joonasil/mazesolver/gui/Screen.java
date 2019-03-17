@@ -20,6 +20,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 
 /**
  * Graafisen käyttöliittymän luokka. Luo käyttöliitymän ulkoasun.
@@ -105,10 +108,10 @@ public class Screen {
         
         final int newX = 2*maze.getX()+1;
         final int newY = 2*maze.getY()+1;
-        Label size = new Label("Size of maze: " + newX + "x" + newY);
+        Label size = new Label("Size of the maze: " + newX + "x" + newY);
         size.setStyle("-fx-font-weight: bold");
         
-        Label length = new Label("Shortest path length: " + maze.getPathLength());
+        Label length = new Label("Shortest path length: " + (maze.getPathLength() > 0 ? maze.getPathLength() : ""));
         length.setStyle("-fx-font-weight: bold");
         
         info.getChildren().addAll(genAlg,size,generate,length);
@@ -149,8 +152,26 @@ public class Screen {
         }else{
             Button solveIDA = new Button("Solve IDA-Star");
             solveIDA.setOnAction(e -> {
-                maze.solveIDA();
-                Mazesolver.getScreen().setScene();
+                if(maze.getGenAlg() == "Depth-first search"){
+                    Alert alert = new Alert(AlertType.NONE, "You sure", ButtonType.YES, ButtonType.NO);
+                    alert.setTitle("other test");
+                    alert.showAndWait();
+                    if(alert.getResult() == ButtonType.YES){
+                        maze.solveIDA();
+                        Mazesolver.getScreen().setScene();
+                    }
+                }else if(maze.getGenAlg() == "Kruskal's"){
+                    Alert alert = new Alert(AlertType.NONE, "You sure", ButtonType.YES, ButtonType.NO);
+                    alert.setTitle("other test");
+                    alert.showAndWait();
+                    if(alert.getResult() == ButtonType.YES){
+                        maze.solveIDA();
+                        Mazesolver.getScreen().setScene();
+                    }
+                }else{
+                    maze.solveIDA();
+                    Mazesolver.getScreen().setScene();
+                }
             });
             info.getChildren().add(solveIDA);
         }

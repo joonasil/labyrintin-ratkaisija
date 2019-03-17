@@ -45,7 +45,7 @@ public class ImageConverter {
                     writer.setColor(j, i, Color.RED);
                 }
                 if(base[j][i] == 4) {
-                    writer.setColor(j, i, Color.rgb(220, 220, 0));
+                    writer.setColor(j, i, Color.GREEN);
                 }
                 if(base[j][i] == 5) {
                     writer.setColor(j, i, Color.BLUE);
@@ -57,7 +57,7 @@ public class ImageConverter {
                     writer.setColor(j, i, Color.MAGENTA);
                 }
                 if(base[j][i] == 8) {
-                    writer.setColor(j, i, Color.GREEN);
+                    writer.setColor(j, i, Color.YELLOW);
                 }
                 if(base[j][i] == 10) {
                     writer.setColor(j, i, Color.BROWN);

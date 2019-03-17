@@ -43,14 +43,15 @@ public class DataLogger {
         window.setMinHeight(200);
         window.setMinWidth(200);
         VBox layout = new VBox();
-        Label info = new Label("Note: \nLength and height of the generated maze will be \n"
-                + "2 times the size specified. I.e. if the specified size is 100x100 \n"
-                + "the maze generated will be 200x200 and so will be 4 times larger than specified.\n"
-                + "Please note that genetating many large mazes will take a long time.");
+        Label info = new Label("Note: \nDue to how the generation algorithms work "
+                + "the resulting maze\nwill have twice the specified amount of nodes "
+                + "in both directions.\nThat is why the size of the maze displayed "
+                + "differs from the values given here.\n\n"
+                + "Please note that generating many large mazes will take a long time.");
         info.setStyle("-fx-font-weight: bold");
         layout.getChildren().addAll(info,setLayout());
         layout.setPadding(new Insets(10,10,10,10));
-        Scene scene = new Scene(layout,600,300);
+        Scene scene = new Scene(layout,600,420);
         window.setResizable(false);
         window.setScene(scene);
         window.show();
@@ -108,19 +109,25 @@ public class DataLogger {
         genAlg.getSelectionModel().selectFirst();
         GridPane.setConstraints(genAlg, 1, 4);
         
-        CheckBox seeded = new CheckBox("Seeded");
+        Label seed = new Label("Seeded:");
+        seed.setStyle("-fx-font-weight: bold");
+        GridPane.setConstraints(seed, 0, 5);
+        
+        CheckBox seeded = new CheckBox();
         seeded.setStyle("-fx-font-weight: bold");
         GridPane.setConstraints(seeded, 1, 5);
         
         Button close = new Button("Close");
         GridPane.setConstraints(close, 0, 6);
+        GridPane.setMargin(close, new Insets(40,0,0,0));
         close.setOnAction(e -> window.close());
         
         Button create = new Button("Log Data");
         GridPane.setConstraints(create, 1, 6);
+        GridPane.setMargin(create, new Insets(40,0,0,0));
         create.setOnAction(e -> validateInput(layout, widthInput, heightInput, quantityInput, genAlg, seeded));
         
-        layout.getChildren().addAll(width,widthInput,height,heightInput,quantity,quantityInput,gen,genAlg,seeded,close,create);
+        layout.getChildren().addAll(width,widthInput,height,heightInput,quantity,quantityInput,gen,genAlg,seed,seeded,close,create);
         layout.setVgap(8);
         layout.setHgap(10);
         layout.setPadding(new Insets(10,10,10,10));
@@ -158,7 +165,7 @@ public class DataLogger {
         }
         if(!isInt(quantity)) {
             quantityError.setText("Quantity is not an integer!");
-            GridPane.setConstraints(quantityError, 2, 4);
+            GridPane.setConstraints(quantityError, 2, 3);
             grid.getChildren().add(quantityError);
             return;
         }

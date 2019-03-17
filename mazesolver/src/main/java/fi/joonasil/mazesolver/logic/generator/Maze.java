@@ -53,12 +53,12 @@ public class Maze {
                 this.genAlg = "Prim's";
                 break;
             case 1:
-                maze = Generator.generateDFS(rand, x, y);
-                this.genAlg = "Depth-first search";
-                break;
-            case 2:
                 maze = Generator.generateKruskal(rand, x, y);
                 this.genAlg = "Kruskal's";
+                break;
+            case 2:
+                maze = Generator.generateDFS(rand, x, y);
+                this.genAlg = "Depth-first search";
                 break;
             default:
                 this.genAlg = "Error";
